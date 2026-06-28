@@ -3,6 +3,7 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.DS_Store
 
 # Local secrets and shell environments
 .env
@@ -10,6 +11,11 @@ __pycache__/
 
 # Runtime logs and failed API attempts; successful artifacts are kept.
 *.errors
+
+# LaTeX build intermediates for generated reports.
+reports/*.aux
+reports/*.log
+reports/*.out
 
 # Download caches; canonical dataset files are committed separately.
 datasets/**/.cache/

@@ -1,0 +1,687 @@
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue
+}
+
+\setlist[itemize]{leftmargin=2em}
+\setlist[enumerate]{leftmargin=2em}
+\renewcommand{\arraystretch}{1.15}
+\emergencystretch=3em
+
+\title{\textbf{LLMRepair Pipeline 说明}\\
+\large 基于 LLM 语义 Profiling 和 RNNRepair 式状态抽象的 Who\&When 失败归因}
+\author{Model-based LLM Agent Debugging}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{我们要解决什么问题}
+
+Who\&When 数据集里的每一条样本是一段失败的多智能体执行日志。日志里有一个任务问题、多个 agent 的历史对话或工具调用，以及人工标注的两个答案：
+
+\begin{itemize}
+  \item \textbf{Who}: 哪个 agent 对最终失败负主要责任，即 \texttt{mistake\_agent}。
+  \item \textbf{When}: 决定性错误最早发生在哪一步，即 \texttt{mistake\_step}。
+\end{itemize}
+
+我们的目标不是让 LLM 直接 all-at-once 输出 ``谁错了、哪一步错了''。我们的目标是做一个更结构化的方法：
+
+\begin{center}
+\fbox{\parbox{0.88\linewidth}{
+\centering
+LLM 先把每一步变成结构化语义标签；\\
+再用类似 RNNRepair 的状态抽象方法，把这些标签变成 agent 状态机；\\
+最后根据训练集中哪些状态更容易出错，定位新日志里的 Who 和 When。
+}}
+\end{center}
+
+所以这个方法仍然是 LLM-based，因为每一步的语义理解由 DeepSeek-v4-flash 完成；但最终定位不是一次性问 LLM，而是由一个可解释、可缓存、可交叉验证的状态模型完成。
+
+\section{当前已经跑通的实验配置}
+
+当前已经完成的是 \textbf{Hand-Crafted} 子集上的 profiling 和五折评估。
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{ll}
+\toprule
+项目 & 当前配置 \\
+\midrule
+数据集 & Who\&When Hand-Crafted \\
+日志数量 & 58 条 \\
+总 step 数 & 2993 \\
+非 human step 数 & 2935 \\
+LLM & DeepSeek-v4-flash \\
+是否给 ground truth answer & 否，\texttt{without\_ground\_truth} \\
+每步局部上下文窗口 & 当前 step 之前最多 4 步 \\
+评估方式 & log-level 5-fold cross validation \\
+状态模型 & 每个 agent 单独训练 PCA + GMM \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+非 human step 的 agent 分布如下：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lr}
+\toprule
+Agent & step 数 \\
+\midrule
+Orchestrator & 2283 \\
+WebSurfer & 568 \\
+Assistant & 39 \\
+FileSurfer & 35 \\
+ComputerTerminal & 10 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{整体流程}
+
+整个 pipeline 可以分成六步：
+
+\begin{enumerate}
+  \item 把 Who\&When JSON 日志摊平成 ``每一步一行'' 的表。
+  \item 对每一个非 human step 调用 DeepSeek-v4-flash，得到结构化语义 profile。
+  \item 把语义 profile 转成数值特征。
+  \item 每个 agent 单独训练 GMM，把它的 step 聚成若干抽象状态。
+  \item 在训练集上统计每种状态或转移的历史错误风险，得到 risk table。
+  \item 在测试日志上逐步打分，预测 responsible agent 和 decisive error step。
+\end{enumerate}
+
+一句话概括就是：
+
+\begin{center}
+\fbox{\parbox{0.88\linewidth}{
+\centering
+原始日志 $\rightarrow$ 每步语义 profile $\rightarrow$ agent 状态机 $\rightarrow$ 状态风险表 $\rightarrow$ Who/When 预测
+}}
+\end{center}
+
+\section{第一步：把日志摊平成每步一行}
+
+原始 JSON 里，一条日志大致有这些内容：
+
+\begin{itemize}
+  \item \texttt{question}: 任务问题。
+  \item \texttt{history}: agent 交互历史，是一个 step 列表。
+  \item \texttt{mistake\_agent}: 人工标注的 responsible agent。
+  \item \texttt{mistake\_step}: 人工标注的 decisive error step。
+\end{itemize}
+
+我们先把每条日志的 \texttt{history} 摊平。摊平之后，每一行代表一个 step，核心字段如下：
+
+\begin{longtable}{p{0.28\linewidth}p{0.62\linewidth}}
+\toprule
+字段 & 含义 \\
+\midrule
+\endhead
+\texttt{log\_id} & 属于哪一条日志。 \\
+\texttt{step\_idx} & 这是日志里的第几步，从 0 开始。 \\
+\texttt{agent\_name} & 归一化后的 agent 名字，例如 \texttt{Orchestrator}, \texttt{WebSurfer}。 \\
+\texttt{raw\_agent} & 原始 JSON 里的 agent 名字。 \\
+\texttt{content} & 这一条 step 的实际文本或工具结果。 \\
+\texttt{question} & 当前日志对应的任务问题。 \\
+\texttt{ground\_truth} & 如果数据里有最终正确答案，会保留；当前实验没有喂给 LLM。 \\
+\texttt{mistake\_agent} & 人工标注的错误 agent。 \\
+\texttt{mistake\_step} & 人工标注的错误 step。 \\
+\texttt{is\_decisive\_error} & 如果 \texttt{step\_idx == mistake\_step}，则为 true。 \\
+\bottomrule
+\end{longtable}
+
+这一步输出到：
+
+\begin{verbatim}
+artifacts/handcrafted_steps.jsonl
+\end{verbatim}
+
+对应命令是：
+
+\begin{verbatim}
+python scripts/llmrepair_pipeline.py prepare-steps \
+  --dataset-root datasets/Who_and_When \
+  --output artifacts/handcrafted_steps.jsonl
+\end{verbatim}
+
+\section{第二步：LLM semantic profiling}
+
+这是整个方法里最关键的 LLM-based 部分。对每一个非 human step，我们调用一次 DeepSeek-v4-flash。
+但是我们\textbf{不}让它直接回答 ``谁错了、哪一步错了''。我们只让它判断当前 step 的局部语义状态。
+
+\subsection{每次 LLM 调用看什么}
+
+对于某个 step $t$，LLM 看到的是：
+
+\begin{enumerate}
+  \item 当前日志的任务问题 \texttt{question}。
+  \item 当前 step 前面最多 4 步局部上下文。
+  \item 当前 step 的 \texttt{step\_idx}。
+  \item 当前 step 的 agent 名字。
+  \item 当前 step 的内容 \texttt{content}。
+\end{enumerate}
+
+当前实验是 \texttt{without\_ground\_truth}，所以 prompt 里没有给最终正确答案。
+
+注意，这里不是把完整 history 都塞给 LLM。当前实现采用局部窗口：
+
+\[
+\text{context}(t) = \{t-4, t-3, t-2, t-1\}
+\]
+
+如果前面不足 4 步，就给已有的前文。选择 4 不是理论常数，而是当前工程默认值：它能提供足够的局部因果上下文，同时控制 token 成本和噪声。后续可以把窗口 0、2、4、8 做 ablation。
+
+\subsection{LLM 输出什么}
+
+LLM 必须返回一个 JSON 对象。当前字段是：
+
+\begin{longtable}{p{0.30\linewidth}p{0.58\linewidth}}
+\toprule
+字段 & 含义 \\
+\midrule
+\endhead
+\texttt{action\_type} & 当前 step 的动作类型，如 plan, delegate, web\_search, web\_browse, tool\_result, file\_read, code\_execute, reason, answer, termination, other。 \\
+\texttt{agent\_intent} & agent 这一步想做什么，短文本。 \\
+\texttt{task\_alignment} & 0 到 3 的整数，越高表示越贴近任务。 \\
+\texttt{evidence\_quality} & 0 到 3 的整数，越高表示证据越强。 \\
+\texttt{progress\_state} & on\_track, uncertain, stalled, off\_track 之一。 \\
+\texttt{new\_claim} & 是否提出了新结论或新声明。 \\
+\texttt{unsupported\_claim} & 是否有缺少证据支持的声明。 \\
+\texttt{tool\_use} & 是否涉及工具使用。 \\
+\texttt{tool\_error} & 工具是否失败或返回异常。 \\
+\texttt{reasoning\_error\_signal} & 是否出现明显推理错误信号。 \\
+\texttt{state\_summary} & 对当前局部状态的一句话总结。 \\
+\bottomrule
+\end{longtable}
+
+可以把这一步理解成：LLM 是一个 ``语义传感器''。它不做最终判决，只把自然语言日志翻译成结构化观察。
+
+\subsection{为什么这样设计}
+
+直接 all-at-once 问 LLM 有几个问题：
+
+\begin{itemize}
+  \item 长日志容易超上下文或注意力分散。
+  \item LLM 的最终答案不稳定，输出格式也可能不稳定。
+  \item 很难知道它到底为什么选某一步。
+\end{itemize}
+
+我们现在把任务拆开：
+
+\begin{itemize}
+  \item LLM 负责它擅长的事：理解局部文本语义。
+  \item 状态模型负责可重复的事：聚类、统计风险、交叉验证评估。
+\end{itemize}
+
+这使得结果更可缓存、更可解释，也更接近 RNNRepair 的思想。
+
+\section{第三步：把 profile 转成数值特征}
+
+LLM 输出的 JSON 不能直接喂给 GMM，所以要把它变成特征向量。
+
+当前真正进入状态模型的字段是：
+
+\begin{itemize}
+  \item 数值或布尔特征：\texttt{task\_alignment}, \texttt{evidence\_quality}, \texttt{new\_claim}, \texttt{unsupported\_claim}, \texttt{tool\_use}, \texttt{tool\_error}, \texttt{reasoning\_error\_signal}。
+  \item 类别特征：\texttt{action\_type}, \texttt{progress\_state}。
+\end{itemize}
+
+类别特征用 one-hot 编码。例如 \texttt{action\_type=web\_search} 会变成一个二进制维度。
+
+\texttt{agent\_intent} 和 \texttt{state\_summary} 当前主要用于人工解释，暂时没有进入 GMM。这样做是为了先保持 v1 简单、稳定。如果后面需要，可以把它们再 embedding 成向量加入特征。
+
+\section{第四步：每个 agent 单独建状态机}
+
+RNNRepair 的核心思想是：不要直接看原始高维 hidden state，而是先把 hidden state 聚成少数几个抽象状态，然后分析哪些状态和错误有关。
+
+我们的对象不是 RNN hidden state，而是 LLM semantic profile。因此对应关系是：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lll}
+\toprule
+RNNRepair & 我们的方法 & 解释 \\
+\midrule
+RNN hidden state & LLM semantic feature & 每一步的内部状态表示 \\
+GMM abstract state & GMM semantic state & 把相似 step 聚成状态 \\
+state confidence/stability & semantic stability & 判断状态语义是否纯 \\
+influence model & risk table & 查某种状态历史上多危险 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{为什么每个 agent 单独建}
+
+不同 agent 的行为空间不一样。比如：
+
+\begin{itemize}
+  \item WebSurfer 的状态可能是搜索、浏览、证据不足、网页错误。
+  \item Orchestrator 的状态可能是规划、分派、总结、错误终止。
+  \item ComputerTerminal 的状态可能是执行代码、工具输出、命令失败。
+\end{itemize}
+
+如果把所有 agent 混在一起聚类，状态会混乱。因此当前做法是：
+
+\[
+\text{for each agent } a,\quad \text{fit a separate GMM on steps spoken by } a
+\]
+
+\subsection{训练 GMM 前的处理}
+
+对每个 agent 的所有训练 step：
+
+\begin{enumerate}
+  \item 把 profile 字段转成数值向量。
+  \item 用 \texttt{StandardScaler} 标准化。
+  \item 用 PCA 降维，当前最多降到 8 维。
+  \item 用 GMM 聚类得到抽象状态。
+\end{enumerate}
+
+这里 PCA 的作用是让 GMM 更稳定。原始 one-hot 特征维度不算特别高，但数据量很小，尤其 Assistant、FileSurfer、ComputerTerminal 的样本很少，直接 GMM 容易不稳。
+
+\section{第五步：GMM 的 K 怎么选}
+
+这里我们参考 RNNRepair 的 ``semantic-guided abstraction'' 思路，不是只看 BIC，也不是用错误标签直接调 K。
+
+对候选 $K=2,3,\ldots,15$，我们都训练一个 GMM。然后看聚出来的每个状态语义是否稳定。
+
+\subsection{什么叫状态语义稳定}
+
+假设某个状态 $q$ 里有很多 step。我们看这些 step 的语义字段是否一致。例如：
+
+\begin{itemize}
+  \item 这个状态里的 \texttt{progress\_state} 大多数是不是都是 \texttt{off\_track}？
+  \item 这个状态里的 \texttt{action\_type} 大多数是不是都是 \texttt{web\_browse}？
+  \item 这个状态里的 \texttt{unsupported\_claim} 大多数是不是都是 true？
+\end{itemize}
+
+对每个语义字段，我们计算纯度：
+
+\[
+\text{purity}(q, c) =
+\frac{\text{状态 }q\text{ 中字段 }c\text{ 的最大类别计数}}
+{\text{状态 }q\text{ 的样本数}}
+\]
+
+然后对所有语义字段取平均，得到这个状态的 stability：
+
+\[
+\text{stability}(q) =
+\frac{1}{|C|}\sum_{c\in C}\text{purity}(q,c)
+\]
+
+再对所有状态取平均：
+
+\[
+\text{avg\_stability}(K) =
+\frac{1}{K}\sum_{q=1}^{K}\text{stability}(q)
+\]
+
+\subsection{当前选择规则}
+
+当前规则是：
+
+\begin{center}
+\fbox{\parbox{0.86\linewidth}{
+从小到大尝试 K，选择第一个满足
+\[
+\text{avg\_stability}(K)\geq 0.72
+\]
+并且每个状态至少有 5 个样本的 K。
+如果没有 K 同时满足，就选择 stability 最好的可用 K。
+}}
+\end{center}
+
+这和 RNNRepair 的精神一致：我们希望状态不是为了贴标签而过拟合，而是语义上真的能解释。
+
+在全量 hand-crafted profile 上，当前选出来的 K 是：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lrl}
+\toprule
+Agent & Selected K & 选择原因 \\
+\midrule
+Orchestrator & 2 & 达到 stability 阈值 \\
+WebSurfer & 3 & 达到 stability 阈值 \\
+Assistant & 2 & 达到 stability 阈值 \\
+FileSurfer & 2 & 达到 stability 阈值 \\
+ComputerTerminal & 2 & 小样本下的 best available \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{第六步：训练 risk table}
+
+有了每一步的 agent 状态之后，我们要统计：训练集中哪些状态更容易成为决定性错误。
+
+首先定义全局基础错误率：
+
+\[
+p_0 = \frac{\text{训练集中决定性错误 step 数}}{\text{训练集中可用 step 数}}
+\]
+
+然后对某个 key，例如某个 agent 的某个状态，计算：
+
+\[
+p(\text{error}\mid key)
+=
+\frac{\text{key 下错误 step 数}+\alpha}
+{\text{key 下总 step 数}+2\alpha}
+\]
+
+这里使用 Laplace smoothing，当前：
+
+\[
+\alpha = 0.5
+\]
+
+最后定义：
+
+\[
+\text{risk\_lift}(key)
+=
+\frac{p(\text{error}\mid key)}{p_0}
+\]
+
+直观解释：
+
+\begin{itemize}
+  \item \texttt{risk\_lift = 1}: 这个状态和平均水平一样危险。
+  \item \texttt{risk\_lift > 1}: 这个状态比平均更容易出错。
+  \item \texttt{risk\_lift < 1}: 这个状态比平均更安全。
+\end{itemize}
+
+\subsection{risk table 的 key}
+
+当前有四层 key，从具体到粗糙依次回退：
+
+\begin{enumerate}
+  \item \textbf{transition}: \((agent,\ previous\_state,\ action\_type,\ current\_state)\)
+  \item \textbf{state}: \((agent,\ current\_state)\)
+  \item \textbf{action}: \((agent,\ action\_type)\)
+  \item \textbf{agent}: \((agent)\)
+\end{enumerate}
+
+预测时先查最具体的 transition。如果样本支持数不够，就回退到 state，再回退到 action，再回退到 agent。如果都没有足够支持，就使用基础风险，即 \texttt{risk\_lift = 1}。
+
+\subsection{为什么训练时只用 mistake\_step 之前的 step}
+
+训练 risk table 时，只使用：
+
+\[
+step\_idx \leq mistake\_step
+\]
+
+原因是：决定性错误之后的 step 往往是错误的后果，而不是错误的原因。如果把后续 step 也当作正常训练样本，模型可能会学到 ``错误之后的混乱状态''，而不是 ``错误发生的状态''。
+
+\section{第七步：每一步怎么打分}
+
+测试一条新日志时，我们对每个非 human step 都算三个东西：
+
+\begin{enumerate}
+  \item \texttt{profile\_score}: LLM 语义 profile 自身显示的局部可疑程度。
+  \item \texttt{risk\_lift}: 这个状态在训练集中历史上有多危险。
+  \item \texttt{combined\_score}: 把上面两者合起来的总分。
+\end{enumerate}
+
+\subsection{profile\_score}
+
+当前公式是：
+
+\[
+\begin{aligned}
+\text{profile\_score}
+=&\ 2.0(3-\text{task\_alignment})
++0.75(3-\text{evidence\_quality})\\
+&+\text{progress\_penalty}
++2.0\cdot I(\text{reasoning\_error\_signal})\\
+&+1.5\cdot I(\text{tool\_error})
++1.5\cdot I(\text{unsupported\_claim})
+\end{aligned}
+\]
+
+其中：
+
+\[
+\text{progress\_penalty}=
+\begin{cases}
+0, & \text{on\_track}\\
+0.25, & \text{uncertain}\\
+1.0, & \text{stalled}\\
+2.0, & \text{off\_track}
+\end{cases}
+\]
+
+这个分数只看 LLM 对当前 step 的语义判断。比如 task alignment 很低、evidence quality 很低、又有 unsupported claim，那么 profile score 就会高。
+
+\subsection{combined\_score}
+
+当前组合公式是：
+
+\[
+\text{combined\_score}
+=
+\text{profile\_score}
++2\log(\text{risk\_lift})
+\]
+
+这里的含义是：
+
+\begin{itemize}
+  \item \texttt{profile\_score}: 当前 step 的文本内容本身像不像错误。
+  \item \texttt{risk\_lift}: 训练集中同类状态是否真的经常出错。
+\end{itemize}
+
+为什么用 \(\log\)？因为 risk lift 是倍数。如果直接加倍数，少数小样本高风险状态会把分数拉得过猛。取 log 后：
+
+\[
+\log(1)=0,\quad
+\log(2)\approx 0.69,\quad
+\log(4)\approx 1.39,\quad
+\log(0.5)\approx -0.69
+\]
+
+所以：
+
+\begin{itemize}
+  \item \texttt{risk\_lift = 1} 时，不改变分数。
+  \item \texttt{risk\_lift > 1} 时，加分。
+  \item \texttt{risk\_lift < 1} 时，扣分。
+  \item 特别大的 lift 会被 log 压住。
+\end{itemize}
+
+前面的 2 是当前经验权重，意思是让历史状态风险有明显影响，但不完全压过 LLM 的局部语义判断。后续论文实验里，这个权重应该做验证集调参和 ablation。
+
+\section{第八步：怎么从 step 分数得到 Who 和 When}
+
+当前实现了五种 decoding 模式：
+
+\begin{longtable}{p{0.26\linewidth}p{0.62\linewidth}}
+\toprule
+模式 & 含义 \\
+\midrule
+\endhead
+\texttt{profile\_argmax} & 选择 \texttt{profile\_score} 最高的 step。 \\
+\texttt{profile\_earliest4} & 选择最早一个 \texttt{profile\_score >= 4} 的 step；如果没有，再退回 argmax。 \\
+\texttt{risk\_argmax} & 选择 \texttt{risk\_lift} 最高的 step。 \\
+\texttt{combined\_argmax} & 选择 \texttt{combined\_score} 最高的 step。 \\
+\texttt{combined\_earliest4} & 选择最早一个 \texttt{combined\_score >= 4} 的 step；如果没有，再退回 combined argmax。 \\
+\bottomrule
+\end{longtable}
+
+如果预测出来的 step 是第 $t$ 步，那么：
+
+\begin{itemize}
+  \item \textbf{When} 就预测为 $t$。
+  \item \textbf{Who} 就预测为第 $t$ 步对应的 agent。
+\end{itemize}
+
+当前建议报告两个主结果：
+
+\begin{itemize}
+  \item \textbf{LLMRepair-Agent}: 使用 \texttt{combined\_argmax}，因为它的 agent-level accuracy 最高。
+  \item \textbf{LLMRepair-Step}: 使用 \texttt{combined\_earliest4}，因为它更符合 ``最早决定性错误'' 的定义，step 容差指标更好。
+\end{itemize}
+
+\section{第九步：五折交叉验证怎么做}
+
+我们用 5-fold cross validation，并且按 log 切分，而不是按 step 切分。
+
+每一折：
+
+\begin{enumerate}
+  \item 58 条日志被分成训练日志和测试日志。
+  \item 只用训练日志拟合每个 agent 的 PCA + GMM。
+  \item 只用训练日志构建 risk table。
+  \item 在测试日志上预测 Who 和 When。
+  \item 收集 5 折所有测试预测，最后统一算指标。
+\end{enumerate}
+
+这样可以避免同一条日志的一部分 step 进入训练、另一部分 step 进入测试造成泄漏。
+
+LLM semantic profile 是 label-free 的，也就是 prompt 不包含 \texttt{mistake\_agent} 或 \texttt{mistake\_step}，因此可以预先缓存。
+真正使用人工错误标签的是 GMM 之后的 risk table 和评估阶段。
+
+\section{当前结果}
+
+当前 hand-crafted 58 条日志上的五折结果如下：
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+方法 & Agent Acc. & Step Acc. & Tol@3 & Tol@5 & Avg Dist. \\
+\midrule
+\texttt{profile\_argmax} & 56.90\% & 10.34\% & 27.59\% & 39.66\% & 17.79 \\
+\texttt{profile\_earliest4} & 53.45\% & 15.52\% & 34.48\% & 53.45\% & 9.16 \\
+\texttt{risk\_argmax} & 56.90\% & 22.41\% & 31.03\% & 46.55\% & 14.43 \\
+\texttt{combined\_argmax} & \textbf{70.69\%} & 18.97\% & 31.03\% & 41.38\% & 17.95 \\
+\texttt{combined\_earliest4} & 58.62\% & 20.69\% & \textbf{39.66\%} & \textbf{58.62\%} & 9.29 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+这个表的解读是：
+
+\begin{itemize}
+  \item 如果主要看 \textbf{Who}，\texttt{combined\_argmax} 最强，agent accuracy 达到 70.69\%。
+  \item 如果主要看 \textbf{When}，\texttt{risk\_argmax} 的 exact step accuracy 最高，为 22.41\%。
+  \item 但 \texttt{combined\_earliest4} 的容差指标更好，Tol@5 达到 58.62\%，也更符合 ``最早错误'' 的定义。
+  \item \texttt{profile\_score} 和 \texttt{risk\_lift} 结合后，确实比只用其中之一更适合 agent attribution。
+\end{itemize}
+
+\section{和论文 baseline 的关系}
+
+论文里的 all-at-once、step-by-step、binary-search 是直接让 LLM 判断 Who 和 When。我们这里的方法不同：
+
+\begin{itemize}
+  \item 论文 baseline 是 \textbf{zero-shot LLM judge}。
+  \item 我们的方法是 \textbf{LLM semantic profiler + trainable state/risk model}。
+\end{itemize}
+
+所以比较时必须说明：我们不是同一种 inference setting。我们的优势是可以从训练折学习状态风险；代价是需要标注训练日志。
+
+根据本地整理的论文 hand-crafted 无 ground truth 数字，GPT-4o baseline 大致是：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lrr}
+\toprule
+方法 & Agent Acc. & Step Acc. \\
+\midrule
+All-at-once & 53.44\% & 3.51\% \\
+Step-by-step & 32.75\% & 8.77\% \\
+Binary search & 36.21\% & 6.90\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+从数值上看，我们当前结果在 hand-crafted 上明显高于这些 baseline，尤其是 agent-level 和 step exact。但论文写作时要避免夸大，必须写清楚这是 \textbf{supervised cross-validation setting}，不是纯 zero-shot。
+
+\section{实际运行命令}
+
+完整命令如下。这里不写 API key，运行前需要在环境变量中设置 \texttt{DEEPSEEK\_API\_KEY}。
+
+\begin{verbatim}
+# 1. 摊平 hand-crafted logs
+python scripts/llmrepair_pipeline.py prepare-steps \
+  --dataset-root datasets/Who_and_When \
+  --output artifacts/handcrafted_steps.jsonl
+
+# 2. 对每个非 human step 调 DeepSeek 做 semantic profiling
+python scripts/llmrepair_pipeline.py profile-steps \
+  --steps artifacts/handcrafted_steps.jsonl \
+  --output artifacts/profiles/deepseek-v4-flash_without_gt.jsonl \
+  --model deepseek-v4-flash \
+  --ground-truth-mode without_ground_truth \
+  --workers 4
+
+# 3. 全量 profile 上看每个 agent 的 K 选择
+python scripts/llmrepair_pipeline.py select-k \
+  --profiles artifacts/profiles/deepseek-v4-flash_without_gt.jsonl \
+  --output artifacts/state_models/k_selection_without_gt.json \
+  --theta 0.72 \
+  --min-support 5
+
+# 4. 五折评估
+python scripts/llmrepair_pipeline.py evaluate \
+  --steps artifacts/handcrafted_steps.jsonl \
+  --profiles artifacts/profiles/deepseek-v4-flash_without_gt.jsonl \
+  --output-dir artifacts/eval/without_gt \
+  --n-splits 5 \
+  --random-state 0
+\end{verbatim}
+
+当前 profiling 已经完成，缓存文件里有 2935 个非 human step 的 profile。总 token 统计约为：
+
+\begin{itemize}
+  \item prompt tokens: 2,675,846
+  \item completion tokens: 1,279,194
+  \item total tokens: 3,955,040
+\end{itemize}
+
+\section{这个方法的主要创新点}
+
+当前 pipeline 的创新点可以这样概括：
+
+\begin{enumerate}
+  \item \textbf{把 LLM 从最终裁判改成语义传感器。} LLM 不直接输出 Who/When，而是给每一步产生结构化语义状态。
+  \item \textbf{把 RNNRepair 的状态抽象迁移到 LLM agent 日志。} 原来 RNNRepair 聚类 RNN hidden state；我们聚类 LLM semantic profile。
+  \item \textbf{每个 agent 建自己的状态机。} 这比全局聚类更符合多智能体系统的角色差异。
+  \item \textbf{用状态风险表做可解释归因。} 每个预测都能回看：它是因为 profile 可疑，还是因为历史上同类状态风险高。
+  \item \textbf{支持缓存。} LLM profiling 可以缓存；后续改 GMM、risk table、decoding 策略时，不必重复调用 LLM。
+\end{enumerate}
+
+\section{目前还需要补强的地方}
+
+如果要往论文级别推进，建议下一步补这些实验：
+
+\begin{enumerate}
+  \item \textbf{调参要更严格。} 当前 \(\lambda=2\) 和 earliest 阈值 4 是经验值，应该在 validation set 上调，或者做 nested CV。
+  \item \textbf{做 ablation。} 比较 only profile、only risk、combined、不同 window、不同 K 选择策略。
+  \item \textbf{补 algorithm-generated 子集。} 当前完整跑通的是 hand-crafted，需要看算法生成子集上是否也有效。
+  \item \textbf{补 DeepSeek baseline。} 本地目前只找到 DeepSeek-v4-flash all-at-once 结果，还缺 step-by-step 和 binary-search 的同模型复现。
+  \item \textbf{增强文本特征。} 当前 \texttt{agent\_intent} 和 \texttt{state\_summary} 没进模型，后续可以 embedding 后加入状态表示。
+\end{enumerate}
+
+\section{一句话版本}
+
+我们的方法是：先让 LLM 逐步阅读日志，把每一步翻译成 ``动作类型、证据质量、是否偏题、是否有 unsupported claim、工具是否错误'' 这类结构化语义标签；然后像 RNNRepair 一样，把同一个 agent 的语义标签聚成少数几个状态；再从训练日志里统计哪些状态和状态转移最容易对应决定性错误；最后在新日志中逐步打分，选择最可疑的 agent 和最早错误 step。
+
+\end{document}
