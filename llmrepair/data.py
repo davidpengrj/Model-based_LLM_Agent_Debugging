@@ -99,3 +99,7 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 def load_handcrafted_steps(dataset_root: Path) -> list[dict[str, Any]]:
     return flatten_logs(load_who_when_logs(dataset_root, "Hand-Crafted"))
+
+
+def load_subset_steps(dataset_root: Path, subset: str) -> list[dict[str, Any]]:
+    return flatten_logs(load_who_when_logs(dataset_root, subset))

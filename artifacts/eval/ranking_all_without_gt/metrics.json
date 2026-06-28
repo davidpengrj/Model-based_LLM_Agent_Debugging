@@ -1,0 +1,6516 @@
+{
+  "steps_path": "artifacts/all_steps.jsonl",
+  "profiles_path": "artifacts/profiles/deepseek-v4-flash_all_without_gt.jsonl",
+  "n_splits": 5,
+  "random_state": 0,
+  "metrics": {
+    "profile_argmax": {
+      "n": 184,
+      "agent_accuracy": 0.3967391304347826,
+      "step_accuracy": 0.14673913043478262,
+      "avg_distance": 7.418478260869565,
+      "step_accuracy_tol_1": 0.31521739130434784,
+      "step_accuracy_tol_2": 0.42391304347826086,
+      "step_accuracy_tol_3": 0.5652173913043478,
+      "step_accuracy_tol_4": 0.6793478260869565,
+      "step_accuracy_tol_5": 0.7119565217391305
+    },
+    "profile_earliest4": {
+      "n": 184,
+      "agent_accuracy": 0.3967391304347826,
+      "step_accuracy": 0.20108695652173914,
+      "avg_distance": 4.429347826086956,
+      "step_accuracy_tol_1": 0.4076086956521739,
+      "step_accuracy_tol_2": 0.5,
+      "step_accuracy_tol_3": 0.6358695652173914,
+      "step_accuracy_tol_4": 0.7445652173913043,
+      "step_accuracy_tol_5": 0.782608695652174
+    },
+    "risk_argmax": {
+      "n": 184,
+      "agent_accuracy": 0.41304347826086957,
+      "step_accuracy": 0.17391304347826086,
+      "avg_distance": 6.016304347826087,
+      "step_accuracy_tol_1": 0.29347826086956524,
+      "step_accuracy_tol_2": 0.45652173913043476,
+      "step_accuracy_tol_3": 0.5271739130434783,
+      "step_accuracy_tol_4": 0.657608695652174,
+      "step_accuracy_tol_5": 0.7445652173913043
+    },
+    "combined_argmax": {
+      "n": 184,
+      "agent_accuracy": 0.46195652173913043,
+      "step_accuracy": 0.1956521739130435,
+      "avg_distance": 7.907608695652174,
+      "step_accuracy_tol_1": 0.32065217391304346,
+      "step_accuracy_tol_2": 0.44021739130434784,
+      "step_accuracy_tol_3": 0.5380434782608695,
+      "step_accuracy_tol_4": 0.6521739130434783,
+      "step_accuracy_tol_5": 0.717391304347826
+    },
+    "combined_earliest4": {
+      "n": 184,
+      "agent_accuracy": 0.4782608695652174,
+      "step_accuracy": 0.24456521739130435,
+      "avg_distance": 4.5978260869565215,
+      "step_accuracy_tol_1": 0.3967391304347826,
+      "step_accuracy_tol_2": 0.5,
+      "step_accuracy_tol_3": 0.5978260869565217,
+      "step_accuracy_tol_4": 0.7228260869565217,
+      "step_accuracy_tol_5": 0.7771739130434783
+    },
+    "combined_decay_step": {
+      "n": 184,
+      "agent_accuracy": 0.4782608695652174,
+      "step_accuracy": 0.20652173913043478,
+      "avg_distance": 6.1521739130434785,
+      "step_accuracy_tol_1": 0.32608695652173914,
+      "step_accuracy_tol_2": 0.44021739130434784,
+      "step_accuracy_tol_3": 0.5489130434782609,
+      "step_accuracy_tol_4": 0.657608695652174,
+      "step_accuracy_tol_5": 0.7119565217391305
+    },
+    "combined_decay_tol5": {
+      "n": 184,
+      "agent_accuracy": 0.47282608695652173,
+      "step_accuracy": 0.20652173913043478,
+      "avg_distance": 5.494565217391305,
+      "step_accuracy_tol_1": 0.30434782608695654,
+      "step_accuracy_tol_2": 0.42934782608695654,
+      "step_accuracy_tol_3": 0.532608695652174,
+      "step_accuracy_tol_4": 0.6304347826086957,
+      "step_accuracy_tol_5": 0.7010869565217391
+    },
+    "risk_decay_step": {
+      "n": 184,
+      "agent_accuracy": 0.44565217391304346,
+      "step_accuracy": 0.22826086956521738,
+      "avg_distance": 5.108695652173913,
+      "step_accuracy_tol_1": 0.3641304347826087,
+      "step_accuracy_tol_2": 0.5108695652173914,
+      "step_accuracy_tol_3": 0.5652173913043478,
+      "step_accuracy_tol_4": 0.6739130434782609,
+      "step_accuracy_tol_5": 0.7608695652173914
+    },
+    "who_then_combined_decay_step": {
+      "n": 184,
+      "agent_accuracy": 0.46195652173913043,
+      "step_accuracy": 0.20652173913043478,
+      "avg_distance": 5.396739130434782,
+      "step_accuracy_tol_1": 0.32065217391304346,
+      "step_accuracy_tol_2": 0.44565217391304346,
+      "step_accuracy_tol_3": 0.5434782608695652,
+      "step_accuracy_tol_4": 0.6684782608695652,
+      "step_accuracy_tol_5": 0.7336956521739131
+    },
+    "who_then_combined_earliest_step": {
+      "n": 184,
+      "agent_accuracy": 0.46195652173913043,
+      "step_accuracy": 0.22282608695652173,
+      "avg_distance": 5.3478260869565215,
+      "step_accuracy_tol_1": 0.34782608695652173,
+      "step_accuracy_tol_2": 0.4945652173913043,
+      "step_accuracy_tol_3": 0.5706521739130435,
+      "step_accuracy_tol_4": 0.6684782608695652,
+      "step_accuracy_tol_5": 0.7336956521739131
+    },
+    "ranker_argmax": {
+      "n": 184,
+      "agent_accuracy": 0.483695652173913,
+      "step_accuracy": 0.22282608695652173,
+      "avg_distance": 4.896739130434782,
+      "step_accuracy_tol_1": 0.33152173913043476,
+      "step_accuracy_tol_2": 0.483695652173913,
+      "step_accuracy_tol_3": 0.5489130434782609,
+      "step_accuracy_tol_4": 0.7282608695652174,
+      "step_accuracy_tol_5": 0.7717391304347826
+    },
+    "ranker_decay_step": {
+      "n": 184,
+      "agent_accuracy": 0.4891304347826087,
+      "step_accuracy": 0.22826086956521738,
+      "avg_distance": 4.793478260869565,
+      "step_accuracy_tol_1": 0.3423913043478261,
+      "step_accuracy_tol_2": 0.4891304347826087,
+      "step_accuracy_tol_3": 0.5543478260869565,
+      "step_accuracy_tol_4": 0.7282608695652174,
+      "step_accuracy_tol_5": 0.7717391304347826
+    },
+    "ranker_decay_tol5": {
+      "n": 184,
+      "agent_accuracy": 0.4945652173913043,
+      "step_accuracy": 0.22826086956521738,
+      "avg_distance": 4.880434782608695,
+      "step_accuracy_tol_1": 0.3423913043478261,
+      "step_accuracy_tol_2": 0.4891304347826087,
+      "step_accuracy_tol_3": 0.5543478260869565,
+      "step_accuracy_tol_4": 0.7228260869565217,
+      "step_accuracy_tol_5": 0.7663043478260869
+    },
+    "ranker_earliest_step": {
+      "n": 184,
+      "agent_accuracy": 0.483695652173913,
+      "step_accuracy": 0.22282608695652173,
+      "avg_distance": 4.896739130434782,
+      "step_accuracy_tol_1": 0.33152173913043476,
+      "step_accuracy_tol_2": 0.483695652173913,
+      "step_accuracy_tol_3": 0.5489130434782609,
+      "step_accuracy_tol_4": 0.7282608695652174,
+      "step_accuracy_tol_5": 0.7717391304347826
+    },
+    "who_then_ranker_decay_step": {
+      "n": 184,
+      "agent_accuracy": 0.46195652173913043,
+      "step_accuracy": 0.23369565217391305,
+      "avg_distance": 4.6521739130434785,
+      "step_accuracy_tol_1": 0.358695652173913,
+      "step_accuracy_tol_2": 0.5217391304347826,
+      "step_accuracy_tol_3": 0.6032608695652174,
+      "step_accuracy_tol_4": 0.7336956521739131,
+      "step_accuracy_tol_5": 0.7880434782608695
+    },
+    "who_then_ranker_earliest_step": {
+      "n": 184,
+      "agent_accuracy": 0.46195652173913043,
+      "step_accuracy": 0.23369565217391305,
+      "avg_distance": 4.6521739130434785,
+      "step_accuracy_tol_1": 0.3641304347826087,
+      "step_accuracy_tol_2": 0.5271739130434783,
+      "step_accuracy_tol_3": 0.5978260869565217,
+      "step_accuracy_tol_4": 0.7282608695652174,
+      "step_accuracy_tol_5": 0.7880434782608695
+    }
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "train_logs": [
+        "alg_1",
+        "alg_10",
+        "alg_100",
+        "alg_101",
+        "alg_104",
+        "alg_106",
+        "alg_107",
+        "alg_108",
+        "alg_109",
+        "alg_11",
+        "alg_110",
+        "alg_111",
+        "alg_112",
+        "alg_113",
+        "alg_114",
+        "alg_116",
+        "alg_117",
+        "alg_118",
+        "alg_119",
+        "alg_12",
+        "alg_120",
+        "alg_121",
+        "alg_123",
+        "alg_124",
+        "alg_125",
+        "alg_126",
+        "alg_13",
+        "alg_14",
+        "alg_16",
+        "alg_17",
+        "alg_18",
+        "alg_2",
+        "alg_20",
+        "alg_21",
+        "alg_22",
+        "alg_23",
+        "alg_24",
+        "alg_25",
+        "alg_26",
+        "alg_27",
+        "alg_28",
+        "alg_29",
+        "alg_3",
+        "alg_30",
+        "alg_31",
+        "alg_32",
+        "alg_33",
+        "alg_35",
+        "alg_37",
+        "alg_38",
+        "alg_39",
+        "alg_41",
+        "alg_43",
+        "alg_44",
+        "alg_46",
+        "alg_47",
+        "alg_48",
+        "alg_49",
+        "alg_50",
+        "alg_51",
+        "alg_53",
+        "alg_54",
+        "alg_55",
+        "alg_56",
+        "alg_57",
+        "alg_58",
+        "alg_59",
+        "alg_6",
+        "alg_60",
+        "alg_61",
+        "alg_62",
+        "alg_63",
+        "alg_64",
+        "alg_65",
+        "alg_66",
+        "alg_67",
+        "alg_68",
+        "alg_69",
+        "alg_7",
+        "alg_70",
+        "alg_72",
+        "alg_74",
+        "alg_75",
+        "alg_76",
+        "alg_77",
+        "alg_78",
+        "alg_79",
+        "alg_8",
+        "alg_80",
+        "alg_83",
+        "alg_84",
+        "alg_85",
+        "alg_89",
+        "alg_9",
+        "alg_90",
+        "alg_91",
+        "alg_93",
+        "alg_94",
+        "alg_95",
+        "alg_96",
+        "alg_98",
+        "alg_99",
+        "hc_1",
+        "hc_10",
+        "hc_11",
+        "hc_12",
+        "hc_13",
+        "hc_15",
+        "hc_16",
+        "hc_18",
+        "hc_19",
+        "hc_2",
+        "hc_20",
+        "hc_22",
+        "hc_23",
+        "hc_24",
+        "hc_25",
+        "hc_26",
+        "hc_27",
+        "hc_29",
+        "hc_3",
+        "hc_30",
+        "hc_33",
+        "hc_34",
+        "hc_35",
+        "hc_36",
+        "hc_38",
+        "hc_39",
+        "hc_4",
+        "hc_41",
+        "hc_42",
+        "hc_44",
+        "hc_45",
+        "hc_48",
+        "hc_49",
+        "hc_50",
+        "hc_51",
+        "hc_52",
+        "hc_54",
+        "hc_55",
+        "hc_56",
+        "hc_57",
+        "hc_58",
+        "hc_6",
+        "hc_7",
+        "hc_8",
+        "hc_9"
+      ],
+      "test_logs": [
+        "alg_102",
+        "alg_103",
+        "alg_105",
+        "alg_115",
+        "alg_122",
+        "alg_15",
+        "alg_19",
+        "alg_34",
+        "alg_36",
+        "alg_4",
+        "alg_40",
+        "alg_42",
+        "alg_45",
+        "alg_5",
+        "alg_52",
+        "alg_71",
+        "alg_73",
+        "alg_81",
+        "alg_82",
+        "alg_86",
+        "alg_87",
+        "alg_88",
+        "alg_92",
+        "alg_97",
+        "hc_14",
+        "hc_17",
+        "hc_21",
+        "hc_28",
+        "hc_31",
+        "hc_32",
+        "hc_37",
+        "hc_40",
+        "hc_43",
+        "hc_46",
+        "hc_47",
+        "hc_5",
+        "hc_53"
+      ],
+      "base_error_rate": 0.13288288288288289,
+      "specs": {
+        "combined_decay_step": {
+          "penalty": 0.2,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.54421768707483,
+            "step_accuracy": 0.2653061224489796,
+            "avg_distance": 4.9523809523809526,
+            "step_accuracy_tol_1": 0.36054421768707484,
+            "step_accuracy_tol_2": 0.4965986394557823,
+            "step_accuracy_tol_3": 0.5850340136054422,
+            "step_accuracy_tol_4": 0.7006802721088435,
+            "step_accuracy_tol_5": 0.7482993197278912
+          }
+        },
+        "combined_decay_tol5": {
+          "penalty": 0.3,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5918367346938775,
+            "step_accuracy": 0.2585034013605442,
+            "avg_distance": 5.040816326530612,
+            "step_accuracy_tol_1": 0.3741496598639456,
+            "step_accuracy_tol_2": 0.5102040816326531,
+            "step_accuracy_tol_3": 0.5918367346938775,
+            "step_accuracy_tol_4": 0.7074829931972789,
+            "step_accuracy_tol_5": 0.7551020408163265
+          }
+        },
+        "risk_decay_step": {
+          "penalty": 0.15,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.6394557823129252,
+            "step_accuracy": 0.2857142857142857,
+            "avg_distance": 4.9727891156462585,
+            "step_accuracy_tol_1": 0.43537414965986393,
+            "step_accuracy_tol_2": 0.5102040816326531,
+            "step_accuracy_tol_3": 0.5918367346938775,
+            "step_accuracy_tol_4": 0.7006802721088435,
+            "step_accuracy_tol_5": 0.7551020408163265
+          }
+        },
+        "who_then_combined_decay_step": {
+          "penalty": 0.3,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5578231292517006,
+            "step_accuracy": 0.2585034013605442,
+            "avg_distance": 5.170068027210885,
+            "step_accuracy_tol_1": 0.36054421768707484,
+            "step_accuracy_tol_2": 0.4897959183673469,
+            "step_accuracy_tol_3": 0.5782312925170068,
+            "step_accuracy_tol_4": 0.7006802721088435,
+            "step_accuracy_tol_5": 0.7551020408163265
+          }
+        },
+        "who_then_combined_earliest_step": {
+          "threshold": 6.028334731643019,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5578231292517006,
+            "step_accuracy": 0.2925170068027211,
+            "avg_distance": 5.183673469387755,
+            "step_accuracy_tol_1": 0.38095238095238093,
+            "step_accuracy_tol_2": 0.5034013605442177,
+            "step_accuracy_tol_3": 0.564625850340136,
+            "step_accuracy_tol_4": 0.6938775510204082,
+            "step_accuracy_tol_5": 0.7414965986394558
+          }
+        },
+        "ranker_decay_step": {
+          "penalty": 0.02,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.8231292517006803,
+            "step_accuracy": 0.6938775510204082,
+            "avg_distance": 2.598639455782313,
+            "step_accuracy_tol_1": 0.7142857142857143,
+            "step_accuracy_tol_2": 0.7482993197278912,
+            "step_accuracy_tol_3": 0.7755102040816326,
+            "step_accuracy_tol_4": 0.8367346938775511,
+            "step_accuracy_tol_5": 0.8503401360544217
+          }
+        },
+        "ranker_decay_tol5": {
+          "penalty": 0.02,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.8231292517006803,
+            "step_accuracy": 0.6938775510204082,
+            "avg_distance": 2.598639455782313,
+            "step_accuracy_tol_1": 0.7142857142857143,
+            "step_accuracy_tol_2": 0.7482993197278912,
+            "step_accuracy_tol_3": 0.7755102040816326,
+            "step_accuracy_tol_4": 0.8367346938775511,
+            "step_accuracy_tol_5": 0.8503401360544217
+          }
+        },
+        "ranker_earliest_step": {
+          "threshold": 6.2022050680205645,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.8163265306122449,
+            "step_accuracy": 0.6870748299319728,
+            "avg_distance": 2.7006802721088436,
+            "step_accuracy_tol_1": 0.7074829931972789,
+            "step_accuracy_tol_2": 0.7414965986394558,
+            "step_accuracy_tol_3": 0.7687074829931972,
+            "step_accuracy_tol_4": 0.8299319727891157,
+            "step_accuracy_tol_5": 0.8367346938775511
+          }
+        },
+        "who_then_ranker_decay_step": {
+          "penalty": 0.03,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5578231292517006,
+            "step_accuracy": 0.42857142857142855,
+            "avg_distance": 4.074829931972789,
+            "step_accuracy_tol_1": 0.5102040816326531,
+            "step_accuracy_tol_2": 0.6326530612244898,
+            "step_accuracy_tol_3": 0.673469387755102,
+            "step_accuracy_tol_4": 0.7755102040816326,
+            "step_accuracy_tol_5": 0.8231292517006803
+          }
+        },
+        "who_then_ranker_earliest_step": {
+          "threshold": 5.441210205314631,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5578231292517006,
+            "step_accuracy": 0.40816326530612246,
+            "avg_distance": 4.292517006802721,
+            "step_accuracy_tol_1": 0.4897959183673469,
+            "step_accuracy_tol_2": 0.6122448979591837,
+            "step_accuracy_tol_3": 0.6530612244897959,
+            "step_accuracy_tol_4": 0.7551020408163265,
+            "step_accuracy_tol_5": 0.7959183673469388
+          }
+        }
+      },
+      "ranker_top_weights": [
+        {
+          "feature": "risk_log",
+          "weight": 3.8219792129583086
+        },
+        {
+          "feature": "step_idx_scaled",
+          "weight": -3.4846288555703255
+        },
+        {
+          "feature": "agent_action=Orchestrator:termination",
+          "weight": 2.404207320761682
+        },
+        {
+          "feature": "combined_score",
+          "weight": 2.1335431310386244
+        },
+        {
+          "feature": "message_len_log",
+          "weight": 1.899232751371652
+        },
+        {
+          "feature": "low_evidence_quality",
+          "weight": -1.6109349647665174
+        },
+        {
+          "feature": "agent_action=FileSurfer:other",
+          "weight": 1.5585606938001901
+        },
+        {
+          "feature": "new_claim",
+          "weight": 1.3896347305327654
+        },
+        {
+          "feature": "risk_support_log",
+          "weight": 1.3127065963307456
+        },
+        {
+          "feature": "state=Assistant:1",
+          "weight": 1.2667659821864028
+        },
+        {
+          "feature": "prev_state=DataVerification_Expert:0",
+          "weight": -1.2276389939322292
+        },
+        {
+          "feature": "state=Verification_Expert:0",
+          "weight": -1.1669157666022543
+        },
+        {
+          "feature": "agent_action=Orchestrator:web_search",
+          "weight": -1.162864391399308
+        },
+        {
+          "feature": "agent_action=WebSurfer:web_search",
+          "weight": -1.106222690634939
+        },
+        {
+          "feature": "prev_state=Orchestrator:-1",
+          "weight": -1.0938270362190017
+        },
+        {
+          "feature": "prev_state=WebServing_Expert:0",
+          "weight": 1.0891118671987374
+        },
+        {
+          "feature": "agent_action=WebSurfer:tool_result",
+          "weight": 1.0750696961029644
+        },
+        {
+          "feature": "state=Verification_Expert:1",
+          "weight": 1.0417530068763212
+        },
+        {
+          "feature": "prev_state=DataVerification_Expert:-1",
+          "weight": 1.0352889258041513
+        },
+        {
+          "feature": "agent_action=WebServing_Expert:plan",
+          "weight": 1.018700210178557
+        },
+        {
+          "feature": "state=WebServing_Expert:4",
+          "weight": 1.018700210178557
+        },
+        {
+          "feature": "state=Assistant:3",
+          "weight": -1.0149415397705328
+        },
+        {
+          "feature": "action_type=plan",
+          "weight": 0.9840882370756836
+        },
+        {
+          "feature": "prev_state=ComputerTerminal:-1",
+          "weight": 0.906680943500091
+        },
+        {
+          "feature": "prev_state=Validation_Expert:1",
+          "weight": 0.8956888067954124
+        },
+        {
+          "feature": "agent_action=Corporate_Governance_Expert:termination",
+          "weight": 0.8919779868306068
+        },
+        {
+          "feature": "agent_action=Orchestrator:other",
+          "weight": -0.8895929194317992
+        },
+        {
+          "feature": "agent_action=Orchestrator:web_browse",
+          "weight": -0.8811441575085729
+        },
+        {
+          "feature": "state=ComputerTerminal:0",
+          "weight": -0.86746154924196
+        },
+        {
+          "feature": "agent_action=Narration_Expert:code_execute",
+          "weight": 0.8570274661584771
+        }
+      ],
+      "state_models": {
+        "API_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "AcademicPublication_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "AlgorithmDesign_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Ali_Khan_Shows_and_New_Mexican_Cuisine_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "AlligatorBiology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "AnalyticalReasoning_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "AnimalBehavior_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "AquaticEcosystems_InvasiveSpecies_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "ArtHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Art_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Art_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Assistant": {
+          "selected_k": 6,
+          "reason": "best_available_below_theta",
+          "num_samples": 31
+        },
+        "AudioProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Baseball_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Baseball_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Behavioral_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "BenAndJerrysFlavors_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "BiblicalScholar_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Bioinformatics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "BirdSpeciesIdentification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Blu-Ray_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Budgeting_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "BusinessLogic_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "ChessRules_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Chess_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Chinese_Political_History_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Chinese_Zodiac_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Church_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ClinicalTrials_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Clinical_Trial_Data_Analysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "ComputerTerminal": {
+          "selected_k": 3,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 248
+        },
+        "CorporateHistory_IPOs_MondayCom_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Corporate_Governance_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Cubing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Culinary_Awards_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Culinary_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "DOI_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "DataAnalysis_Expert": {
+          "selected_k": 2,
+          "reason": "best_available_below_theta",
+          "num_samples": 26
+        },
+        "DataCollection_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "DataExtraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "DataManipulation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "DataVerification_Expert": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 22
+        },
+        "Data_Analysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Data_Collection_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Data_Extraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Data_Retrieval_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Database_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "DebuggingOptimization_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Debugging_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Environment_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Excel_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Federico_Lauria_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 7
+        },
+        "FileSurfer": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 26
+        },
+        "FilmCritic_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Financial_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Food_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "GIS_DataAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "GameTheory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Genomics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Geography_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Geometry_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Geospatial_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "GraphicDesign_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Grocery_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Hiking_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "HistoricalWeatherData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "InformationExtraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "InformationVerification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "JSON_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "JamesBondFilms_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Karting_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Latin_American_Music_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Linguistics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Literary_Analysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Literature_Expert": {
+          "selected_k": 2,
+          "reason": "best_available_below_theta",
+          "num_samples": 10
+        },
+        "LocalHistorian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "LogicExpert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Lyrics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "MBTA_FranciscoFoxboroLine_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "MarineBiology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "MarineLifeData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MarioKart8Deluxe_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MartialArts_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "MathAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MenuAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "MerriamWebsterWordOfTheDay_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Mesopotamian_Number_Systems_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 6
+        },
+        "MiddleEasternHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MilitaryHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ModelEvaluation_Interpretation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "MovieProp_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Movie_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MusicHistorian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "MusicTheory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "NYC_Local_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Narration_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Neurology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "NorseMythology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "NumericalAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "OpenCV_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Orchestrator": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 1899
+        },
+        "Ornithology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Paintball_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Physics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Poetry_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "PolishLanguage_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Polish_TV_Series_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "PopulationData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "ProbabilityTheory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Probability_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "PublicationAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "PythonDebugging_Expert": {
+          "selected_k": 3,
+          "reason": "best_available_below_theta",
+          "num_samples": 15
+        },
+        "PythonProgramming_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Python_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Python_ScikitLearn_StatisticalAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Quotation_Specialist": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "RealEstateMarket_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "RealEstate_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "RealityTV_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "RecyclingRate_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "ResearchFunding_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Research_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 9
+        },
+        "ResultVerification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Reviews_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ScientificPaperAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 6
+        },
+        "Scientific_Verification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "SpeciesSightingsData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "SportsHistorian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "StatisticalAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Statistics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 9
+        },
+        "StreamingService_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "TextExtraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "TheoreticalChemistry_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Ticket_Pricing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Tickets_Pricing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "TizinGrammar_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Tizin_Translation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "TranscriptionVerification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "UnitTesting_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "VSCode_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Validation_Expert": {
+          "selected_k": 6,
+          "reason": "best_available_below_theta",
+          "num_samples": 36
+        },
+        "Vegan_Food_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "VerificationExpert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Verification_Expert": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 103
+        },
+        "VideoContentAnalysis_Expert": {
+          "selected_k": 2,
+          "reason": "best_available_below_theta",
+          "num_samples": 12
+        },
+        "VideoProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Video_Analyst_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "WaybackMachine_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "WeatherData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "WebDevelopment_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "WebServing_Expert": {
+          "selected_k": 7,
+          "reason": "best_available_below_theta",
+          "num_samples": 44
+        },
+        "WebSurfer": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 480
+        },
+        "Web_Design_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 6
+        },
+        "Whitney_Collection_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "WomenInComputerScienceHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "YouTubeDownload_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        }
+      }
+    },
+    {
+      "fold": 2,
+      "train_logs": [
+        "alg_1",
+        "alg_10",
+        "alg_101",
+        "alg_102",
+        "alg_103",
+        "alg_104",
+        "alg_105",
+        "alg_107",
+        "alg_108",
+        "alg_109",
+        "alg_11",
+        "alg_110",
+        "alg_111",
+        "alg_112",
+        "alg_114",
+        "alg_115",
+        "alg_117",
+        "alg_118",
+        "alg_12",
+        "alg_121",
+        "alg_122",
+        "alg_124",
+        "alg_125",
+        "alg_13",
+        "alg_14",
+        "alg_15",
+        "alg_16",
+        "alg_17",
+        "alg_18",
+        "alg_19",
+        "alg_2",
+        "alg_20",
+        "alg_22",
+        "alg_23",
+        "alg_24",
+        "alg_27",
+        "alg_28",
+        "alg_29",
+        "alg_3",
+        "alg_30",
+        "alg_32",
+        "alg_33",
+        "alg_34",
+        "alg_36",
+        "alg_37",
+        "alg_38",
+        "alg_39",
+        "alg_4",
+        "alg_40",
+        "alg_42",
+        "alg_43",
+        "alg_44",
+        "alg_45",
+        "alg_46",
+        "alg_47",
+        "alg_48",
+        "alg_49",
+        "alg_5",
+        "alg_50",
+        "alg_51",
+        "alg_52",
+        "alg_53",
+        "alg_54",
+        "alg_55",
+        "alg_56",
+        "alg_57",
+        "alg_59",
+        "alg_6",
+        "alg_61",
+        "alg_62",
+        "alg_64",
+        "alg_65",
+        "alg_66",
+        "alg_68",
+        "alg_70",
+        "alg_71",
+        "alg_72",
+        "alg_73",
+        "alg_75",
+        "alg_76",
+        "alg_77",
+        "alg_78",
+        "alg_79",
+        "alg_8",
+        "alg_80",
+        "alg_81",
+        "alg_82",
+        "alg_83",
+        "alg_85",
+        "alg_86",
+        "alg_87",
+        "alg_88",
+        "alg_89",
+        "alg_9",
+        "alg_91",
+        "alg_92",
+        "alg_93",
+        "alg_94",
+        "alg_96",
+        "alg_97",
+        "hc_10",
+        "hc_11",
+        "hc_12",
+        "hc_14",
+        "hc_15",
+        "hc_16",
+        "hc_17",
+        "hc_18",
+        "hc_20",
+        "hc_21",
+        "hc_22",
+        "hc_23",
+        "hc_24",
+        "hc_26",
+        "hc_27",
+        "hc_28",
+        "hc_29",
+        "hc_3",
+        "hc_31",
+        "hc_32",
+        "hc_33",
+        "hc_34",
+        "hc_35",
+        "hc_36",
+        "hc_37",
+        "hc_38",
+        "hc_39",
+        "hc_4",
+        "hc_40",
+        "hc_41",
+        "hc_42",
+        "hc_43",
+        "hc_44",
+        "hc_45",
+        "hc_46",
+        "hc_47",
+        "hc_5",
+        "hc_50",
+        "hc_51",
+        "hc_52",
+        "hc_53",
+        "hc_54",
+        "hc_55",
+        "hc_56",
+        "hc_57",
+        "hc_7",
+        "hc_8"
+      ],
+      "test_logs": [
+        "alg_100",
+        "alg_106",
+        "alg_113",
+        "alg_116",
+        "alg_119",
+        "alg_120",
+        "alg_123",
+        "alg_126",
+        "alg_21",
+        "alg_25",
+        "alg_26",
+        "alg_31",
+        "alg_35",
+        "alg_41",
+        "alg_58",
+        "alg_60",
+        "alg_63",
+        "alg_67",
+        "alg_69",
+        "alg_7",
+        "alg_74",
+        "alg_84",
+        "alg_90",
+        "alg_95",
+        "alg_98",
+        "alg_99",
+        "hc_1",
+        "hc_13",
+        "hc_19",
+        "hc_2",
+        "hc_25",
+        "hc_30",
+        "hc_48",
+        "hc_49",
+        "hc_58",
+        "hc_6",
+        "hc_9"
+      ],
+      "base_error_rate": 0.14489194499017682,
+      "specs": {
+        "combined_decay_step": {
+          "penalty": 0.3,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.54421768707483,
+            "step_accuracy": 0.272108843537415,
+            "avg_distance": 4.496598639455782,
+            "step_accuracy_tol_1": 0.38095238095238093,
+            "step_accuracy_tol_2": 0.4897959183673469,
+            "step_accuracy_tol_3": 0.5714285714285714,
+            "step_accuracy_tol_4": 0.6870748299319728,
+            "step_accuracy_tol_5": 0.7346938775510204
+          }
+        },
+        "combined_decay_tol5": {
+          "penalty": 0.65,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.564625850340136,
+            "step_accuracy": 0.23129251700680273,
+            "avg_distance": 4.659863945578231,
+            "step_accuracy_tol_1": 0.3741496598639456,
+            "step_accuracy_tol_2": 0.47619047619047616,
+            "step_accuracy_tol_3": 0.54421768707483,
+            "step_accuracy_tol_4": 0.6870748299319728,
+            "step_accuracy_tol_5": 0.7482993197278912
+          }
+        },
+        "risk_decay_step": {
+          "penalty": 0.4,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.6802721088435374,
+            "step_accuracy": 0.32653061224489793,
+            "avg_distance": 4.3061224489795915,
+            "step_accuracy_tol_1": 0.4897959183673469,
+            "step_accuracy_tol_2": 0.5578231292517006,
+            "step_accuracy_tol_3": 0.5986394557823129,
+            "step_accuracy_tol_4": 0.7142857142857143,
+            "step_accuracy_tol_5": 0.7755102040816326
+          }
+        },
+        "who_then_combined_decay_step": {
+          "penalty": 0.3,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5238095238095238,
+            "step_accuracy": 0.25170068027210885,
+            "avg_distance": 4.448979591836735,
+            "step_accuracy_tol_1": 0.36054421768707484,
+            "step_accuracy_tol_2": 0.46938775510204084,
+            "step_accuracy_tol_3": 0.564625850340136,
+            "step_accuracy_tol_4": 0.7006802721088435,
+            "step_accuracy_tol_5": 0.7346938775510204
+          }
+        },
+        "who_then_combined_earliest_step": {
+          "threshold": 2.051666351737058,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5238095238095238,
+            "step_accuracy": 0.272108843537415,
+            "avg_distance": 3.891156462585034,
+            "step_accuracy_tol_1": 0.4557823129251701,
+            "step_accuracy_tol_2": 0.5850340136054422,
+            "step_accuracy_tol_3": 0.6530612244897959,
+            "step_accuracy_tol_4": 0.7346938775510204,
+            "step_accuracy_tol_5": 0.7755102040816326
+          }
+        },
+        "ranker_decay_step": {
+          "penalty": 0.02,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.8571428571428571,
+            "step_accuracy": 0.6530612244897959,
+            "avg_distance": 2.9183673469387754,
+            "step_accuracy_tol_1": 0.6870748299319728,
+            "step_accuracy_tol_2": 0.7346938775510204,
+            "step_accuracy_tol_3": 0.7346938775510204,
+            "step_accuracy_tol_4": 0.8367346938775511,
+            "step_accuracy_tol_5": 0.8503401360544217
+          }
+        },
+        "ranker_decay_tol5": {
+          "penalty": 0.02,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.8571428571428571,
+            "step_accuracy": 0.6530612244897959,
+            "avg_distance": 2.9183673469387754,
+            "step_accuracy_tol_1": 0.6870748299319728,
+            "step_accuracy_tol_2": 0.7346938775510204,
+            "step_accuracy_tol_3": 0.7346938775510204,
+            "step_accuracy_tol_4": 0.8367346938775511,
+            "step_accuracy_tol_5": 0.8503401360544217
+          }
+        },
+        "ranker_earliest_step": {
+          "threshold": 8.45224595553955,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.8503401360544217,
+            "step_accuracy": 0.6394557823129252,
+            "avg_distance": 3.401360544217687,
+            "step_accuracy_tol_1": 0.6802721088435374,
+            "step_accuracy_tol_2": 0.7278911564625851,
+            "step_accuracy_tol_3": 0.7346938775510204,
+            "step_accuracy_tol_4": 0.8367346938775511,
+            "step_accuracy_tol_5": 0.8503401360544217
+          }
+        },
+        "who_then_ranker_decay_step": {
+          "penalty": 0.01,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5238095238095238,
+            "step_accuracy": 0.35374149659863946,
+            "avg_distance": 3.8843537414965987,
+            "step_accuracy_tol_1": 0.46938775510204084,
+            "step_accuracy_tol_2": 0.5782312925170068,
+            "step_accuracy_tol_3": 0.6666666666666666,
+            "step_accuracy_tol_4": 0.7755102040816326,
+            "step_accuracy_tol_5": 0.8027210884353742
+          }
+        },
+        "who_then_ranker_earliest_step": {
+          "threshold": 6.586433811060086,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5238095238095238,
+            "step_accuracy": 0.35374149659863946,
+            "avg_distance": 3.9183673469387754,
+            "step_accuracy_tol_1": 0.46938775510204084,
+            "step_accuracy_tol_2": 0.5782312925170068,
+            "step_accuracy_tol_3": 0.6666666666666666,
+            "step_accuracy_tol_4": 0.7687074829931972,
+            "step_accuracy_tol_5": 0.7959183673469388
+          }
+        }
+      },
+      "ranker_top_weights": [
+        {
+          "feature": "message_len_log",
+          "weight": 4.140621196325058
+        },
+        {
+          "feature": "step_idx_scaled",
+          "weight": -3.639938192425643
+        },
+        {
+          "feature": "risk_log",
+          "weight": 3.031805643269651
+        },
+        {
+          "feature": "agent_action=Orchestrator:code_execute",
+          "weight": 2.4445119245002003
+        },
+        {
+          "feature": "risk_support_log",
+          "weight": 2.441230339175229
+        },
+        {
+          "feature": "risk_x_early",
+          "weight": 1.9014145763643404
+        },
+        {
+          "feature": "new_claim",
+          "weight": 1.651002331653949
+        },
+        {
+          "feature": "low_evidence_quality",
+          "weight": -1.5678253627605407
+        },
+        {
+          "feature": "tool_use",
+          "weight": 1.4208883670882901
+        },
+        {
+          "feature": "agent_action=DataVerification_Expert:code_execute",
+          "weight": -1.3530483064713343
+        },
+        {
+          "feature": "combined_score",
+          "weight": 1.2974000175938394
+        },
+        {
+          "feature": "agent_action=Corporate_Governance_Expert:termination",
+          "weight": 1.2553186775819878
+        },
+        {
+          "feature": "prev_state=DataVerification_Expert:1",
+          "weight": -1.2304134391911234
+        },
+        {
+          "feature": "state=Verification_Expert:0",
+          "weight": -1.1537011036055798
+        },
+        {
+          "feature": "agent_action=Assistant:answer",
+          "weight": 1.103489711082367
+        },
+        {
+          "feature": "agent_action=FileSurfer:other",
+          "weight": 1.0537059050031532
+        },
+        {
+          "feature": "state=WebSurfer:1",
+          "weight": -1.0469851173842324
+        },
+        {
+          "feature": "agent_action=Statistics_Expert:plan",
+          "weight": 1.0370464589254555
+        },
+        {
+          "feature": "agent_action=Validation_Expert:termination",
+          "weight": 1.0254536084096026
+        },
+        {
+          "feature": "prev_state=DataAnalysis_Expert:1",
+          "weight": 1.024658258714765
+        },
+        {
+          "feature": "agent_action=Verification_Expert:delegate",
+          "weight": 1.0190037911338146
+        },
+        {
+          "feature": "prev_state=Orchestrator:-1",
+          "weight": -1.005948859402661
+        },
+        {
+          "feature": "action_type=file_read",
+          "weight": -0.991968375236485
+        },
+        {
+          "feature": "agent_action=Orchestrator:web_search",
+          "weight": -0.9846331941318921
+        },
+        {
+          "feature": "action_type=web_browse",
+          "weight": -0.976938460181617
+        },
+        {
+          "feature": "agent_name=ComputerTerminal",
+          "weight": -0.9735237117255245
+        },
+        {
+          "feature": "agent_action=WebSurfer:tool_result",
+          "weight": 0.9387934499849386
+        },
+        {
+          "feature": "state=Verification_Expert:1",
+          "weight": 0.9333757192931358
+        },
+        {
+          "feature": "prev_state=DataVerification_Expert:-1",
+          "weight": 0.9208437557566687
+        },
+        {
+          "feature": "low_evidence_x_early",
+          "weight": 0.9204611228809861
+        }
+      ],
+      "state_models": {
+        "API_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Accessibility_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "AlgorithmDesign_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Ali_Khan_Shows_and_New_Mexican_Cuisine_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "AlligatorBiology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "AnimalBehavior_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "AquaticEcosystems_InvasiveSpecies_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "ArithmeticProgressions_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "ArtHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Art_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Assistant": {
+          "selected_k": 6,
+          "reason": "best_available_below_theta",
+          "num_samples": 32
+        },
+        "AudioProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Baseball_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Baseball_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Behavioral_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "BenAndJerrysFlavors_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "BiblicalScholar_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "BingAPI_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Bioinformatics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "BirdSpeciesIdentification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Blu-Ray_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Boggle_Board_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Budgeting_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "BusinessLogic_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "CSVProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "CelestialPhysics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Chinese_Zodiac_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Church_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ClinicalTrials_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Clinical_Trial_Data_Analysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "ComputerTerminal": {
+          "selected_k": 3,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 249
+        },
+        "Corporate_Governance_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Cubing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Culinary_Awards_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Culinary_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "DOI_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "DataAnalysis_Expert": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 23
+        },
+        "DataCollection_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "DataExtraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 9
+        },
+        "DataManipulation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "DataValidation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "DataVerification_Expert": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 35
+        },
+        "Data_Analysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Data_Collection_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Data_Extraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Data_Retrieval_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Database_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "DebuggingOptimization_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "DebuggingTesting_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Debugging_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Debugging_Problem_Solving_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "DemographicData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Dictionary_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "DoctorWhoScript_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Eateries_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Environment_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Excel_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Fashion_Vogue_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "FileSurfer": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 33
+        },
+        "FilmCritic_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Filmography_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "FinancialData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Financial_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Fitness_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "GIS_DataAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "GameTheory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Gaming_Awards_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Genomics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Geography_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Geometry_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "GraphicDesign_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Grocery_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "HawaiiRealEstate_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "HistoricalWeatherData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "IMDB_Ratings_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "ISBNCheckDigit_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "ImageProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "InformationExtraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "InformationVerification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "JSON_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "JamesBondFilms_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Latin_American_Music_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Library_Database_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Literary_Analysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Literature_Expert": {
+          "selected_k": 2,
+          "reason": "best_available_below_theta",
+          "num_samples": 10
+        },
+        "Local_Knowledge_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Location-Based_Services_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Locomotive_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "LogicExpert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MBTA_FranciscoFoxboroLine_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Marathon_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MarineBiology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "MarioKart8Deluxe_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MartialArts_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "MathAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "MenuAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Mesopotamian_Number_Systems_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 6
+        },
+        "MiddleEasternHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MilitaryHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MovieProp_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "MusicHistorian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Music_Critic_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "NYC_Local_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Narration_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "NaturalLanguageProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Neurology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "NorseMythology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "NumericalAlgorithms_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "NumericalMethods_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Orchestrator": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 1819
+        },
+        "Ornithology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Poetry_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "PolishLanguage_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Polish_TV_Series_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "PopulationData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "ProbabilityTheory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "ProblemSolving_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "PublicationData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "PythonDebugging_Expert": {
+          "selected_k": 3,
+          "reason": "best_available_below_theta",
+          "num_samples": 19
+        },
+        "PythonProgramming_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Python_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Python_Programmer_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "RealEstateMarket_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "RecyclingRate_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "ResearchFunding_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Research_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 9
+        },
+        "ResultVerification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Scientific_Verification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "SpeciesSightingsData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "SportsHistorian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "StatisticalAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Statistics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 8
+        },
+        "StreamingAvailability_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "TextExtraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Tickets_Pricing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "TranscriptionVerification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "UnitTesting_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "VSCode_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Validation_Expert": {
+          "selected_k": 3,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 43
+        },
+        "VerificationExpert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 7
+        },
+        "Verification_Expert": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 89
+        },
+        "VideoAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "VideoContentAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "VideoProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Video_Analyst_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "WaybackMachine_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "WeatherData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "WebDevelopment_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "WebServing_Expert": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 35
+        },
+        "WebSurfer": {
+          "selected_k": 4,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 449
+        },
+        "Web_Design_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 6
+        },
+        "Whitney_Collection_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "WikipediaHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Wikipedia_Editor_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "YouTubeDownload_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        }
+      }
+    },
+    {
+      "fold": 3,
+      "train_logs": [
+        "alg_1",
+        "alg_10",
+        "alg_100",
+        "alg_102",
+        "alg_103",
+        "alg_104",
+        "alg_105",
+        "alg_106",
+        "alg_107",
+        "alg_109",
+        "alg_11",
+        "alg_111",
+        "alg_113",
+        "alg_114",
+        "alg_115",
+        "alg_116",
+        "alg_118",
+        "alg_119",
+        "alg_120",
+        "alg_121",
+        "alg_122",
+        "alg_123",
+        "alg_124",
+        "alg_125",
+        "alg_126",
+        "alg_13",
+        "alg_14",
+        "alg_15",
+        "alg_16",
+        "alg_17",
+        "alg_18",
+        "alg_19",
+        "alg_2",
+        "alg_20",
+        "alg_21",
+        "alg_23",
+        "alg_25",
+        "alg_26",
+        "alg_27",
+        "alg_28",
+        "alg_31",
+        "alg_33",
+        "alg_34",
+        "alg_35",
+        "alg_36",
+        "alg_37",
+        "alg_38",
+        "alg_4",
+        "alg_40",
+        "alg_41",
+        "alg_42",
+        "alg_44",
+        "alg_45",
+        "alg_46",
+        "alg_47",
+        "alg_49",
+        "alg_5",
+        "alg_50",
+        "alg_52",
+        "alg_53",
+        "alg_55",
+        "alg_57",
+        "alg_58",
+        "alg_59",
+        "alg_6",
+        "alg_60",
+        "alg_61",
+        "alg_63",
+        "alg_64",
+        "alg_65",
+        "alg_67",
+        "alg_68",
+        "alg_69",
+        "alg_7",
+        "alg_71",
+        "alg_73",
+        "alg_74",
+        "alg_75",
+        "alg_78",
+        "alg_79",
+        "alg_80",
+        "alg_81",
+        "alg_82",
+        "alg_84",
+        "alg_86",
+        "alg_87",
+        "alg_88",
+        "alg_89",
+        "alg_9",
+        "alg_90",
+        "alg_91",
+        "alg_92",
+        "alg_93",
+        "alg_94",
+        "alg_95",
+        "alg_97",
+        "alg_98",
+        "alg_99",
+        "hc_1",
+        "hc_10",
+        "hc_11",
+        "hc_13",
+        "hc_14",
+        "hc_15",
+        "hc_16",
+        "hc_17",
+        "hc_18",
+        "hc_19",
+        "hc_2",
+        "hc_21",
+        "hc_22",
+        "hc_24",
+        "hc_25",
+        "hc_26",
+        "hc_28",
+        "hc_29",
+        "hc_3",
+        "hc_30",
+        "hc_31",
+        "hc_32",
+        "hc_33",
+        "hc_34",
+        "hc_35",
+        "hc_36",
+        "hc_37",
+        "hc_38",
+        "hc_39",
+        "hc_4",
+        "hc_40",
+        "hc_41",
+        "hc_42",
+        "hc_43",
+        "hc_45",
+        "hc_46",
+        "hc_47",
+        "hc_48",
+        "hc_49",
+        "hc_5",
+        "hc_51",
+        "hc_52",
+        "hc_53",
+        "hc_54",
+        "hc_57",
+        "hc_58",
+        "hc_6",
+        "hc_8",
+        "hc_9"
+      ],
+      "test_logs": [
+        "alg_101",
+        "alg_108",
+        "alg_110",
+        "alg_112",
+        "alg_117",
+        "alg_12",
+        "alg_22",
+        "alg_24",
+        "alg_29",
+        "alg_3",
+        "alg_30",
+        "alg_32",
+        "alg_39",
+        "alg_43",
+        "alg_48",
+        "alg_51",
+        "alg_54",
+        "alg_56",
+        "alg_62",
+        "alg_66",
+        "alg_70",
+        "alg_72",
+        "alg_76",
+        "alg_77",
+        "alg_8",
+        "alg_83",
+        "alg_85",
+        "alg_96",
+        "hc_12",
+        "hc_20",
+        "hc_23",
+        "hc_27",
+        "hc_44",
+        "hc_50",
+        "hc_55",
+        "hc_56",
+        "hc_7"
+      ],
+      "base_error_rate": 0.12628424657534246,
+      "specs": {
+        "combined_decay_step": {
+          "penalty": 0.2,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.48299319727891155,
+            "step_accuracy": 0.25170068027210885,
+            "avg_distance": 5.129251700680272,
+            "step_accuracy_tol_1": 0.3401360544217687,
+            "step_accuracy_tol_2": 0.42857142857142855,
+            "step_accuracy_tol_3": 0.5374149659863946,
+            "step_accuracy_tol_4": 0.6938775510204082,
+            "step_accuracy_tol_5": 0.7482993197278912
+          }
+        },
+        "combined_decay_tol5": {
+          "penalty": 0.2,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.48299319727891155,
+            "step_accuracy": 0.25170068027210885,
+            "avg_distance": 5.129251700680272,
+            "step_accuracy_tol_1": 0.3401360544217687,
+            "step_accuracy_tol_2": 0.42857142857142855,
+            "step_accuracy_tol_3": 0.5374149659863946,
+            "step_accuracy_tol_4": 0.6938775510204082,
+            "step_accuracy_tol_5": 0.7482993197278912
+          }
+        },
+        "risk_decay_step": {
+          "penalty": 0.125,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5782312925170068,
+            "step_accuracy": 0.3333333333333333,
+            "avg_distance": 4.659863945578231,
+            "step_accuracy_tol_1": 0.46938775510204084,
+            "step_accuracy_tol_2": 0.5782312925170068,
+            "step_accuracy_tol_3": 0.6258503401360545,
+            "step_accuracy_tol_4": 0.7551020408163265,
+            "step_accuracy_tol_5": 0.782312925170068
+          }
+        },
+        "who_then_combined_decay_step": {
+          "penalty": 0.25,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5238095238095238,
+            "step_accuracy": 0.25170068027210885,
+            "avg_distance": 5.2312925170068025,
+            "step_accuracy_tol_1": 0.3469387755102041,
+            "step_accuracy_tol_2": 0.42857142857142855,
+            "step_accuracy_tol_3": 0.5374149659863946,
+            "step_accuracy_tol_4": 0.673469387755102,
+            "step_accuracy_tol_5": 0.7346938775510204
+          }
+        },
+        "who_then_combined_earliest_step": {
+          "threshold": 7.105654699941072,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5238095238095238,
+            "step_accuracy": 0.2789115646258503,
+            "avg_distance": 5.387755102040816,
+            "step_accuracy_tol_1": 0.3741496598639456,
+            "step_accuracy_tol_2": 0.43537414965986393,
+            "step_accuracy_tol_3": 0.54421768707483,
+            "step_accuracy_tol_4": 0.6802721088435374,
+            "step_accuracy_tol_5": 0.7278911564625851
+          }
+        },
+        "ranker_decay_step": {
+          "penalty": 0.03,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.8163265306122449,
+            "step_accuracy": 0.7006802721088435,
+            "avg_distance": 2.9863945578231292,
+            "step_accuracy_tol_1": 0.7142857142857143,
+            "step_accuracy_tol_2": 0.7414965986394558,
+            "step_accuracy_tol_3": 0.782312925170068,
+            "step_accuracy_tol_4": 0.8503401360544217,
+            "step_accuracy_tol_5": 0.8571428571428571
+          }
+        },
+        "ranker_decay_tol5": {
+          "penalty": 0.03,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.8163265306122449,
+            "step_accuracy": 0.7006802721088435,
+            "avg_distance": 2.9863945578231292,
+            "step_accuracy_tol_1": 0.7142857142857143,
+            "step_accuracy_tol_2": 0.7414965986394558,
+            "step_accuracy_tol_3": 0.782312925170068,
+            "step_accuracy_tol_4": 0.8503401360544217,
+            "step_accuracy_tol_5": 0.8571428571428571
+          }
+        },
+        "ranker_earliest_step": {
+          "threshold": 5.919529725217456,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.8095238095238095,
+            "step_accuracy": 0.6802721088435374,
+            "avg_distance": 3.8503401360544216,
+            "step_accuracy_tol_1": 0.6938775510204082,
+            "step_accuracy_tol_2": 0.7210884353741497,
+            "step_accuracy_tol_3": 0.7619047619047619,
+            "step_accuracy_tol_4": 0.8299319727891157,
+            "step_accuracy_tol_5": 0.8367346938775511
+          }
+        },
+        "who_then_ranker_decay_step": {
+          "penalty": 0.03,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5238095238095238,
+            "step_accuracy": 0.4013605442176871,
+            "avg_distance": 4.0476190476190474,
+            "step_accuracy_tol_1": 0.5034013605442177,
+            "step_accuracy_tol_2": 0.5918367346938775,
+            "step_accuracy_tol_3": 0.6802721088435374,
+            "step_accuracy_tol_4": 0.7687074829931972,
+            "step_accuracy_tol_5": 0.8163265306122449
+          }
+        },
+        "who_then_ranker_earliest_step": {
+          "threshold": 5.335922458406382,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5238095238095238,
+            "step_accuracy": 0.3945578231292517,
+            "avg_distance": 5.517006802721088,
+            "step_accuracy_tol_1": 0.5102040816326531,
+            "step_accuracy_tol_2": 0.5986394557823129,
+            "step_accuracy_tol_3": 0.6870748299319728,
+            "step_accuracy_tol_4": 0.7551020408163265,
+            "step_accuracy_tol_5": 0.8027210884353742
+          }
+        }
+      },
+      "ranker_top_weights": [
+        {
+          "feature": "step_idx_scaled",
+          "weight": -3.571322399722788
+        },
+        {
+          "feature": "risk_support_log",
+          "weight": 2.9691947042877045
+        },
+        {
+          "feature": "risk_log",
+          "weight": 2.7289602716980776
+        },
+        {
+          "feature": "message_len_log",
+          "weight": 2.299742273347977
+        },
+        {
+          "feature": "agent_action=Orchestrator:code_execute",
+          "weight": 1.97463127643181
+        },
+        {
+          "feature": "low_evidence_quality",
+          "weight": -1.8342402694120217
+        },
+        {
+          "feature": "combined_score",
+          "weight": 1.7125841202037178
+        },
+        {
+          "feature": "new_claim",
+          "weight": 1.5587661251113154
+        },
+        {
+          "feature": "agent_action=Orchestrator:termination",
+          "weight": 1.480843193980665
+        },
+        {
+          "feature": "agent_action=Orchestrator:web_search",
+          "weight": -1.3597025825192675
+        },
+        {
+          "feature": "prev_state=Verification_Expert:5",
+          "weight": 1.240313920334863
+        },
+        {
+          "feature": "prev_state=Validation_Expert:0",
+          "weight": 1.2358112590942936
+        },
+        {
+          "feature": "agent_name=ComputerTerminal",
+          "weight": -1.2255002751664328
+        },
+        {
+          "feature": "agent_action=FileSurfer:other",
+          "weight": 1.1492554457581037
+        },
+        {
+          "feature": "prev_state=Verification_Expert:2",
+          "weight": 1.1434503827799638
+        },
+        {
+          "feature": "agent_early=ComputerTerminal:early1",
+          "weight": -1.110713499851121
+        },
+        {
+          "feature": "prev_state=WebSurfer:1",
+          "weight": 1.1065490339247583
+        },
+        {
+          "feature": "action_type=web_browse",
+          "weight": -1.0977605436584252
+        },
+        {
+          "feature": "early_exp8",
+          "weight": -1.0738910684614982
+        },
+        {
+          "feature": "state=Assistant:0",
+          "weight": 1.0531076047697963
+        },
+        {
+          "feature": "prev_state=Orchestrator:-1",
+          "weight": -1.0434008934058088
+        },
+        {
+          "feature": "risk_source=transition",
+          "weight": 1.0296393162173352
+        },
+        {
+          "feature": "state=Verification_Expert:0",
+          "weight": 0.9724961453381408
+        },
+        {
+          "feature": "prev_state=Assistant:-1",
+          "weight": 0.9440044261533239
+        },
+        {
+          "feature": "agent_early=FileSurfer:early1",
+          "weight": 0.9433481714738033
+        },
+        {
+          "feature": "state=FileSurfer:0",
+          "weight": 0.9275677322132259
+        },
+        {
+          "feature": "prev_state=FileSurfer:1",
+          "weight": 0.9248398472232706
+        },
+        {
+          "feature": "tool_use",
+          "weight": 0.9053857304105981
+        },
+        {
+          "feature": "prev_state=DataVerification_Expert:1",
+          "weight": -0.9023351118592557
+        },
+        {
+          "feature": "prev_state=Validation_Expert:1",
+          "weight": -0.8969320326253767
+        }
+      ],
+      "state_models": {
+        "AcademicPublication_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Accessibility_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "AlgorithmDesign_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Ali_Khan_Shows_and_New_Mexican_Cuisine_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "AnalyticalReasoning_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "AnimalBehavior_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "ArithmeticProgressions_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "ArtHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Art_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Art_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Assistant": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 34
+        },
+        "Baseball_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Behavioral_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "BingAPI_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Bioinformatics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "BirdSpeciesIdentification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Blu-Ray_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Boggle_Board_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "BusinessLogic_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "CSVProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "CelestialPhysics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ChessRules_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Chess_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Chinese_Political_History_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Chinese_Zodiac_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Church_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ComputerTerminal": {
+          "selected_k": 3,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 242
+        },
+        "CorporateHistory_IPOs_MondayCom_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Cubing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Culinary_Awards_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "DOI_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "DataAnalysis_Expert": {
+          "selected_k": 2,
+          "reason": "best_available_below_theta",
+          "num_samples": 23
+        },
+        "DataExtraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 9
+        },
+        "DataManipulation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "DataValidation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "DataVerification_Expert": {
+          "selected_k": 5,
+          "reason": "best_available_below_theta",
+          "num_samples": 28
+        },
+        "Data_Analysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Data_Collection_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Data_Extraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "DebuggingOptimization_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "DebuggingTesting_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Debugging_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Debugging_Problem_Solving_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "DemographicData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Dictionary_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "DoctorWhoScript_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Eateries_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Environment_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Excel_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Fashion_Vogue_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Federico_Lauria_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 7
+        },
+        "FileSurfer": {
+          "selected_k": 5,
+          "reason": "best_available_below_theta",
+          "num_samples": 28
+        },
+        "FilmCritic_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Filmography_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "FinancialData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Financial_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Fitness_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Food_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "GameTheory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Gaming_Awards_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Genomics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Geography_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Geometry_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Geospatial_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "GraphicDesign_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Grocery_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "HawaiiRealEstate_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Hiking_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "IMDB_Ratings_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "ISBNCheckDigit_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "ImageProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "InformationExtraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "InformationVerification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "JSON_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "JamesBondFilms_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Karting_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Latin_American_Music_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Library_Database_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Linguistics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Literary_Analysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Literature_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 7
+        },
+        "LocalHistorian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Local_Knowledge_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Location-Based_Services_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Locomotive_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "LogicExpert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Lyrics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Marathon_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MarineBiology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "MarineLifeData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MarioKart8Deluxe_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MartialArts_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "MathAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "MenuAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "MerriamWebsterWordOfTheDay_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Mesopotamian_Number_Systems_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 6
+        },
+        "MilitaryHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ModelEvaluation_Interpretation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "MovieProp_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Movie_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MusicHistorian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "MusicTheory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Music_Critic_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "NYC_Local_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Narration_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "NaturalLanguageProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Neurology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "NorseMythology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "NumericalAlgorithms_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "NumericalAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "NumericalMethods_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "OpenCV_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Orchestrator": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 1788
+        },
+        "Ornithology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Paintball_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Physics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Poetry_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "PolishLanguage_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Polish_TV_Series_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "ProbabilityTheory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Probability_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ProblemSolving_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "PublicationAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "PublicationData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "PythonDebugging_Expert": {
+          "selected_k": 2,
+          "reason": "best_available_below_theta",
+          "num_samples": 11
+        },
+        "PythonProgramming_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Python_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Python_Programmer_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Python_ScikitLearn_StatisticalAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Quotation_Specialist": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "RealEstateMarket_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "RealEstate_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "RealityTV_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "ResearchFunding_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Research_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 6
+        },
+        "Reviews_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ScientificPaperAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 6
+        },
+        "Statistics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 7
+        },
+        "StreamingAvailability_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "StreamingService_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "TextExtraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "TheoreticalChemistry_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Ticket_Pricing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "TizinGrammar_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Tizin_Translation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "VSCode_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Validation_Expert": {
+          "selected_k": 4,
+          "reason": "best_available_below_theta",
+          "num_samples": 23
+        },
+        "Vegan_Food_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "VerificationExpert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 8
+        },
+        "Verification_Expert": {
+          "selected_k": 15,
+          "reason": "best_available_below_theta",
+          "num_samples": 106
+        },
+        "VideoAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "VideoContentAnalysis_Expert": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 12
+        },
+        "Video_Analyst_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "WaybackMachine_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "WeatherData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "WebDevelopment_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "WebServing_Expert": {
+          "selected_k": 6,
+          "reason": "best_available_below_theta",
+          "num_samples": 34
+        },
+        "WebSurfer": {
+          "selected_k": 4,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 441
+        },
+        "Web_Design_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 6
+        },
+        "Whitney_Collection_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "WikipediaHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Wikipedia_Editor_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "WomenInComputerScienceHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        }
+      }
+    },
+    {
+      "fold": 4,
+      "train_logs": [
+        "alg_100",
+        "alg_101",
+        "alg_102",
+        "alg_103",
+        "alg_105",
+        "alg_106",
+        "alg_107",
+        "alg_108",
+        "alg_110",
+        "alg_112",
+        "alg_113",
+        "alg_115",
+        "alg_116",
+        "alg_117",
+        "alg_118",
+        "alg_119",
+        "alg_12",
+        "alg_120",
+        "alg_121",
+        "alg_122",
+        "alg_123",
+        "alg_125",
+        "alg_126",
+        "alg_13",
+        "alg_14",
+        "alg_15",
+        "alg_18",
+        "alg_19",
+        "alg_20",
+        "alg_21",
+        "alg_22",
+        "alg_24",
+        "alg_25",
+        "alg_26",
+        "alg_28",
+        "alg_29",
+        "alg_3",
+        "alg_30",
+        "alg_31",
+        "alg_32",
+        "alg_34",
+        "alg_35",
+        "alg_36",
+        "alg_38",
+        "alg_39",
+        "alg_4",
+        "alg_40",
+        "alg_41",
+        "alg_42",
+        "alg_43",
+        "alg_45",
+        "alg_46",
+        "alg_48",
+        "alg_49",
+        "alg_5",
+        "alg_50",
+        "alg_51",
+        "alg_52",
+        "alg_54",
+        "alg_55",
+        "alg_56",
+        "alg_57",
+        "alg_58",
+        "alg_59",
+        "alg_6",
+        "alg_60",
+        "alg_62",
+        "alg_63",
+        "alg_64",
+        "alg_65",
+        "alg_66",
+        "alg_67",
+        "alg_69",
+        "alg_7",
+        "alg_70",
+        "alg_71",
+        "alg_72",
+        "alg_73",
+        "alg_74",
+        "alg_75",
+        "alg_76",
+        "alg_77",
+        "alg_79",
+        "alg_8",
+        "alg_81",
+        "alg_82",
+        "alg_83",
+        "alg_84",
+        "alg_85",
+        "alg_86",
+        "alg_87",
+        "alg_88",
+        "alg_9",
+        "alg_90",
+        "alg_91",
+        "alg_92",
+        "alg_95",
+        "alg_96",
+        "alg_97",
+        "alg_98",
+        "alg_99",
+        "hc_1",
+        "hc_10",
+        "hc_12",
+        "hc_13",
+        "hc_14",
+        "hc_17",
+        "hc_19",
+        "hc_2",
+        "hc_20",
+        "hc_21",
+        "hc_22",
+        "hc_23",
+        "hc_24",
+        "hc_25",
+        "hc_27",
+        "hc_28",
+        "hc_29",
+        "hc_3",
+        "hc_30",
+        "hc_31",
+        "hc_32",
+        "hc_33",
+        "hc_36",
+        "hc_37",
+        "hc_40",
+        "hc_42",
+        "hc_43",
+        "hc_44",
+        "hc_45",
+        "hc_46",
+        "hc_47",
+        "hc_48",
+        "hc_49",
+        "hc_5",
+        "hc_50",
+        "hc_51",
+        "hc_52",
+        "hc_53",
+        "hc_54",
+        "hc_55",
+        "hc_56",
+        "hc_57",
+        "hc_58",
+        "hc_6",
+        "hc_7",
+        "hc_9"
+      ],
+      "test_logs": [
+        "alg_1",
+        "alg_10",
+        "alg_104",
+        "alg_109",
+        "alg_11",
+        "alg_111",
+        "alg_114",
+        "alg_124",
+        "alg_16",
+        "alg_17",
+        "alg_2",
+        "alg_23",
+        "alg_27",
+        "alg_33",
+        "alg_37",
+        "alg_44",
+        "alg_47",
+        "alg_53",
+        "alg_61",
+        "alg_68",
+        "alg_78",
+        "alg_80",
+        "alg_89",
+        "alg_93",
+        "alg_94",
+        "hc_11",
+        "hc_15",
+        "hc_16",
+        "hc_18",
+        "hc_26",
+        "hc_34",
+        "hc_35",
+        "hc_38",
+        "hc_39",
+        "hc_4",
+        "hc_41",
+        "hc_8"
+      ],
+      "base_error_rate": 0.1338475499092559,
+      "specs": {
+        "combined_decay_step": {
+          "penalty": 0.1,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5374149659863946,
+            "step_accuracy": 0.3129251700680272,
+            "avg_distance": 5.619047619047619,
+            "step_accuracy_tol_1": 0.40816326530612246,
+            "step_accuracy_tol_2": 0.5510204081632653,
+            "step_accuracy_tol_3": 0.6190476190476191,
+            "step_accuracy_tol_4": 0.7210884353741497,
+            "step_accuracy_tol_5": 0.7551020408163265
+          }
+        },
+        "combined_decay_tol5": {
+          "penalty": 0.5,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5714285714285714,
+            "step_accuracy": 0.2925170068027211,
+            "avg_distance": 4.8231292517006805,
+            "step_accuracy_tol_1": 0.4217687074829932,
+            "step_accuracy_tol_2": 0.5578231292517006,
+            "step_accuracy_tol_3": 0.6258503401360545,
+            "step_accuracy_tol_4": 0.7210884353741497,
+            "step_accuracy_tol_5": 0.7687074829931972
+          }
+        },
+        "risk_decay_step": {
+          "penalty": 0.25,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.6530612244897959,
+            "step_accuracy": 0.3197278911564626,
+            "avg_distance": 4.6938775510204085,
+            "step_accuracy_tol_1": 0.47619047619047616,
+            "step_accuracy_tol_2": 0.5714285714285714,
+            "step_accuracy_tol_3": 0.6530612244897959,
+            "step_accuracy_tol_4": 0.7482993197278912,
+            "step_accuracy_tol_5": 0.7891156462585034
+          }
+        },
+        "who_then_combined_decay_step": {
+          "penalty": 0.4,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5578231292517006,
+            "step_accuracy": 0.3197278911564626,
+            "avg_distance": 4.857142857142857,
+            "step_accuracy_tol_1": 0.40816326530612246,
+            "step_accuracy_tol_2": 0.54421768707483,
+            "step_accuracy_tol_3": 0.6258503401360545,
+            "step_accuracy_tol_4": 0.7142857142857143,
+            "step_accuracy_tol_5": 0.7551020408163265
+          }
+        },
+        "who_then_combined_earliest_step": {
+          "threshold": 6.0,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5578231292517006,
+            "step_accuracy": 0.3401360544217687,
+            "avg_distance": 4.312925170068027,
+            "step_accuracy_tol_1": 0.4217687074829932,
+            "step_accuracy_tol_2": 0.5578231292517006,
+            "step_accuracy_tol_3": 0.6326530612244898,
+            "step_accuracy_tol_4": 0.7210884353741497,
+            "step_accuracy_tol_5": 0.7687074829931972
+          }
+        },
+        "ranker_decay_step": {
+          "penalty": 0.0,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.8231292517006803,
+            "step_accuracy": 0.6666666666666666,
+            "avg_distance": 3.163265306122449,
+            "step_accuracy_tol_1": 0.7278911564625851,
+            "step_accuracy_tol_2": 0.7755102040816326,
+            "step_accuracy_tol_3": 0.7959183673469388,
+            "step_accuracy_tol_4": 0.8367346938775511,
+            "step_accuracy_tol_5": 0.8435374149659864
+          }
+        },
+        "ranker_decay_tol5": {
+          "penalty": 0.01,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.8231292517006803,
+            "step_accuracy": 0.6598639455782312,
+            "avg_distance": 3.061224489795918,
+            "step_accuracy_tol_1": 0.7210884353741497,
+            "step_accuracy_tol_2": 0.7687074829931972,
+            "step_accuracy_tol_3": 0.7891156462585034,
+            "step_accuracy_tol_4": 0.8367346938775511,
+            "step_accuracy_tol_5": 0.8503401360544217
+          }
+        },
+        "ranker_earliest_step": {
+          "threshold": 7.664075231570444,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.8299319727891157,
+            "step_accuracy": 0.6666666666666666,
+            "avg_distance": 3.142857142857143,
+            "step_accuracy_tol_1": 0.7278911564625851,
+            "step_accuracy_tol_2": 0.7755102040816326,
+            "step_accuracy_tol_3": 0.7959183673469388,
+            "step_accuracy_tol_4": 0.8435374149659864,
+            "step_accuracy_tol_5": 0.8503401360544217
+          }
+        },
+        "who_then_ranker_decay_step": {
+          "penalty": 0.0,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5578231292517006,
+            "step_accuracy": 0.41496598639455784,
+            "avg_distance": 4.27891156462585,
+            "step_accuracy_tol_1": 0.5374149659863946,
+            "step_accuracy_tol_2": 0.6666666666666666,
+            "step_accuracy_tol_3": 0.7074829931972789,
+            "step_accuracy_tol_4": 0.7891156462585034,
+            "step_accuracy_tol_5": 0.8095238095238095
+          }
+        },
+        "who_then_ranker_earliest_step": {
+          "threshold": 7.455171264986881,
+          "metrics": {
+            "n": 147,
+            "agent_accuracy": 0.5578231292517006,
+            "step_accuracy": 0.41496598639455784,
+            "avg_distance": 4.27891156462585,
+            "step_accuracy_tol_1": 0.5374149659863946,
+            "step_accuracy_tol_2": 0.6666666666666666,
+            "step_accuracy_tol_3": 0.7074829931972789,
+            "step_accuracy_tol_4": 0.7891156462585034,
+            "step_accuracy_tol_5": 0.8095238095238095
+          }
+        }
+      },
+      "ranker_top_weights": [
+        {
+          "feature": "risk_log",
+          "weight": 3.8585115724491286
+        },
+        {
+          "feature": "message_len_log",
+          "weight": 3.648736813145277
+        },
+        {
+          "feature": "risk_support_log",
+          "weight": 2.922775738549598
+        },
+        {
+          "feature": "agent_action=Orchestrator:code_execute",
+          "weight": 2.270343272770686
+        },
+        {
+          "feature": "step_idx_scaled",
+          "weight": -2.221692425779229
+        },
+        {
+          "feature": "combined_score",
+          "weight": 2.183391291499036
+        },
+        {
+          "feature": "agent_action=Orchestrator:termination",
+          "weight": 1.9204677863439676
+        },
+        {
+          "feature": "state=Orchestrator:1",
+          "weight": 1.543646536649401
+        },
+        {
+          "feature": "state=WebSurfer:0",
+          "weight": 1.3367161755990957
+        },
+        {
+          "feature": "state=WebSurfer:1",
+          "weight": -1.3298139080190374
+        },
+        {
+          "feature": "agent_action=Federico_Lauria_Expert:other",
+          "weight": 1.2352922126012533
+        },
+        {
+          "feature": "low_task_alignment",
+          "weight": -1.2113074656449145
+        },
+        {
+          "feature": "agent_action=Assistant:plan",
+          "weight": 1.2102681423811157
+        },
+        {
+          "feature": "prev_state=WebServing_Expert:2",
+          "weight": 1.164850055269747
+        },
+        {
+          "feature": "state=Assistant:1",
+          "weight": 1.1459545871820105
+        },
+        {
+          "feature": "agent_early=FileSurfer:early0",
+          "weight": -1.129039035927506
+        },
+        {
+          "feature": "state=Verification_Expert:2",
+          "weight": -1.097264131433915
+        },
+        {
+          "feature": "is_first_8_steps",
+          "weight": -1.061905682152779
+        },
+        {
+          "feature": "action_type=web_browse",
+          "weight": -1.0596684235837917
+        },
+        {
+          "feature": "low_evidence_quality",
+          "weight": -1.004180358725292
+        },
+        {
+          "feature": "state=Orchestrator:0",
+          "weight": -0.9888638490356694
+        },
+        {
+          "feature": "prev_state=PythonDebugging_Expert:-1",
+          "weight": 0.9849705416661028
+        },
+        {
+          "feature": "risk_source=agent",
+          "weight": -0.9788809974155768
+        },
+        {
+          "feature": "agent_action=DataVerification_Expert:code_execute",
+          "weight": -0.971562092727985
+        },
+        {
+          "feature": "agent_action=MusicTheory_Expert:delegate",
+          "weight": 0.9522233379512793
+        },
+        {
+          "feature": "agent_action=Orchestrator:delegate",
+          "weight": -0.9390175285397103
+        },
+        {
+          "feature": "tool_error",
+          "weight": 0.923098636226096
+        },
+        {
+          "feature": "prev_state=Orchestrator:0",
+          "weight": 0.9092965096629239
+        },
+        {
+          "feature": "prev_state=Assistant:-1",
+          "weight": 0.8848393722373561
+        },
+        {
+          "feature": "agent_name=ComputerTerminal",
+          "weight": -0.8758437272735007
+        }
+      ],
+      "state_models": {
+        "API_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "AcademicPublication_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Accessibility_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "AlgorithmDesign_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Ali_Khan_Shows_and_New_Mexican_Cuisine_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "AlligatorBiology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "AnalyticalReasoning_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "AquaticEcosystems_InvasiveSpecies_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "ArithmeticProgressions_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "ArtHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Art_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Assistant": {
+          "selected_k": 6,
+          "reason": "best_available_below_theta",
+          "num_samples": 30
+        },
+        "AudioProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Baseball_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Behavioral_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "BenAndJerrysFlavors_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "BiblicalScholar_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "BingAPI_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Bioinformatics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Blu-Ray_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Boggle_Board_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Budgeting_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "CSVProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "CelestialPhysics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ChessRules_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Chess_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Chinese_Political_History_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Chinese_Zodiac_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "ClinicalTrials_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Clinical_Trial_Data_Analysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "ComputerTerminal": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 250
+        },
+        "CorporateHistory_IPOs_MondayCom_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Corporate_Governance_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Culinary_Awards_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Culinary_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "DataAnalysis_Expert": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 18
+        },
+        "DataCollection_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "DataExtraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 9
+        },
+        "DataManipulation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "DataValidation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "DataVerification_Expert": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 29
+        },
+        "Data_Analysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Data_Collection_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Data_Retrieval_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Database_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "DebuggingTesting_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Debugging_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Debugging_Problem_Solving_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "DemographicData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Dictionary_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "DoctorWhoScript_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Eateries_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Excel_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Fashion_Vogue_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Federico_Lauria_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 7
+        },
+        "FileSurfer": {
+          "selected_k": 5,
+          "reason": "best_available_below_theta",
+          "num_samples": 27
+        },
+        "Filmography_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "FinancialData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Financial_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Fitness_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Food_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "GIS_DataAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "GameTheory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Gaming_Awards_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Genomics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Geography_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Geometry_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Geospatial_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "HawaiiRealEstate_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Hiking_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "HistoricalWeatherData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "IMDB_Ratings_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "ISBNCheckDigit_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "ImageProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "JSON_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Karting_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Library_Database_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Linguistics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Literary_Analysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Literature_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 7
+        },
+        "LocalHistorian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Local_Knowledge_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Location-Based_Services_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Locomotive_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "LogicExpert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Lyrics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "MBTA_FranciscoFoxboroLine_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Marathon_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MarineLifeData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MartialArts_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "MathAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MenuAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "MerriamWebsterWordOfTheDay_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "MiddleEasternHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MilitaryHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ModelEvaluation_Interpretation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Movie_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MusicHistorian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "MusicTheory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Music_Critic_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "NYC_Local_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "NaturalLanguageProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "NorseMythology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "NumericalAlgorithms_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "NumericalAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "NumericalMethods_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "OpenCV_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Orchestrator": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 1733
+        },
+        "Paintball_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Physics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Poetry_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "PolishLanguage_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Polish_TV_Series_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "PopulationData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Probability_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ProblemSolving_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "PublicationAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "PublicationData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "PythonDebugging_Expert": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 12
+        },
+        "Python_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Python_Programmer_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Python_ScikitLearn_StatisticalAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Quotation_Specialist": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "RealEstate_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "RealityTV_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "RecyclingRate_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "ResearchFunding_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Research_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "ResultVerification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Reviews_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ScientificPaperAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 6
+        },
+        "Scientific_Verification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "SpeciesSightingsData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "SportsHistorian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "StatisticalAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Statistics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "StreamingAvailability_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "StreamingService_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "TextExtraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "TheoreticalChemistry_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Ticket_Pricing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Tickets_Pricing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "TizinGrammar_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Tizin_Translation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "TranscriptionVerification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "UnitTesting_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "VSCode_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Validation_Expert": {
+          "selected_k": 3,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 31
+        },
+        "Vegan_Food_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "VerificationExpert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 9
+        },
+        "Verification_Expert": {
+          "selected_k": 3,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 100
+        },
+        "VideoAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "VideoContentAnalysis_Expert": {
+          "selected_k": 2,
+          "reason": "best_available_below_theta",
+          "num_samples": 12
+        },
+        "VideoProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "WaybackMachine_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "WeatherData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "WebServing_Expert": {
+          "selected_k": 8,
+          "reason": "best_available_below_theta",
+          "num_samples": 42
+        },
+        "WebSurfer": {
+          "selected_k": 3,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 424
+        },
+        "Whitney_Collection_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "WikipediaHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Wikipedia_Editor_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "WomenInComputerScienceHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "YouTubeDownload_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        }
+      }
+    },
+    {
+      "fold": 5,
+      "train_logs": [
+        "alg_1",
+        "alg_10",
+        "alg_100",
+        "alg_101",
+        "alg_102",
+        "alg_103",
+        "alg_104",
+        "alg_105",
+        "alg_106",
+        "alg_108",
+        "alg_109",
+        "alg_11",
+        "alg_110",
+        "alg_111",
+        "alg_112",
+        "alg_113",
+        "alg_114",
+        "alg_115",
+        "alg_116",
+        "alg_117",
+        "alg_119",
+        "alg_12",
+        "alg_120",
+        "alg_122",
+        "alg_123",
+        "alg_124",
+        "alg_126",
+        "alg_15",
+        "alg_16",
+        "alg_17",
+        "alg_19",
+        "alg_2",
+        "alg_21",
+        "alg_22",
+        "alg_23",
+        "alg_24",
+        "alg_25",
+        "alg_26",
+        "alg_27",
+        "alg_29",
+        "alg_3",
+        "alg_30",
+        "alg_31",
+        "alg_32",
+        "alg_33",
+        "alg_34",
+        "alg_35",
+        "alg_36",
+        "alg_37",
+        "alg_39",
+        "alg_4",
+        "alg_40",
+        "alg_41",
+        "alg_42",
+        "alg_43",
+        "alg_44",
+        "alg_45",
+        "alg_47",
+        "alg_48",
+        "alg_5",
+        "alg_51",
+        "alg_52",
+        "alg_53",
+        "alg_54",
+        "alg_56",
+        "alg_58",
+        "alg_60",
+        "alg_61",
+        "alg_62",
+        "alg_63",
+        "alg_66",
+        "alg_67",
+        "alg_68",
+        "alg_69",
+        "alg_7",
+        "alg_70",
+        "alg_71",
+        "alg_72",
+        "alg_73",
+        "alg_74",
+        "alg_76",
+        "alg_77",
+        "alg_78",
+        "alg_8",
+        "alg_80",
+        "alg_81",
+        "alg_82",
+        "alg_83",
+        "alg_84",
+        "alg_85",
+        "alg_86",
+        "alg_87",
+        "alg_88",
+        "alg_89",
+        "alg_90",
+        "alg_92",
+        "alg_93",
+        "alg_94",
+        "alg_95",
+        "alg_96",
+        "alg_97",
+        "alg_98",
+        "alg_99",
+        "hc_1",
+        "hc_11",
+        "hc_12",
+        "hc_13",
+        "hc_14",
+        "hc_15",
+        "hc_16",
+        "hc_17",
+        "hc_18",
+        "hc_19",
+        "hc_2",
+        "hc_20",
+        "hc_21",
+        "hc_23",
+        "hc_25",
+        "hc_26",
+        "hc_27",
+        "hc_28",
+        "hc_30",
+        "hc_31",
+        "hc_32",
+        "hc_34",
+        "hc_35",
+        "hc_37",
+        "hc_38",
+        "hc_39",
+        "hc_4",
+        "hc_40",
+        "hc_41",
+        "hc_43",
+        "hc_44",
+        "hc_46",
+        "hc_47",
+        "hc_48",
+        "hc_49",
+        "hc_5",
+        "hc_50",
+        "hc_53",
+        "hc_55",
+        "hc_56",
+        "hc_58",
+        "hc_6",
+        "hc_7",
+        "hc_8",
+        "hc_9"
+      ],
+      "test_logs": [
+        "alg_107",
+        "alg_118",
+        "alg_121",
+        "alg_125",
+        "alg_13",
+        "alg_14",
+        "alg_18",
+        "alg_20",
+        "alg_28",
+        "alg_38",
+        "alg_46",
+        "alg_49",
+        "alg_50",
+        "alg_55",
+        "alg_57",
+        "alg_59",
+        "alg_6",
+        "alg_64",
+        "alg_65",
+        "alg_75",
+        "alg_79",
+        "alg_9",
+        "alg_91",
+        "hc_10",
+        "hc_22",
+        "hc_24",
+        "hc_29",
+        "hc_3",
+        "hc_33",
+        "hc_36",
+        "hc_42",
+        "hc_45",
+        "hc_51",
+        "hc_52",
+        "hc_54",
+        "hc_57"
+      ],
+      "base_error_rate": 0.13037752414398596,
+      "specs": {
+        "combined_decay_step": {
+          "penalty": 0.4,
+          "metrics": {
+            "n": 148,
+            "agent_accuracy": 0.6081081081081081,
+            "step_accuracy": 0.30405405405405406,
+            "avg_distance": 5.195945945945946,
+            "step_accuracy_tol_1": 0.39864864864864863,
+            "step_accuracy_tol_2": 0.5,
+            "step_accuracy_tol_3": 0.5675675675675675,
+            "step_accuracy_tol_4": 0.6756756756756757,
+            "step_accuracy_tol_5": 0.7297297297297297
+          }
+        },
+        "combined_decay_tol5": {
+          "penalty": 0.65,
+          "metrics": {
+            "n": 148,
+            "agent_accuracy": 0.6418918918918919,
+            "step_accuracy": 0.2905405405405405,
+            "avg_distance": 5.25,
+            "step_accuracy_tol_1": 0.40540540540540543,
+            "step_accuracy_tol_2": 0.4797297297297297,
+            "step_accuracy_tol_3": 0.5472972972972973,
+            "step_accuracy_tol_4": 0.6824324324324325,
+            "step_accuracy_tol_5": 0.7567567567567568
+          }
+        },
+        "risk_decay_step": {
+          "penalty": 0.2,
+          "metrics": {
+            "n": 148,
+            "agent_accuracy": 0.6621621621621622,
+            "step_accuracy": 0.34459459459459457,
+            "avg_distance": 4.9324324324324325,
+            "step_accuracy_tol_1": 0.4391891891891892,
+            "step_accuracy_tol_2": 0.5202702702702703,
+            "step_accuracy_tol_3": 0.6081081081081081,
+            "step_accuracy_tol_4": 0.722972972972973,
+            "step_accuracy_tol_5": 0.7905405405405406
+          }
+        },
+        "who_then_combined_decay_step": {
+          "penalty": 0.4,
+          "metrics": {
+            "n": 148,
+            "agent_accuracy": 0.5945945945945946,
+            "step_accuracy": 0.3108108108108108,
+            "avg_distance": 4.993243243243243,
+            "step_accuracy_tol_1": 0.3918918918918919,
+            "step_accuracy_tol_2": 0.49324324324324326,
+            "step_accuracy_tol_3": 0.5675675675675675,
+            "step_accuracy_tol_4": 0.6756756756756757,
+            "step_accuracy_tol_5": 0.722972972972973
+          }
+        },
+        "who_then_combined_earliest_step": {
+          "threshold": 5.564587156534893,
+          "metrics": {
+            "n": 148,
+            "agent_accuracy": 0.5945945945945946,
+            "step_accuracy": 0.32432432432432434,
+            "avg_distance": 5.871621621621622,
+            "step_accuracy_tol_1": 0.39864864864864863,
+            "step_accuracy_tol_2": 0.5,
+            "step_accuracy_tol_3": 0.5675675675675675,
+            "step_accuracy_tol_4": 0.668918918918919,
+            "step_accuracy_tol_5": 0.7094594594594594
+          }
+        },
+        "ranker_decay_step": {
+          "penalty": 0.01,
+          "metrics": {
+            "n": 148,
+            "agent_accuracy": 0.8445945945945946,
+            "step_accuracy": 0.6891891891891891,
+            "avg_distance": 3.074324324324324,
+            "step_accuracy_tol_1": 0.7162162162162162,
+            "step_accuracy_tol_2": 0.7702702702702703,
+            "step_accuracy_tol_3": 0.7837837837837838,
+            "step_accuracy_tol_4": 0.831081081081081,
+            "step_accuracy_tol_5": 0.831081081081081
+          }
+        },
+        "ranker_decay_tol5": {
+          "penalty": 0.04,
+          "metrics": {
+            "n": 148,
+            "agent_accuracy": 0.8445945945945946,
+            "step_accuracy": 0.6824324324324325,
+            "avg_distance": 3.1621621621621623,
+            "step_accuracy_tol_1": 0.7094594594594594,
+            "step_accuracy_tol_2": 0.7635135135135135,
+            "step_accuracy_tol_3": 0.7837837837837838,
+            "step_accuracy_tol_4": 0.8378378378378378,
+            "step_accuracy_tol_5": 0.8445945945945946
+          }
+        },
+        "ranker_earliest_step": {
+          "threshold": 5.701744192695826,
+          "metrics": {
+            "n": 148,
+            "agent_accuracy": 0.8378378378378378,
+            "step_accuracy": 0.6824324324324325,
+            "avg_distance": 3.939189189189189,
+            "step_accuracy_tol_1": 0.6959459459459459,
+            "step_accuracy_tol_2": 0.75,
+            "step_accuracy_tol_3": 0.7635135135135135,
+            "step_accuracy_tol_4": 0.8040540540540541,
+            "step_accuracy_tol_5": 0.8108108108108109
+          }
+        },
+        "who_then_ranker_decay_step": {
+          "penalty": 0.075,
+          "metrics": {
+            "n": 148,
+            "agent_accuracy": 0.5945945945945946,
+            "step_accuracy": 0.4594594594594595,
+            "avg_distance": 4.04054054054054,
+            "step_accuracy_tol_1": 0.5540540540540541,
+            "step_accuracy_tol_2": 0.6554054054054054,
+            "step_accuracy_tol_3": 0.6959459459459459,
+            "step_accuracy_tol_4": 0.7702702702702703,
+            "step_accuracy_tol_5": 0.8108108108108109
+          }
+        },
+        "who_then_ranker_earliest_step": {
+          "threshold": 5.30834020311107,
+          "metrics": {
+            "n": 148,
+            "agent_accuracy": 0.5945945945945946,
+            "step_accuracy": 0.4527027027027027,
+            "avg_distance": 4.47972972972973,
+            "step_accuracy_tol_1": 0.5337837837837838,
+            "step_accuracy_tol_2": 0.6351351351351351,
+            "step_accuracy_tol_3": 0.6756756756756757,
+            "step_accuracy_tol_4": 0.7432432432432432,
+            "step_accuracy_tol_5": 0.777027027027027
+          }
+        }
+      },
+      "ranker_top_weights": [
+        {
+          "feature": "risk_log",
+          "weight": 3.0319052767410644
+        },
+        {
+          "feature": "step_idx_scaled",
+          "weight": -2.8999226329753234
+        },
+        {
+          "feature": "risk_support_log",
+          "weight": 2.7280682404857073
+        },
+        {
+          "feature": "agent_action=Orchestrator:code_execute",
+          "weight": 1.8752587867086596
+        },
+        {
+          "feature": "agent_action=Orchestrator:termination",
+          "weight": 1.750364004901387
+        },
+        {
+          "feature": "message_len_log",
+          "weight": 1.6962857320636395
+        },
+        {
+          "feature": "agent_action=FileSurfer:other",
+          "weight": 1.6682041351652162
+        },
+        {
+          "feature": "tool_use",
+          "weight": 1.6233528339184766
+        },
+        {
+          "feature": "early_exp8",
+          "weight": -1.3915010374719392
+        },
+        {
+          "feature": "agent_action=Orchestrator:web_search",
+          "weight": -1.3773578849991623
+        },
+        {
+          "feature": "combined_score",
+          "weight": 1.3694692234062456
+        },
+        {
+          "feature": "action_type=web_browse",
+          "weight": -1.3544371792236214
+        },
+        {
+          "feature": "new_claim",
+          "weight": 1.2118980630969545
+        },
+        {
+          "feature": "prev_state=Assistant:-1",
+          "weight": 1.1457539757380402
+        },
+        {
+          "feature": "agent_action=Assistant:plan",
+          "weight": 1.1341135508623559
+        },
+        {
+          "feature": "agent_action=Validation_Expert:termination",
+          "weight": 1.1240235659867142
+        },
+        {
+          "feature": "agent_name=ComputerTerminal",
+          "weight": -1.1222097923609589
+        },
+        {
+          "feature": "agent_action=FileSurfer:tool_result",
+          "weight": -1.1221117088692996
+        },
+        {
+          "feature": "state=Verification_Expert:1",
+          "weight": -1.088662317423524
+        },
+        {
+          "feature": "agent_early=ComputerTerminal:early1",
+          "weight": -1.0835546394140285
+        },
+        {
+          "feature": "prev_state=PythonDebugging_Expert:-1",
+          "weight": 1.045862871118212
+        },
+        {
+          "feature": "steps_remaining_norm",
+          "weight": 0.985597738767059
+        },
+        {
+          "feature": "normalized_step",
+          "weight": -0.9855977387670571
+        },
+        {
+          "feature": "agent_action=WebSurfer:tool_result",
+          "weight": 0.9553603397918122
+        },
+        {
+          "feature": "prev_state=Orchestrator:-1",
+          "weight": -0.9366801536119258
+        },
+        {
+          "feature": "progress_state=off_track",
+          "weight": -0.921039054063274
+        },
+        {
+          "feature": "agent_action=Corporate_Governance_Expert:termination",
+          "weight": 0.9148987537764263
+        },
+        {
+          "feature": "agent_action=Assistant:answer",
+          "weight": 0.902076649187217
+        },
+        {
+          "feature": "state=Verification_Expert:0",
+          "weight": 0.8912455057171338
+        },
+        {
+          "feature": "prev_state=FileSurfer:1",
+          "weight": 0.8735818605471755
+        }
+      ],
+      "state_models": {
+        "API_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "AcademicPublication_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Accessibility_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "AlgorithmDesign_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "AlligatorBiology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "AnalyticalReasoning_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "AnimalBehavior_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "AquaticEcosystems_InvasiveSpecies_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "ArithmeticProgressions_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Art_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Art_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Assistant": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 29
+        },
+        "AudioProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Baseball_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Baseball_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "BenAndJerrysFlavors_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "BiblicalScholar_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "BingAPI_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "BirdSpeciesIdentification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Boggle_Board_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Budgeting_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "BusinessLogic_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "CSVProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "CelestialPhysics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ChessRules_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Chess_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Chinese_Political_History_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Church_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ClinicalTrials_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Clinical_Trial_Data_Analysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "ComputerTerminal": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 263
+        },
+        "CorporateHistory_IPOs_MondayCom_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Corporate_Governance_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Cubing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Culinary_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "DOI_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "DataAnalysis_Expert": {
+          "selected_k": 2,
+          "reason": "best_available_below_theta",
+          "num_samples": 22
+        },
+        "DataCollection_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "DataExtraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "DataManipulation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "DataValidation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "DataVerification_Expert": {
+          "selected_k": 4,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 34
+        },
+        "Data_Analysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Data_Extraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Data_Retrieval_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Database_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "DebuggingOptimization_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "DebuggingTesting_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Debugging_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Debugging_Problem_Solving_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "DemographicData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Dictionary_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "DoctorWhoScript_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Eateries_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Environment_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Excel_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Fashion_Vogue_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Federico_Lauria_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 7
+        },
+        "FileSurfer": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 26
+        },
+        "FilmCritic_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Filmography_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "FinancialData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Fitness_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Food_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "GIS_DataAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Gaming_Awards_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Geography_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Geometry_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Geospatial_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "GraphicDesign_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Grocery_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "HawaiiRealEstate_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Hiking_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "HistoricalWeatherData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "IMDB_Ratings_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "ISBNCheckDigit_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "ImageProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "InformationExtraction_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "InformationVerification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "JSON_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "JamesBondFilms_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Karting_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Latin_American_Music_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Library_Database_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Linguistics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Literature_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 6
+        },
+        "LocalHistorian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Local_Knowledge_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Location-Based_Services_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Locomotive_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Lyrics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "MBTA_FranciscoFoxboroLine_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Marathon_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MarineBiology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "MarineLifeData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MarioKart8Deluxe_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MathAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MerriamWebsterWordOfTheDay_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Mesopotamian_Number_Systems_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 6
+        },
+        "MiddleEasternHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ModelEvaluation_Interpretation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "MovieProp_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Movie_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "MusicHistorian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "MusicTheory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Music_Critic_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Narration_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "NaturalLanguageProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Neurology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "NumericalAlgorithms_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "NumericalAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "NumericalMethods_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "OpenCV_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Orchestrator": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 1893
+        },
+        "Ornithology_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Paintball_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Physics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "PopulationData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "ProbabilityTheory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Probability_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ProblemSolving_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "PublicationAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "PublicationData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "PythonDebugging_Expert": {
+          "selected_k": 3,
+          "reason": "best_available_below_theta",
+          "num_samples": 19
+        },
+        "PythonProgramming_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "Python_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Python_Programmer_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Python_ScikitLearn_StatisticalAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Quotation_Specialist": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "RealEstateMarket_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "RealEstate_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "RealityTV_Historian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "RecyclingRate_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "Research_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 9
+        },
+        "ResultVerification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Reviews_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "ScientificPaperAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 6
+        },
+        "Scientific_Verification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "SpeciesSightingsData_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 3
+        },
+        "SportsHistorian_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "StatisticalAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "Statistics_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 7
+        },
+        "StreamingAvailability_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "StreamingService_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 5
+        },
+        "TheoreticalChemistry_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Ticket_Pricing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Tickets_Pricing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "TizinGrammar_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Tizin_Translation_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "TranscriptionVerification_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "UnitTesting_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Validation_Expert": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 39
+        },
+        "Vegan_Food_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "VerificationExpert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 7
+        },
+        "Verification_Expert": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 102
+        },
+        "VideoAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "VideoContentAnalysis_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 8
+        },
+        "VideoProcessing_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "Video_Analyst_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "WebDevelopment_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 1
+        },
+        "WebServing_Expert": {
+          "selected_k": 3,
+          "reason": "best_available_below_theta",
+          "num_samples": 25
+        },
+        "WebSurfer": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 478
+        },
+        "Web_Design_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 6
+        },
+        "WikipediaHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "Wikipedia_Editor_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "WomenInComputerScienceHistory_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 4
+        },
+        "YouTubeDownload_Expert": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        }
+      }
+    }
+  ]
+}

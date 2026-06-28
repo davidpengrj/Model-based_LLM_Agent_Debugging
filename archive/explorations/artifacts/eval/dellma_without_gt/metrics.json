@@ -1,0 +1,1079 @@
+{
+  "steps_path": "artifacts/handcrafted_steps.jsonl",
+  "profiles_path": "artifacts/profiles/deepseek-v4-flash_without_gt.jsonl",
+  "dellma_profiles_path": "artifacts/dellma/profiles/deepseek-v4-flash_failure_modes.jsonl",
+  "n_splits": 5,
+  "random_state": 0,
+  "metrics": {
+    "profile_argmax": {
+      "n": 58,
+      "agent_accuracy": 0.5689655172413793,
+      "step_accuracy": 0.10344827586206896,
+      "avg_distance": 17.79310344827586,
+      "step_accuracy_tol_1": 0.13793103448275862,
+      "step_accuracy_tol_2": 0.1724137931034483,
+      "step_accuracy_tol_3": 0.27586206896551724,
+      "step_accuracy_tol_4": 0.39655172413793105,
+      "step_accuracy_tol_5": 0.39655172413793105
+    },
+    "profile_earliest4": {
+      "n": 58,
+      "agent_accuracy": 0.5344827586206896,
+      "step_accuracy": 0.15517241379310345,
+      "avg_distance": 9.155172413793103,
+      "step_accuracy_tol_1": 0.20689655172413793,
+      "step_accuracy_tol_2": 0.2413793103448276,
+      "step_accuracy_tol_3": 0.3448275862068966,
+      "step_accuracy_tol_4": 0.5344827586206896,
+      "step_accuracy_tol_5": 0.5344827586206896
+    },
+    "risk_argmax": {
+      "n": 58,
+      "agent_accuracy": 0.5689655172413793,
+      "step_accuracy": 0.22413793103448276,
+      "avg_distance": 14.431034482758621,
+      "step_accuracy_tol_1": 0.25862068965517243,
+      "step_accuracy_tol_2": 0.29310344827586204,
+      "step_accuracy_tol_3": 0.3103448275862069,
+      "step_accuracy_tol_4": 0.4482758620689655,
+      "step_accuracy_tol_5": 0.46551724137931033
+    },
+    "combined_argmax": {
+      "n": 58,
+      "agent_accuracy": 0.7068965517241379,
+      "step_accuracy": 0.1896551724137931,
+      "avg_distance": 17.948275862068964,
+      "step_accuracy_tol_1": 0.20689655172413793,
+      "step_accuracy_tol_2": 0.2413793103448276,
+      "step_accuracy_tol_3": 0.3103448275862069,
+      "step_accuracy_tol_4": 0.41379310344827586,
+      "step_accuracy_tol_5": 0.41379310344827586
+    },
+    "combined_earliest4": {
+      "n": 58,
+      "agent_accuracy": 0.5862068965517241,
+      "step_accuracy": 0.20689655172413793,
+      "avg_distance": 9.293103448275861,
+      "step_accuracy_tol_1": 0.29310344827586204,
+      "step_accuracy_tol_2": 0.3448275862068966,
+      "step_accuracy_tol_3": 0.39655172413793105,
+      "step_accuracy_tol_4": 0.5689655172413793,
+      "step_accuracy_tol_5": 0.5862068965517241
+    },
+    "dellma_eu_argmax": {
+      "n": 58,
+      "agent_accuracy": 0.4827586206896552,
+      "step_accuracy": 0.15517241379310345,
+      "avg_distance": 20.20689655172414,
+      "step_accuracy_tol_1": 0.1896551724137931,
+      "step_accuracy_tol_2": 0.22413793103448276,
+      "step_accuracy_tol_3": 0.22413793103448276,
+      "step_accuracy_tol_4": 0.3103448275862069,
+      "step_accuracy_tol_5": 0.3275862068965517
+    },
+    "dellma_bt_argmax": {
+      "n": 58,
+      "agent_accuracy": 0.5344827586206896,
+      "step_accuracy": 0.10344827586206896,
+      "avg_distance": 14.293103448275861,
+      "step_accuracy_tol_1": 0.15517241379310345,
+      "step_accuracy_tol_2": 0.1896551724137931,
+      "step_accuracy_tol_3": 0.1896551724137931,
+      "step_accuracy_tol_4": 0.3620689655172414,
+      "step_accuracy_tol_5": 0.39655172413793105
+    },
+    "dellma_hybrid_argmax": {
+      "n": 58,
+      "agent_accuracy": 0.6379310344827587,
+      "step_accuracy": 0.1724137931034483,
+      "avg_distance": 17.724137931034484,
+      "step_accuracy_tol_1": 0.1724137931034483,
+      "step_accuracy_tol_2": 0.20689655172413793,
+      "step_accuracy_tol_3": 0.25862068965517243,
+      "step_accuracy_tol_4": 0.3793103448275862,
+      "step_accuracy_tol_5": 0.39655172413793105
+    }
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "train_logs": [
+        "1",
+        "10",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "2",
+        "20",
+        "21",
+        "22",
+        "24",
+        "25",
+        "26",
+        "27",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "37",
+        "38",
+        "39",
+        "4",
+        "40",
+        "41",
+        "42",
+        "44",
+        "45",
+        "47",
+        "48",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "test_logs": [
+        "11",
+        "12",
+        "23",
+        "28",
+        "3",
+        "34",
+        "35",
+        "36",
+        "43",
+        "46",
+        "49",
+        "5"
+      ],
+      "baseline_base_error_rate": 0.06652360515021459,
+      "dellma_base_error_rate": 0.020421607378129116,
+      "bt_top_weights": [
+        {
+          "feature": "top_mode=premature_or_overconfident_answer",
+          "weight": 3.4984272322402217
+        },
+        {
+          "feature": "risk_log",
+          "weight": 2.9125350862650676
+        },
+        {
+          "feature": "normalized_step",
+          "weight": -2.789306233226162
+        },
+        {
+          "feature": "risk_support_log",
+          "weight": 2.754487436597183
+        },
+        {
+          "feature": "action_type=code_execute",
+          "weight": 2.5500858936790523
+        },
+        {
+          "feature": "top_mode=reasoning_error",
+          "weight": -2.535133628601367
+        },
+        {
+          "feature": "mode_prob=state_tracking_or_memory_error",
+          "weight": -2.437911307514215
+        },
+        {
+          "feature": "mode_prob=evidence_gap",
+          "weight": 2.0065225924494827
+        },
+        {
+          "feature": "top_mode=state_tracking_or_memory_error",
+          "weight": -1.981986946435093
+        },
+        {
+          "feature": "message_len_log",
+          "weight": 1.8959597600590317
+        },
+        {
+          "feature": "mode_prob=task_drift",
+          "weight": 1.8393014435763917
+        },
+        {
+          "feature": "state=FileSurfer:1",
+          "weight": 1.772005429276325
+        },
+        {
+          "feature": "action_type=file_read",
+          "weight": -1.7309429934789207
+        },
+        {
+          "feature": "top_mode=unsupported_claim",
+          "weight": 1.6441588135216194
+        },
+        {
+          "feature": "mode_prob=unsupported_claim",
+          "weight": 1.5370796686598744
+        },
+        {
+          "feature": "low_task_alignment",
+          "weight": -1.2857908338948119
+        },
+        {
+          "feature": "state=FileSurfer:0",
+          "weight": -1.2685502110651647
+        },
+        {
+          "feature": "agent_name=ComputerTerminal",
+          "weight": -1.2352166779134623
+        },
+        {
+          "feature": "state=ComputerTerminal:1",
+          "weight": -1.2319330682027456
+        },
+        {
+          "feature": "mode_prob=coordination_or_delegation_error",
+          "weight": -1.205346909645802
+        },
+        {
+          "feature": "risk_source=transition",
+          "weight": 1.1461591910650326
+        },
+        {
+          "feature": "action_type=reason",
+          "weight": -1.1101789701228308
+        },
+        {
+          "feature": "risk_source=state",
+          "weight": -1.0602264102805699
+        },
+        {
+          "feature": "combined_score",
+          "weight": 1.0536622859159441
+        },
+        {
+          "feature": "mode_prob=benign_or_on_track",
+          "weight": -1.039846694008954
+        }
+      ],
+      "state_models": {
+        "Assistant": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 26
+        },
+        "ComputerTerminal": {
+          "selected_k": 2,
+          "reason": "best_available_below_theta",
+          "num_samples": 10
+        },
+        "FileSurfer": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 35
+        },
+        "Orchestrator": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 1771
+        },
+        "WebSurfer": {
+          "selected_k": 4,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 434
+        }
+      }
+    },
+    {
+      "fold": 2,
+      "train_logs": [
+        "1",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "16",
+        "17",
+        "18",
+        "2",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "3",
+        "31",
+        "34",
+        "35",
+        "36",
+        "37",
+        "39",
+        "4",
+        "40",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "5",
+        "50",
+        "51",
+        "52",
+        "54",
+        "55",
+        "56",
+        "58",
+        "6",
+        "7",
+        "9"
+      ],
+      "test_logs": [
+        "15",
+        "19",
+        "29",
+        "30",
+        "32",
+        "33",
+        "38",
+        "41",
+        "42",
+        "53",
+        "57",
+        "8"
+      ],
+      "baseline_base_error_rate": 0.07380952380952381,
+      "dellma_base_error_rate": 0.020629991126885537,
+      "bt_top_weights": [
+        {
+          "feature": "risk_support_log",
+          "weight": 4.068734235626318
+        },
+        {
+          "feature": "risk_log",
+          "weight": 3.624891509720286
+        },
+        {
+          "feature": "normalized_step",
+          "weight": -2.880865372968733
+        },
+        {
+          "feature": "message_len_log",
+          "weight": 2.377835779805696
+        },
+        {
+          "feature": "action_type=code_execute",
+          "weight": 2.177187468450204
+        },
+        {
+          "feature": "mode_prob=task_drift",
+          "weight": 1.9596554937013198
+        },
+        {
+          "feature": "mode_prob=state_tracking_or_memory_error",
+          "weight": 1.9249367073465675
+        },
+        {
+          "feature": "mode_prob=benign_or_on_track",
+          "weight": -1.7993451080453913
+        },
+        {
+          "feature": "non_benign_mass",
+          "weight": 1.7993451080453897
+        },
+        {
+          "feature": "mode_prob=premature_or_overconfident_answer",
+          "weight": -1.7052859733131744
+        },
+        {
+          "feature": "top_mode=premature_or_overconfident_answer",
+          "weight": 1.6491256266371606
+        },
+        {
+          "feature": "combined_score",
+          "weight": 1.6362894756448483
+        },
+        {
+          "feature": "top_mode=state_tracking_or_memory_error",
+          "weight": -1.6026853798844907
+        },
+        {
+          "feature": "mode_prob=tool_or_execution_error",
+          "weight": -1.5355345331580155
+        },
+        {
+          "feature": "action_type=file_read",
+          "weight": -1.4351316246475991
+        },
+        {
+          "feature": "low_task_alignment",
+          "weight": -1.3771373092597317
+        },
+        {
+          "feature": "mode_prob=evidence_gap",
+          "weight": 1.3411285385849483
+        },
+        {
+          "feature": "top_mode=reasoning_error",
+          "weight": -1.2382948135783136
+        },
+        {
+          "feature": "severity",
+          "weight": 1.2376039101543443
+        },
+        {
+          "feature": "state=FileSurfer:1",
+          "weight": -1.2285217136902382
+        },
+        {
+          "feature": "low_evidence_quality",
+          "weight": -1.2101983685343844
+        },
+        {
+          "feature": "state=FileSurfer:0",
+          "weight": 1.1871554324378863
+        },
+        {
+          "feature": "state=WebSurfer:2",
+          "weight": 1.152618540771318
+        },
+        {
+          "feature": "state=WebSurfer:0",
+          "weight": -1.1152388991258586
+        },
+        {
+          "feature": "agent_name=ComputerTerminal",
+          "weight": -1.108180289377222
+        }
+      ],
+      "state_models": {
+        "Assistant": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 31
+        },
+        "ComputerTerminal": {
+          "selected_k": 2,
+          "reason": "best_available_below_theta",
+          "num_samples": 10
+        },
+        "FileSurfer": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 31
+        },
+        "Orchestrator": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 1754
+        },
+        "WebSurfer": {
+          "selected_k": 4,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 427
+        }
+      }
+    },
+    {
+      "fold": 3,
+      "train_logs": [
+        "1",
+        "10",
+        "11",
+        "12",
+        "13",
+        "15",
+        "18",
+        "19",
+        "2",
+        "20",
+        "22",
+        "23",
+        "24",
+        "25",
+        "28",
+        "29",
+        "3",
+        "30",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "4",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "5",
+        "52",
+        "53",
+        "54",
+        "56",
+        "57",
+        "58",
+        "7",
+        "8"
+      ],
+      "test_logs": [
+        "14",
+        "16",
+        "17",
+        "21",
+        "26",
+        "27",
+        "31",
+        "50",
+        "51",
+        "55",
+        "6",
+        "9"
+      ],
+      "baseline_base_error_rate": 0.06317934782608696,
+      "dellma_base_error_rate": 0.019888793840889648,
+      "bt_top_weights": [
+        {
+          "feature": "normalized_step",
+          "weight": -3.503407225031129
+        },
+        {
+          "feature": "top_mode=premature_or_overconfident_answer",
+          "weight": 3.26581459466182
+        },
+        {
+          "feature": "risk_log",
+          "weight": 2.674227863793789
+        },
+        {
+          "feature": "mode_prob=benign_or_on_track",
+          "weight": -2.4079534394105018
+        },
+        {
+          "feature": "non_benign_mass",
+          "weight": 2.4079534394104996
+        },
+        {
+          "feature": "risk_support_log",
+          "weight": 2.3695225061690595
+        },
+        {
+          "feature": "mode_prob=evidence_gap",
+          "weight": 2.0705492557823457
+        },
+        {
+          "feature": "mode_prob=task_drift",
+          "weight": 2.050714682464689
+        },
+        {
+          "feature": "message_len_log",
+          "weight": 1.9324223305237578
+        },
+        {
+          "feature": "top_mode=state_tracking_or_memory_error",
+          "weight": -1.809280737984089
+        },
+        {
+          "feature": "low_evidence_quality",
+          "weight": -1.7617229461814652
+        },
+        {
+          "feature": "top_mode=reasoning_error",
+          "weight": -1.7463231451513865
+        },
+        {
+          "feature": "risk_source=transition",
+          "weight": 1.601259792804422
+        },
+        {
+          "feature": "agent_name=Assistant",
+          "weight": 1.475130384124472
+        },
+        {
+          "feature": "state=Assistant:1",
+          "weight": 1.4145474868587549
+        },
+        {
+          "feature": "risk_source=state",
+          "weight": -1.3943974906664518
+        },
+        {
+          "feature": "combined_score",
+          "weight": 1.3794661157835033
+        },
+        {
+          "feature": "action_type=termination",
+          "weight": 1.3094747113996683
+        },
+        {
+          "feature": "top_mode=unsupported_claim",
+          "weight": 1.170395301334227
+        },
+        {
+          "feature": "state=WebSurfer:0",
+          "weight": 1.074216547058793
+        },
+        {
+          "feature": "state=WebSurfer:1",
+          "weight": -1.025225573628616
+        },
+        {
+          "feature": "mode_prob=state_tracking_or_memory_error",
+          "weight": -1.018974475509246
+        },
+        {
+          "feature": "action_type=delegate",
+          "weight": 1.004958788852494
+        },
+        {
+          "feature": "agent_name=FileSurfer",
+          "weight": -0.964732038485831
+        },
+        {
+          "feature": "mode_prob=unsupported_claim",
+          "weight": 0.9516912742115654
+        }
+      ],
+      "state_models": {
+        "Assistant": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 28
+        },
+        "ComputerTerminal": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 8
+        },
+        "FileSurfer": {
+          "selected_k": 4,
+          "reason": "best_available_below_theta",
+          "num_samples": 20
+        },
+        "Orchestrator": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 1819
+        },
+        "WebSurfer": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 462
+        }
+      }
+    },
+    {
+      "fold": 4,
+      "train_logs": [
+        "1",
+        "10",
+        "11",
+        "12",
+        "14",
+        "15",
+        "16",
+        "17",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "26",
+        "27",
+        "28",
+        "29",
+        "3",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "4",
+        "40",
+        "41",
+        "42",
+        "43",
+        "45",
+        "46",
+        "48",
+        "49",
+        "5",
+        "50",
+        "51",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "6",
+        "8",
+        "9"
+      ],
+      "test_logs": [
+        "13",
+        "18",
+        "2",
+        "24",
+        "25",
+        "39",
+        "44",
+        "47",
+        "52",
+        "58",
+        "7"
+      ],
+      "baseline_base_error_rate": 0.07037037037037037,
+      "dellma_base_error_rate": 0.020127118644067795,
+      "bt_top_weights": [
+        {
+          "feature": "normalized_step",
+          "weight": -3.547242619147358
+        },
+        {
+          "feature": "action_type=code_execute",
+          "weight": 3.3051766018550373
+        },
+        {
+          "feature": "risk_log",
+          "weight": 3.1037980557396616
+        },
+        {
+          "feature": "risk_support_log",
+          "weight": 2.662317680536883
+        },
+        {
+          "feature": "top_mode=premature_or_overconfident_answer",
+          "weight": 1.9012243952839145
+        },
+        {
+          "feature": "action_type=file_read",
+          "weight": -1.8314202658884662
+        },
+        {
+          "feature": "mode_prob=evidence_gap",
+          "weight": 1.8101565946267562
+        },
+        {
+          "feature": "combined_score",
+          "weight": 1.7136693470025461
+        },
+        {
+          "feature": "tool_error",
+          "weight": 1.5883245205828256
+        },
+        {
+          "feature": "action_type=termination",
+          "weight": -1.4190483830242115
+        },
+        {
+          "feature": "message_len_log",
+          "weight": 1.3912494023915454
+        },
+        {
+          "feature": "top_mode=reasoning_error",
+          "weight": -1.3787008740827662
+        },
+        {
+          "feature": "top_mode=state_tracking_or_memory_error",
+          "weight": -1.3597125100567806
+        },
+        {
+          "feature": "mode_prob=reasoning_error",
+          "weight": 1.3434005646408764
+        },
+        {
+          "feature": "risk_source=transition",
+          "weight": 1.3172126687330614
+        },
+        {
+          "feature": "top_mode=coordination_or_delegation_error",
+          "weight": -1.2793637362544523
+        },
+        {
+          "feature": "mode_prob=coordination_or_delegation_error",
+          "weight": -1.2761236208958562
+        },
+        {
+          "feature": "low_evidence_quality",
+          "weight": -1.2713209021293241
+        },
+        {
+          "feature": "non_benign_mass",
+          "weight": 1.0518774037078165
+        },
+        {
+          "feature": "mode_prob=benign_or_on_track",
+          "weight": -1.0518774037078156
+        },
+        {
+          "feature": "action_type=plan",
+          "weight": 1.0228651946701
+        },
+        {
+          "feature": "top_mode=unsupported_claim",
+          "weight": 1.0225126306137358
+        },
+        {
+          "feature": "severity",
+          "weight": 0.9879618600774945
+        },
+        {
+          "feature": "mode_prob=tool_or_execution_error",
+          "weight": -0.9407561358007169
+        },
+        {
+          "feature": "low_task_alignment",
+          "weight": -0.8518773380529109
+        }
+      ],
+      "state_models": {
+        "Assistant": {
+          "selected_k": 3,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 34
+        },
+        "ComputerTerminal": {
+          "selected_k": 1,
+          "reason": "too_few_samples",
+          "num_samples": 2
+        },
+        "FileSurfer": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 26
+        },
+        "Orchestrator": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 1835
+        },
+        "WebSurfer": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 462
+        }
+      }
+    },
+    {
+      "fold": 5,
+      "train_logs": [
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "2",
+        "21",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "3",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "38",
+        "39",
+        "41",
+        "42",
+        "43",
+        "44",
+        "46",
+        "47",
+        "49",
+        "5",
+        "50",
+        "51",
+        "52",
+        "53",
+        "55",
+        "57",
+        "58",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "test_logs": [
+        "1",
+        "10",
+        "20",
+        "22",
+        "37",
+        "4",
+        "40",
+        "45",
+        "48",
+        "54",
+        "56"
+      ],
+      "baseline_base_error_rate": 0.06081946222791293,
+      "dellma_base_error_rate": 0.018879173290938,
+      "bt_top_weights": [
+        {
+          "feature": "risk_log",
+          "weight": 3.641432035238321
+        },
+        {
+          "feature": "risk_support_log",
+          "weight": 3.638535825246269
+        },
+        {
+          "feature": "normalized_step",
+          "weight": -3.2179949352531225
+        },
+        {
+          "feature": "top_mode=premature_or_overconfident_answer",
+          "weight": 2.4329947634802864
+        },
+        {
+          "feature": "action_type=code_execute",
+          "weight": 2.2922608007516425
+        },
+        {
+          "feature": "top_mode=reasoning_error",
+          "weight": -2.2809599720251463
+        },
+        {
+          "feature": "mode_prob=tool_or_execution_error",
+          "weight": -2.2640882359683845
+        },
+        {
+          "feature": "mode_prob=reasoning_error",
+          "weight": 2.1412929462456964
+        },
+        {
+          "feature": "top_mode=state_tracking_or_memory_error",
+          "weight": -2.089110773878117
+        },
+        {
+          "feature": "low_evidence_quality",
+          "weight": -1.913590217977298
+        },
+        {
+          "feature": "state=FileSurfer:0",
+          "weight": 1.9076336635686215
+        },
+        {
+          "feature": "severity",
+          "weight": 1.743328604953585
+        },
+        {
+          "feature": "risk_source=transition",
+          "weight": 1.6170644666553478
+        },
+        {
+          "feature": "combined_score",
+          "weight": 1.4500652464758614
+        },
+        {
+          "feature": "state=Assistant:0",
+          "weight": 1.3142480725140413
+        },
+        {
+          "feature": "mode_prob=task_drift",
+          "weight": 1.2901537309422655
+        },
+        {
+          "feature": "mode_prob=unsupported_claim",
+          "weight": 1.1852559100347397
+        },
+        {
+          "feature": "state=FileSurfer:1",
+          "weight": -1.1547344746401056
+        },
+        {
+          "feature": "action_type=delegate",
+          "weight": 1.0749093892872934
+        },
+        {
+          "feature": "risk_source=agent",
+          "weight": -1.0307409675994346
+        },
+        {
+          "feature": "mode_prob=benign_or_on_track",
+          "weight": -0.973531929011768
+        },
+        {
+          "feature": "non_benign_mass",
+          "weight": 0.9735319290117656
+        },
+        {
+          "feature": "mode_prob=evidence_gap",
+          "weight": -0.9057269539067273
+        },
+        {
+          "feature": "profile_score",
+          "weight": -0.8878577881589812
+        },
+        {
+          "feature": "low_task_alignment",
+          "weight": -0.8756500217635541
+        }
+      ],
+      "state_models": {
+        "Assistant": {
+          "selected_k": 3,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 37
+        },
+        "ComputerTerminal": {
+          "selected_k": 2,
+          "reason": "best_available_below_theta",
+          "num_samples": 10
+        },
+        "FileSurfer": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 28
+        },
+        "Orchestrator": {
+          "selected_k": 2,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 1953
+        },
+        "WebSurfer": {
+          "selected_k": 3,
+          "reason": "smallest_k_meeting_theta",
+          "num_samples": 487
+        }
+      }
+    }
+  ]
+}

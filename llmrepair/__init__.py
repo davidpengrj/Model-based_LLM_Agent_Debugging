@@ -4,5 +4,6 @@ __all__ = [
     "data",
     "deepseek",
     "profiling",
+    "ranking_evaluation",
     "abstraction",
 ]

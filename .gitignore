@@ -20,5 +20,9 @@ reports/*.out
 # Download caches; canonical dataset files are committed separately.
 datasets/**/.cache/
 
+# Large local benchmark downloads kept outside the repository snapshot.
+datasets/TraceElephant/
+datasets/TraceElephant_hf/
+
 # Nested repositories downloaded as source dependencies.
 external/*/.git/

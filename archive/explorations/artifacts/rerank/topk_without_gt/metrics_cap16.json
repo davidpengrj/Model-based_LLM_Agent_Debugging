@@ -1,0 +1,137 @@
+{
+  "steps_path": "artifacts/handcrafted_steps.jsonl",
+  "profiles_path": "artifacts/profiles/deepseek-v4-flash_without_gt.jsonl",
+  "cache_path": "artifacts/rerank/topk_without_gt/rerank_deepseek-v4-flash_cap16.jsonl",
+  "cap": 16,
+  "n_splits": 5,
+  "random_state": 0,
+  "metrics": {
+    "rerank_topk": {
+      "n": 58,
+      "agent_accuracy": 0.5517241379310345,
+      "step_accuracy": 0.1896551724137931,
+      "avg_distance": 11.60344827586207,
+      "step_accuracy_tol_1": 0.25862068965517243,
+      "step_accuracy_tol_2": 0.3793103448275862,
+      "step_accuracy_tol_3": 0.39655172413793105,
+      "step_accuracy_tol_4": 0.5,
+      "step_accuracy_tol_5": 0.5172413793103449
+    },
+    "candidate_oracle": {
+      "n": 58,
+      "agent_accuracy": 0.7413793103448276,
+      "step_accuracy": 0.6896551724137931,
+      "avg_distance": 2.2586206896551726,
+      "step_accuracy_tol_1": 0.7413793103448276,
+      "step_accuracy_tol_2": 0.8275862068965517,
+      "step_accuracy_tol_3": 0.8620689655172413,
+      "step_accuracy_tol_4": 0.896551724137931,
+      "step_accuracy_tol_5": 0.9137931034482759
+    }
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "thresholds": {
+        "combined_tuned_step": 4.616560210293379,
+        "combined_tuned_tol5": 3.509963200096349
+      },
+      "test_logs": [
+        "11",
+        "12",
+        "23",
+        "28",
+        "3",
+        "34",
+        "35",
+        "36",
+        "43",
+        "46",
+        "49",
+        "5"
+      ]
+    },
+    {
+      "fold": 2,
+      "thresholds": {
+        "combined_tuned_step": 4.543641486179119,
+        "combined_tuned_tol5": 4.543641486179119
+      },
+      "test_logs": [
+        "15",
+        "19",
+        "29",
+        "30",
+        "32",
+        "33",
+        "38",
+        "41",
+        "42",
+        "53",
+        "57",
+        "8"
+      ]
+    },
+    {
+      "fold": 3,
+      "thresholds": {
+        "combined_tuned_step": 6.5344984909121155,
+        "combined_tuned_tol5": 5.1680591403750284
+      },
+      "test_logs": [
+        "14",
+        "16",
+        "17",
+        "21",
+        "26",
+        "27",
+        "31",
+        "50",
+        "51",
+        "55",
+        "6",
+        "9"
+      ]
+    },
+    {
+      "fold": 4,
+      "thresholds": {
+        "combined_tuned_step": 5.071097452430024,
+        "combined_tuned_tol5": 5.071097452430024
+      },
+      "test_logs": [
+        "13",
+        "18",
+        "2",
+        "24",
+        "25",
+        "39",
+        "44",
+        "47",
+        "52",
+        "58",
+        "7"
+      ]
+    },
+    {
+      "fold": 5,
+      "thresholds": {
+        "combined_tuned_step": 3.7300867629228565,
+        "combined_tuned_tol5": 4.266429904744834
+      },
+      "test_logs": [
+        "1",
+        "10",
+        "20",
+        "22",
+        "37",
+        "4",
+        "40",
+        "45",
+        "48",
+        "54",
+        "56"
+      ]
+    }
+  ]
+}
