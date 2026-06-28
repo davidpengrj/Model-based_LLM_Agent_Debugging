@@ -1,0 +1,24 @@
+{
+  "profile_path": "artifacts/profiles/deepseek-v4-flash_without_gt.jsonl",
+  "theta": 0.72,
+  "min_support": 5,
+  "agents": {
+    "Orchestrator": {
+      "selected_k": 1,
+      "reason": "too_few_samples",
+      "num_samples": 2,
+      "feature_names": [
+        "task_alignment",
+        "evidence_quality",
+        "new_claim",
+        "unsupported_claim",
+        "tool_use",
+        "tool_error",
+        "reasoning_error_signal",
+        "action_type_plan",
+        "progress_state_on_track"
+      ],
+      "candidates": []
+    }
+  }
+}

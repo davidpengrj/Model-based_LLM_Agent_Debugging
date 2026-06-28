@@ -1,0 +1,3 @@
+[submodule "external/rnnrepair"]
+	path = external/rnnrepair
+	url = https://bitbucket.org/xiaofeixie/rnnrepair.git

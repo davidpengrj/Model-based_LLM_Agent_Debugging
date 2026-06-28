@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local secrets and shell environments
+.env
+.env.*
+
+# Runtime logs and failed API attempts; successful artifacts are kept.
+*.errors
+
+# Download caches; canonical dataset files are committed separately.
+datasets/**/.cache/
+
+# Nested repositories downloaded as source dependencies.
+external/*/.git/
