@@ -1,5 +1,8 @@
 __pycache__/
 *.py[cod]
+*.egg-info/
+build/
+dist/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
@@ -8,6 +11,11 @@ __pycache__/
 # Local secrets and shell environments
 .env
 .env.*
+!.env.example
+
+# Local extraction caches and evaluation outputs
+cache/
+results/*.local.json
 
 # Runtime logs and failed API attempts; successful artifacts are kept.
 *.errors
