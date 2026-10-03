@@ -10,16 +10,17 @@
   <meta property="og:title" content="Model-based Agent Debugging">
   <meta property="og:description" content="Who caused the failure? Where did it begin? Explore a research method through a real multi-agent trace, a behavioral model, and evaluation evidence.">
   <meta property="og:type" content="website">
-  <style>/* Research portfolio: a quiet gallery around one inspectable method. */
+  <style>/* Research portfolio: readable prose with a visual, recorded case at its center. */
 :root {
-  --canvas: #fff;
-  --surface: #f5f7f5;
+  --canvas: #fcfbf8;
+  --surface: #f0f4ef;
   --paper: #fff;
   --ink: #172322;
   --ink-soft: #586562;
-  --line: #dce2de;
+  --line: #d5dfd6;
   --accent: #24574e;
-  --accent-soft: #edf3ee;
+  --accent-soft: #e5eee5;
+  --warm: #f6ece2;
   --olive: #92aba0;
   --olive-soft: #e6ece7;
   --olive-ink: #24574e;
@@ -64,13 +65,13 @@ p + p { margin-top: 16px; }
 .section-wrap { width: 100%; margin-inline: 0; padding-inline: 0; }
 .skip-link { position: fixed; top: 12px; left: 12px; z-index: 10; padding: 10px 16px; color: #fff; background: var(--accent); transform: translateY(-200%); }
 .skip-link:focus { transform: none; }
-.site-header { position: fixed; inset: 0 auto 0 0; display: flex; flex-direction: column; align-items: flex-start; width: 240px; padding: 36px 28px 28px; border-right: 1px solid var(--line); background: #f8faf8; overflow-y: auto; }
+.site-header { position: fixed; inset: 0 auto 0 0; display: flex; flex-direction: column; align-items: flex-start; width: 240px; padding: 36px 28px 28px; border-right: 1px solid var(--line); background: #eef3ec; overflow-y: auto; }
 .project-brand { display: flex; flex-direction: column; gap: 16px; order: 0; color: var(--ink); text-decoration: none; }
-.project-mark { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid #aebeb5; color: var(--accent); font-family: var(--mono); font-size: 18px; }
+.project-mark { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border: 1px solid var(--accent); border-radius: 7px; background: var(--accent); color: #fff; font-family: var(--mono); font-size: 20px; }
 .brand-title { font-family: var(--display); font-size: 20px; font-weight: 600; line-height: 1.4; }
 .site-header nav { display: grid; order: 1; width: 100%; gap: 12px; margin-top: 40px; }
-.site-header nav a { display: flex; align-items: baseline; gap: 12px; min-height: 40px; padding-block: 6px; color: var(--ink-soft); text-decoration: none; font-size: 16px; }
-.site-header nav a:hover, .site-header nav a[aria-current] { color: var(--accent); }
+.site-header nav a { display: flex; align-items: baseline; gap: 12px; min-height: 40px; padding: 6px 10px; margin-inline: -10px; border-radius: 5px; color: var(--ink-soft); text-decoration: none; font-size: 16px; transition: background-color 160ms, color 160ms; }
+.site-header nav a:hover, .site-header nav a[aria-current] { color: var(--accent); background: #dfe9dd; }
 .nav-number { color: #778780; font-family: var(--mono); font-size: 14px; }
 .sidebar-meta { order: 2; margin-top: auto; padding-top: 36px; color: var(--ink-soft); font-size: 14px; line-height: 1.65; }
 .sidebar-meta p + p { margin-top: 8px; }
@@ -82,25 +83,44 @@ p + p { margin-top: 16px; }
 html[lang="en"] .only-zh, html[lang="zh-CN"] .only-en { display: none; }
 .nav-progress { display: none; }
 
-.hero { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 48px; align-items: start; padding-block: 64px 56px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 40px; align-items: center; padding-block: 56px; }
 .hero-copy { min-width: 0; }
+.hero h1 { max-width: 14ch; font-size: 40px; letter-spacing: -.035em; text-wrap: balance; }
 .studio-eyebrow { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 20px; color: var(--ink-soft); font-size: 14px; }
+.studio-eyebrow::before { content: ""; width: 7px; height: 7px; margin-top: 8px; border-radius: 50%; background: #b88a41; }
 .hero-description { margin-top: 20px; font-size: 18px; }
 .project-scope { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 16px; margin-block: 24px; font-size: 16px; }
 .project-scope dt { color: var(--accent); font-size: 14px; font-weight: 600; }
 .project-scope dd { margin: 0; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 20px; font-size: 16px; }
-.studio-overview { min-width: 0; padding-top: 40px; }
-.studio-overview-title { color: var(--accent); font-family: var(--mono); font-size: 16px; line-height: 1.5; }
-.studio-flow { position: relative; display: grid; gap: 0; margin-top: 16px; padding: 0; list-style: none; }
-.studio-flow > div, .studio-flow > li { position: relative; display: grid; grid-template-columns: 32px minmax(0, 1fr); align-items: start; gap: 14px; padding: 14px 0; }
-.studio-flow > div:not(:last-child)::after, .studio-flow > li:not(:last-child)::after { content: ""; position: absolute; top: 42px; bottom: -12px; left: 15px; border-left: 1px solid #b6c8bb; }
-.studio-flow > div > span:first-child, .studio-flow > li > span:first-child { display: flex; align-items: center; justify-content: center; width: 32px; height: 28px; color: var(--accent); background: var(--accent-soft); font-family: var(--mono); font-size: 14px; }
-.studio-flow strong { display: block; color: var(--ink); font-size: 16px; font-weight: 600; }
-.studio-flow small { display: block; margin-top: 3px; color: var(--ink-soft); font-size: 14px; line-height: 1.5; }
-.studio-overview > a { display: inline-block; margin-top: 20px; font-size: 16px; }
+.hero-actions a { align-self: center; }
+.hero-actions a[href="#case"] { order: -1; padding: 10px 16px; border: 1px solid var(--accent); border-radius: 6px; background: var(--accent); color: #fff; text-decoration: none; transition: background-color 160ms; }
+.hero-actions a[href="#case"]:hover { background: #173f37; }
+.hero-actions .source-link { flex-basis: 100%; font-size: 14px; }
+.studio-overview { min-width: 0; padding: 24px; border: 1px solid #c8d8c8; border-radius: 12px; background: #eaf1e7; }
+.studio-overview-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; color: var(--accent); font-size: 16px; font-weight: 600; }
+.studio-overview-heading small { color: #51654e; font: 12px/1.5 var(--mono); font-weight: 400; }
+.mini-trace { position: relative; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 9px; margin: 24px 0; padding: 0; list-style: none; }
+.mini-trace::before { content: ""; position: absolute; left: 21px; right: 21px; top: 50%; border-top: 1px solid #a6b9a4; }
+.mini-trace li { position: relative; display: grid; place-items: center; justify-self: center; width: 100%; max-width: 43px; aspect-ratio: 1; border: 1px solid #a6b9a4; border-radius: 50%; background: #fcfdf9; color: #496145; font: 14px/1 var(--mono); }
+.mini-trace li.is-error { border-color: var(--error); background: var(--error); color: #fff; }
+.mini-comparison { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 14px; line-height: 1.45; }
+.mini-comparison th, .mini-comparison td { padding: 10px 5px; border-bottom: 1px solid #cedbcb; text-align: right; vertical-align: middle; font-variant-numeric: tabular-nums; }
+.mini-comparison th:first-child { width: 40%; padding-left: 0; text-align: left; font-weight: 400; color: #435641; }
+.mini-comparison thead th { color: var(--ink); font-weight: 600; }
+.mini-comparison thead th small { display: block; margin-top: 4px; color: #51654e; font-size: 12px; font-weight: 400; }
+.mini-comparison td { font-family: var(--mono); font-size: 17px; }
+.mini-comparison .mini-final td { color: var(--accent); font-weight: 600; }
+.mini-comparison .mini-final td:first-of-type { color: var(--error); }
+.mini-bar { display: block; height: 5px; margin-top: 8px; background: #d2dfcd; }
+.mini-bar > span { display: block; height: 100%; background: #708d6b; }
+.mini-final td:first-of-type .mini-bar > span { background: var(--error); }
+.mini-outcome { margin-top: 18px; padding-top: 4px; color: var(--ink); font-size: 16px; }
+.mini-outcome strong { color: var(--accent); font-weight: 600; }
+.mini-outcome > span { display: block; margin-top: 4px; color: #51654e; font-size: 13px; }
+.studio-overview > a { display: inline-block; margin-top: 18px; font-size: 14px; }
 .problem-section, .method-section, .case-section, .choices-section, .evaluation-section { padding-block: 40px; border-top: 1px solid var(--line); }
-.section-index { display: flex; align-items: baseline; gap: 6px; margin-bottom: 16px; color: var(--ink-soft); font-size: 14px; }
+.section-index { display: flex; align-items: baseline; gap: 6px; margin-bottom: 16px; color: var(--accent); font-size: 14px; }
 .problem-section h2, .choices-section h2 { margin-bottom: 16px; }
 .problem-body, .choices-body { min-width: 0; }
 .problem-body > p { font-size: 18px; }
@@ -112,9 +132,9 @@ html[lang="en"] .only-zh, html[lang="zh-CN"] .only-en { display: none; }
 .section-top { margin-bottom: 28px; }
 .section-top > p { max-width: 72ch; margin-top: 12px; color: var(--ink-soft); font-size: 16px; }
 .method-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; border-bottom: 1px solid var(--line); }
-.method-tabs button { min-width: 0; padding: 12px 0 16px; border: 0; border-bottom: 3px solid transparent; background: transparent; color: var(--ink-soft); text-align: left; font-size: 16px; line-height: 1.5; }
+.method-tabs button { min-width: 0; padding: 12px 12px 16px; border: 0; border-bottom: 3px solid transparent; border-radius: 6px 6px 0 0; background: transparent; color: var(--ink-soft); text-align: left; font-size: 16px; line-height: 1.5; transition: background-color 160ms; }
 .method-tabs button:hover { color: var(--accent); }
-.method-tabs button[aria-selected="true"] { border-bottom-color: var(--accent); color: var(--ink); }
+.method-tabs button[aria-selected="true"] { border-bottom-color: var(--accent); background: var(--accent-soft); color: var(--ink); }
 .method-tabs button > span { display: block; margin-bottom: 5px; color: var(--ink-soft); font-family: var(--mono); font-size: 14px; }
 .method-tabs button strong { display: block; font-weight: 600; }
 .method-tabs button small { display: block; margin-top: 5px; color: var(--ink-soft); font-size: 14px; }
@@ -122,7 +142,7 @@ html[lang="en"] .only-zh, html[lang="zh-CN"] .only-en { display: none; }
 .stage-copy, .stage-detail { min-width: 0; }
 .stage-copy h3 { margin-bottom: 12px; }
 .stage-copy > p { font-size: 16px; }
-.stage-detail { padding: 22px; border: 1px solid var(--line); background: var(--surface); }
+.stage-detail { padding: 22px; border: 1px solid var(--line); border-top: 3px solid #83a28a; border-radius: 6px; background: #fff; }
 .stage-detail h4 { margin: 0 0 18px; color: var(--ink-soft); font-size: 14px; font-weight: 400; }
 .detail-note, .method-caption { margin-top: 18px; color: var(--ink-soft); font-size: 14px; line-height: 1.65; }
 .method-caption a { display: inline-block; margin-left: 8px; }
@@ -169,16 +189,16 @@ html[lang="en"] .only-zh, html[lang="zh-CN"] .only-en { display: none; }
 .case-controls .playback-hint { flex-basis: 100%; margin: 0; color: var(--ink-soft); font-size: 14px; }
 #playback-status:empty { display: none; }
 .trace-timeline { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin-top: 20px; }
-.trace-event { min-width: 0; padding: 12px 10px; border: 1px solid var(--line); border-radius: 0; background: transparent; color: var(--ink); text-align: left; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere; }
+.trace-event { min-width: 0; padding: 12px 10px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); text-align: left; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere; transition: background-color 160ms, border-color 160ms; }
 .trace-event:hover { background: var(--surface); }
-.trace-event[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.trace-event[aria-pressed="true"] { border-color: var(--accent); background: #dce9dc; box-shadow: inset 0 3px var(--accent); }
 .event-number { display: block; margin-bottom: 6px; color: var(--ink-soft); font-family: var(--mono); font-size: 14px; }
 .trace-event strong { display: block; font-size: 16px; font-weight: 500; }
 .trace-event small { display: block; margin-top: 6px; color: var(--ink-soft); font-size: 14px; }
 .trace-event.error-event .event-number { color: var(--error); }
 .case-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; margin-top: 32px; }
 .trace-pane, .evidence-pane { min-width: 0; }
-.evidence-pane { padding: 22px; border: 1px solid var(--line); }
+.evidence-pane { padding: 22px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
 .pane-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 14px; margin-bottom: 18px; }
 .pane-heading h3 { font-size: 18px; }
 .pane-heading > span, .pane-tag { color: var(--ink-soft); font-size: 14px; }
@@ -222,14 +242,14 @@ html[lang="en"] .only-zh, html[lang="zh-CN"] .only-en { display: none; }
 .distribution-event { font-family: var(--mono); font-size: 14px; }
 .signal-footnote, .case-qualification { margin-top: 18px; color: var(--ink-soft); font-size: 14px; }
 .error { color: var(--error); }
-.case-takeaway { margin-top: 28px; }
+.case-takeaway { margin-top: 28px; padding: 22px 24px; border-left: 4px solid var(--error); border-radius: 0 7px 7px 0; background: var(--warm); }
 .case-takeaway h3 { margin-bottom: 10px; font-size: 20px; }
 .case-takeaway p { font-size: 16px; }
 .case-model { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 32px; align-items: center; margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--line); }
 .case-model-header { grid-column: 1 / -1; }
 .case-model-header h3 { font-size: 20px; }
 .case-model-header > span { display: block; margin-top: 8px; color: var(--ink-soft); font-size: 14px; }
-.model-graph { width: 100%; min-width: 0; }
+.model-graph { --graph-bg: #edf3ea; width: 100%; min-width: 0; padding: 12px; border: 1px solid #d2dfce; border-radius: 8px; background: #edf3ea; }
 .model-graph svg { display: block; width: 100%; height: auto; max-height: 360px; }
 .model-graph text { font-family: var(--mono); }
 .state-node[role="button"] { cursor: pointer; outline: none; }
@@ -250,13 +270,13 @@ html[lang="en"] .only-zh, html[lang="zh-CN"] .only-en { display: none; }
 .design-choice h3 { margin-bottom: 10px; font-size: 20px; }
 .design-choice p { font-size: 18px; }
 .evaluation-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 36px; align-items: start; }
-.evaluation-results { min-width: 0; }
+.evaluation-results { min-width: 0; padding: 24px; border: 1px solid #e0d7c4; border-top: 4px solid #b29359; border-radius: 7px; background: #f6f1e5; }
 .benchmark-label { font-size: 18px; font-weight: 600; }
 .benchmark-label > span { margin-left: 10px; color: var(--ink-soft); font-size: 14px; font-weight: 400; }
 .metric-result { margin-top: 24px; }
 .metric-result-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 12px; }
 .metric-result-top > span { color: var(--accent); font-size: 16px; font-weight: 600; }
-.metric-result-top strong { font-family: var(--mono); font-size: 28px; font-weight: 400; }
+.metric-result-top strong { color: var(--accent); font-family: var(--mono); font-size: 32px; font-weight: 500; }
 .metric-result-top small { color: var(--ink-soft); font-size: 14px; }
 .metric-result > p { margin-block: 8px 14px; font-size: 14px; }
 .metric-track { position: relative; height: 7px; background: var(--olive-soft); }
@@ -285,7 +305,7 @@ html[lang="en"] .only-zh, html[lang="zh-CN"] .only-en { display: none; }
 .reveal-ready, .is-visible, .event-change { opacity: 1; transform: none; animation: none; transition: none; }
 
 @media (max-width: 1100px) {
-  .site-header { position: static; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 16px 28px; width: min(calc(100% - 64px), 960px); margin-inline: auto; padding: 24px 0; border-right: 0; border-bottom: 1px solid var(--line); background: #fff; overflow: visible; }
+  .site-header { position: static; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 16px 28px; width: min(calc(100% - 64px), 960px); margin-inline: auto; padding: 24px 0; border-right: 0; border-bottom: 1px solid var(--line); background: transparent; overflow: visible; }
   .project-brand { flex-direction: row; align-items: center; gap: 12px; }
   .brand-title { max-width: 230px; font-size: 18px; }
   .project-mark { width: 36px; height: 36px; font-size: 16px; }
@@ -305,7 +325,9 @@ html[lang="en"] .only-zh, html[lang="zh-CN"] .only-en { display: none; }
   .language-button { margin-left: auto; }
   .saved-design { order: 4; text-align: left; }
   .sidebar-actions { margin-left: auto; }
-  .hero { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 28px; }
+  .hero { grid-template-columns: 1fr; gap: 28px; }
+  .hero h1 { max-width: none; }
+  .studio-overview { max-width: 520px; width: 100%; }
   #method-panel, .case-layout, .evaluation-layout { grid-template-columns: 1fr; gap: 24px; }
   .trace-timeline { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .trace-scrubber { flex-basis: 100%; }
@@ -324,13 +346,14 @@ html[lang="en"] .only-zh, html[lang="zh-CN"] .only-en { display: none; }
   .site-header nav a { font-size: 16px; }
   .nav-number { font-size: 14px; }
   .hero { grid-template-columns: 1fr; gap: 32px; padding-block: 32px; }
-  h1 { font-size: 32px; }
+  .hero h1 { max-width: none; font-size: 32px; }
   html[lang="zh-CN"] h1 { font-size: clamp(24px, 7vw, 28px); }
   .studio-eyebrow { margin-bottom: 16px; }
-  .studio-overview { padding-top: 0; }
-  .studio-flow { margin-top: 12px; }
-  .studio-flow > div, .studio-flow > li { padding-block: 10px; }
-  .studio-flow > div:not(:last-child)::after, .studio-flow > li:not(:last-child)::after { top: 38px; bottom: -8px; }
+  .studio-overview { padding: 18px 14px; }
+  .mini-comparison th, .mini-comparison td { padding-inline: 3px; }
+  .mini-comparison td { font-size: 15px; }
+  .mini-comparison th:first-child { width: 38%; }
+  .mini-trace { gap: 7px; }
   .problem-section, .method-section, .case-section, .choices-section, .evaluation-section { padding-block: 32px; }
   .failure-sequence { display: grid; gap: 12px; }
   .failure-sequence > div { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 10px; }
@@ -345,12 +368,14 @@ html[lang="en"] .only-zh, html[lang="zh-CN"] .only-en { display: none; }
   .case-controls .playback-mainbutton { flex: 1; min-width: 0; padding-inline: 10px; }
   .trace-timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .case-layout { margin-top: 24px; }
-  .evidence-pane { padding: 20px 0 0; border: 0; border-top: 1px solid var(--line); }
+  .evidence-pane { padding: 20px 0 0; border: 0; border-top: 1px solid var(--line); border-radius: 0; background: transparent; }
   .signal-row strong { font-size: 20px; }
   .distribution-bars { gap: 0; }
   .distribution-value { letter-spacing: -.03em; }
   .case-model { grid-template-columns: 1fr; gap: 20px; }
   .case-model .model-graph svg { max-height: 320px; }
+  .case-takeaway { padding: 18px; }
+  .evaluation-results { padding: 20px 16px; }
   .metric-result-top strong { font-size: 26px; }
 }
 
@@ -400,40 +425,46 @@ html[lang="en"] .only-zh, html[lang="zh-CN"] .only-en { display: none; }
     <section class="hero section-wrap">
       <div class="hero-copy"><p class="studio-eyebrow"><span data-i18n="editionLabel">Research project</span><span>Multi-agent systems</span></p>
         <h1 data-i18n-html="heroTitle">Model-based Agent Debugging</h1>
-        <p class="hero-description" data-i18n="heroDescription">Identify the responsible agent and failure position in a multi-agent trace using content evidence and a learned model of behavior.</p>
+        <p class="hero-description" data-i18n="heroDescription">Identify the responsible agent (WHO) and the first failure position (WHEN) in a visible multi-agent trace, using content evidence and a learned behavioral model.</p>
         <dl class="project-scope">
           <dt>WHO</dt><dd data-i18n="scopeWho">Responsible agent</dd>
-          <dt>WHEN</dt><dd data-i18n="scopeWhen">Failure position</dd>
+          <dt>WHEN</dt><dd data-i18n="scopeWhen">Error position</dd>
         </dl>
         <div class="hero-actions">
           <a href="#method" data-i18n="exploreMethod">Read the method</a>
-          <a href="#case" data-i18n="followCase">Explore the example</a>
-          <a class="source-link" href="https://github.com/davidpengrj/Model-based_LLM_Agent_Debugging" target="_blank" rel="noopener noreferrer" data-i18n="sourceCode">Source code</a>
+          <a href="#case" data-i18n="followCase">Try the recorded example</a>
+          <a class="source-link" href="https://github.com/davidpengrj/Model-based_LLM_Agent_Debugging" target="_blank" rel="noopener noreferrer" data-i18n="sourceCode">Research repository</a>
         </div>
       </div>
-      <aside class="studio-overview" aria-label="Method overview">
-        <p class="studio-overview-title">WHO <span aria-hidden="true">→</span> WHEN</p>
-        <ol class="studio-flow">
-          <li><span class="flow-number" aria-hidden="true">01</span><div><strong data-i18n="stage1">Structure the trace</strong><small data-i18n="stage1Caption">Agent / Action / State</small></div></li>
-          <li><span class="flow-number" aria-hidden="true">02</span><div><strong data-i18n="stage2">Model behavior</strong><small data-i18n="stage2Caption">TF-IDF → PCA → GMM</small></div></li>
-          <li><span class="flow-number" aria-hidden="true">03</span><div><strong data-i18n="stage3">Score the evidence</strong><small data-i18n="stage3Caption">Content + transition</small></div></li>
-          <li><span class="flow-number" aria-hidden="true">04</span><div><strong data-i18n="stage4">Attribute & locate</strong><small data-i18n="stage4Caption">WHO → WHEN</small></div></li>
+      <aside class="studio-overview" aria-label="Recorded debugging example">
+        <div class="studio-overview-heading"><span><span class="only-en">Recorded example</span><span class="only-zh">真实案例</span></span><small>Who&amp;When · 38</small></div>
+        <ol class="mini-trace" aria-label="Six recorded events; event 03 is the dataset-annotated first error">
+          <li>01</li><li>02</li><li class="is-error">03</li><li>04</li><li>05</li><li>06</li>
         </ol>
+        <table class="mini-comparison">
+          <thead><tr><th scope="col"><span class="only-en">Signal</span><span class="only-zh">证据</span></th><th scope="col"><strong><span class="only-en">Event 03</span><span class="only-zh">事件 03</span></strong><small><span class="only-en">Actor claim</span><span class="only-zh">演员姓名判断</span></small></th><th scope="col"><strong><span class="only-en">Event 04</span><span class="only-zh">事件 04</span></strong><small><span class="only-en">Character claim</span><span class="only-zh">角色姓名判断</span></small></th></tr></thead>
+          <tbody>
+            <tr><th scope="row"><span class="only-en">Content</span><span class="only-zh">内容证据</span></th><td>47.26%</td><td>50.76%</td></tr>
+            <tr><th scope="row"><span class="only-en">Incoming surprise</span><span class="only-zh">传入惊讶度</span></th><td>7.88</td><td>1.70</td></tr>
+            <tr class="mini-final"><th scope="row"><span class="only-en">Final step weight</span><span class="only-zh">最终步骤权重</span></th><td><strong>79.84%</strong><span class="mini-bar" aria-hidden="true"><span style="width:79.84%"></span></span></td><td><strong>18.45%</strong><span class="mini-bar" aria-hidden="true"><span style="width:18.45%"></span></span></td></tr>
+          </tbody>
+        </table>
+        <div class="mini-outcome"><strong><span class="only-en">TV expert · Event 03</span><span class="only-zh">电视剧专家 · 事件 03</span></strong><span><span class="only-en">Matches the dataset annotation</span><span class="only-zh">与数据集标注一致</span></span></div>
         <a href="#case" data-i18n="inspectCase">Open the recorded example</a>
       </aside>
     </section>
 
-    <section id="question" class="problem-section section-wrap"><div class="section-index">01 / <span data-i18n="problemLabel">The research question</span></div><div class="problem-body"><h2 data-i18n="problemTitle">A final answer hides the path that produced it.</h2><p data-i18n="problemBody">An agent makes a claim. Another builds on it. A verifier repeats it. Debugging requires tracing the failure through these events: which agent should be attributed, and which event should be localized?</p><div class="failure-sequence"><div><span>01</span><p data-i18n="sequence1">A claim enters the trace</p></div><span class="sequence-arrow" aria-hidden="true">→</span><div><span>02</span><p data-i18n="sequence2">Later steps build on it</p></div><span class="sequence-arrow" aria-hidden="true">→</span><div><span>03</span><p data-i18n="sequence3">The answer inherits it</p></div></div></div></section>
+    <section id="question" class="problem-section section-wrap"><div class="section-index">01 / <span data-i18n="problemLabel">Problem</span></div><div class="problem-body"><h2 data-i18n="problemTitle">What the method solves</h2><p data-i18n="problemBody">In a multi-agent trace, one agent can introduce an incorrect claim and later agents can reuse it. The method answers two questions: which agent is responsible (WHO), and where did the failure first occur (WHEN)?</p><div class="failure-sequence"><div><span>01</span><p data-i18n="sequence1">An agent makes a claim</p></div><span class="sequence-arrow" aria-hidden="true">→</span><div><span>02</span><p data-i18n="sequence2">Later steps reuse it</p></div><span class="sequence-arrow" aria-hidden="true">→</span><div><span>03</span><p data-i18n="sequence3">The final answer follows it</p></div></div></div></section>
 
-    <section id="method" class="method-section section-wrap"><div class="section-top"><div><div class="section-index">02 / <span data-i18n="methodLabel">The final method</span></div><h2 data-i18n="methodTitle">From a trace to an inspectable decision.</h2></div><p data-i18n="methodIntro">Follow the four stages. Each view uses the same recorded event and the final method's saved signals.</p></div><div class="method-tabs" role="tablist" aria-label="Method stages"><button id="stage-tab-0" data-stage="0" role="tab" aria-selected="true" aria-controls="method-panel"><span>01</span><strong data-i18n="stage1">Structure the trace</strong><small data-i18n="stage1Caption">Agent / Action / State</small></button><button id="stage-tab-1" data-stage="1" role="tab" aria-selected="false" aria-controls="method-panel" tabindex="-1"><span>02</span><strong data-i18n="stage2">Model behavior</strong><small data-i18n="stage2Caption">TF-IDF → PCA → GMM</small></button><button id="stage-tab-2" data-stage="2" role="tab" aria-selected="false" aria-controls="method-panel" tabindex="-1"><span>03</span><strong data-i18n="stage3">Score the evidence</strong><small data-i18n="stage3Caption">Content + transition</small></button><button id="stage-tab-3" data-stage="3" role="tab" aria-selected="false" aria-controls="method-panel" tabindex="-1"><span>04</span><strong data-i18n="stage4">Attribute & locate</strong><small data-i18n="stage4Caption">WHO → WHEN</small></button></div><div id="method-panel" role="tabpanel" aria-labelledby="stage-tab-0" tabindex="0"></div><div class="method-caption"><span data-i18n="fitNote">Training estimates the frequency channels and state model. Inference reads the visible trace; the evaluation annotation is separate.</span><a href="#case" data-i18n="inspectCase">Inspect the recorded case ↓</a></div></section>
+    <section id="method" class="method-section section-wrap"><div class="section-top"><div><div class="section-index">02 / <span data-i18n="methodLabel">The final method</span></div><h2 data-i18n="methodTitle">How it works</h2></div><p data-i18n="methodIntro">Select a stage to inspect the representation, model, scores or prediction for the current event. All values come from the saved run.</p></div><div class="method-tabs" role="tablist" aria-label="Method stages"><button id="stage-tab-0" data-stage="0" role="tab" aria-selected="true" aria-controls="method-panel"><span>01</span><strong data-i18n="stage1">Structure the trace</strong><small data-i18n="stage1Caption">Agent / Action / State</small></button><button id="stage-tab-1" data-stage="1" role="tab" aria-selected="false" aria-controls="method-panel" tabindex="-1"><span>02</span><strong data-i18n="stage2">Model behavior</strong><small data-i18n="stage2Caption">TF-IDF → PCA → GMM</small></button><button id="stage-tab-2" data-stage="2" role="tab" aria-selected="false" aria-controls="method-panel" tabindex="-1"><span>03</span><strong data-i18n="stage3">Score the evidence</strong><small data-i18n="stage3Caption">Content + transition</small></button><button id="stage-tab-3" data-stage="3" role="tab" aria-selected="false" aria-controls="method-panel" tabindex="-1"><span>04</span><strong data-i18n="stage4">Attribute &amp; locate</strong><small data-i18n="stage4Caption">WHO → WHEN</small></button></div><div id="method-panel" role="tabpanel" aria-labelledby="stage-tab-0" tabindex="0"></div><div class="method-caption"><span data-i18n="fitNote">Training estimates the frequency channels and state model. Inference reads the visible trace; the evaluation annotation is separate.</span><a href="#case" data-i18n="inspectCase">Open the recorded example</a></div></section>
 
-    <section id="case" class="case-section"><div class="section-wrap"><div class="section-top"><div><div class="section-index">03 / <span data-i18n="caseLabel">A real trace</span></div><h2 data-i18n="caseTitle">Follow the decision, event by event.</h2></div><p data-i18n="caseIntro">Six events, three agents, one dataset-annotated first error. Click an event to inspect its trace, representation and evidence.</p></div><div class="case-meta"><span>Who&When · Algorithm-Generated/38 · seed 3</span><span data-i18n="caseIndexNote">Events 01–06 correspond to source steps 0–5.</span></div><div class="task-line"><span data-i18n="taskLabel">Task</span><p data-i18n="caseTask">Find the first name of the Magda M. character played by the actor who portrayed Ray in the Polish adaptation of Everybody Loves Raymond.</p></div><div class="case-controls trace-playback"><div class="playback-actions"><button id="trace-play" class="playback-mainbutton" aria-pressed="false" disabled><span class="play-icon" aria-hidden="true">▶</span><span id="trace-play-label">Play the trace</span></button><button id="trace-prev" class="playback-step" aria-label="Previous event" disabled>←</button><button id="trace-next" class="playback-step" aria-label="Next event" disabled>→</button></div><label class="trace-scrubber" for="trace-scrubber"><span data-i18n="scrubLabel">Explore the six events</span><input id="trace-scrubber" type="range" min="0" max="5" value="2" step="1" disabled><output id="playback-position" for="trace-scrubber">03 / 06</output></label><p id="playback-status" class="playback-hint" role="status" aria-live="polite"></p><p class="playback-hint" data-i18n="playbackScope">Replay the saved trace. The final prediction uses all six events.</p></div><div id="trace-timeline" class="trace-timeline" role="group" aria-label="Choose an event"></div><div class="case-layout"><article class="trace-pane"><div class="pane-heading"><h3 data-i18n="visibleEvent">Visible event</h3><span id="selected-event-label"></span></div><div class="trace-speaker"><span id="speaker-dot"></span><strong id="selected-speaker"></strong></div><p id="event-summary" class="event-summary"></p><details class="original-log"><summary data-i18n="originalLog">Read the original log</summary><pre id="original-content"></pre></details><div class="representation"><h3 data-i18n="semanticTriple">Canonical representation</h3><dl id="case-triple"></dl></div></article><article class="evidence-pane"><div class="pane-heading"><h3 data-i18n="eventEvidence">Evidence at this event</h3><span class="pane-tag" data-i18n="savedSignals">Saved model signals</span></div><div id="event-signals"></div><div id="event-explanation" class="event-explanation" role="status" aria-live="polite"></div><div class="distribution-heading"><h3 id="distribution-title" data-i18n="stepDistribution">Step evidence after attribution</h3><span data-i18n="normalizedEvidence">Normalized mass</span></div><div class="evidence-toggle" role="group" aria-label="Compare recorded evidence"><button id="evidence-content" aria-pressed="false" data-i18n="contentView">Content evidence</button><button id="evidence-fused" aria-pressed="true" data-i18n="finalView">Final localization</button></div><p id="evidence-mode-note" class="evidence-mode-note"></p><div id="step-distribution"></div><p class="signal-footnote" data-i18n="massNote">Normalized evidence is a model readout, not a calibrated probability of real-world failure.</p></article></div><div class="case-takeaway"><div><h3 data-i18n="caseOutcome">The final method matches the annotated agent and event.</h3><p data-i18n="caseTakeaway">The third event receives less content probability than the fourth, but much higher incoming transition surprise. The behavioral signal shifts localization back to the annotated first error.</p></div></div><div class="case-model"><div class="case-model-header"><h3 data-i18n="stateExplorer">Explore the behavioral model</h3><span data-i18n="stateHint">Select a state to inspect its saved signals</span></div><div id="case-graph" class="model-graph"></div><div id="case-inspector" class="graph-inspector" role="status" aria-live="polite"></div></div><p class="case-qualification" data-i18n="caseQualification">This is one successful recorded example of the same core method on Who&When. It illustrates the decision process; the aggregate evaluation below uses Who&When Pro.</p></div></section>
+    <section id="case" class="case-section"><div class="section-wrap"><div class="section-top"><div><div class="section-index">03 / <span data-i18n="caseLabel">Recorded example</span></div><h2 data-i18n="caseTitle">A six-event debugging example</h2></div><p data-i18n="caseIntro">This trace contains six events and three agents. The dataset marks the first error. Select an event to inspect its original content, representation and evidence.</p></div><div class="case-meta"><span>Who&When · Algorithm-Generated/38 · seed 3</span><span data-i18n="caseIndexNote">Events 01–06 correspond to source steps 0–5.</span></div><div class="task-line"><span data-i18n="taskLabel">Task</span><p data-i18n="caseTask">Find the first name of the Magda M. character played by the actor who portrayed Ray in the Polish adaptation of Everybody Loves Raymond.</p></div><div class="case-controls trace-playback"><div class="playback-actions"><button id="trace-play" class="playback-mainbutton" aria-pressed="false" disabled><span class="play-icon" aria-hidden="true">▶</span><span id="trace-play-label">Play the trace</span></button><button id="trace-prev" class="playback-step" aria-label="Previous event" disabled>←</button><button id="trace-next" class="playback-step" aria-label="Next event" disabled>→</button></div><label class="trace-scrubber" for="trace-scrubber"><span data-i18n="scrubLabel">Event</span><input id="trace-scrubber" type="range" min="0" max="5" value="2" step="1" disabled><output id="playback-position" for="trace-scrubber">03 / 06</output></label><p id="playback-status" class="playback-hint" role="status" aria-live="polite"></p><p class="playback-hint" data-i18n="playbackScope">Replay the saved trace. The final prediction uses all six events.</p></div><div id="trace-timeline" class="trace-timeline" role="group" aria-label="Choose an event"></div><div class="case-layout"><article class="trace-pane"><div class="pane-heading"><h3 data-i18n="visibleEvent">Visible event</h3><span id="selected-event-label"></span></div><div class="trace-speaker"><span id="speaker-dot"></span><strong id="selected-speaker"></strong></div><p id="event-summary" class="event-summary"></p><details class="original-log"><summary data-i18n="originalLog">Original log</summary><pre id="original-content"></pre></details><div class="representation"><h3 data-i18n="semanticTriple">Agent / Action / State representation</h3><dl id="case-triple"></dl></div></article><article class="evidence-pane"><div class="pane-heading"><h3 data-i18n="eventEvidence">Evidence at this event</h3><span class="pane-tag" data-i18n="savedSignals">Saved model signals</span></div><div id="event-signals"></div><div id="event-explanation" class="event-explanation" role="status" aria-live="polite"></div><div class="distribution-heading"><h3 id="distribution-title" data-i18n="stepDistribution">Step evidence within the selected agent</h3><span data-i18n="normalizedEvidence">Normalized evidence</span></div><div class="evidence-toggle" role="group" aria-label="Compare recorded evidence"><button id="evidence-content" aria-pressed="false" data-i18n="contentView">Content evidence</button><button id="evidence-fused" aria-pressed="true" data-i18n="finalView">Final localization</button></div><p id="evidence-mode-note" class="evidence-mode-note"></p><div id="step-distribution"></div><p class="signal-footnote" data-i18n="massNote">Normalized evidence is a model readout, not a calibrated probability of real-world failure.</p></article></div><div class="case-takeaway"><div><h3 data-i18n="caseOutcome">Prediction matches the annotated agent and event</h3><p data-i18n="caseTakeaway">Event 03 has less content probability than event 04, but higher incoming transition surprise. Combining these signals selects event 03, the dataset-annotated first error.</p></div></div><div class="case-model"><div class="case-model-header"><h3 data-i18n="stateExplorer">Behavioral model</h3><span data-i18n="stateHint">Select a state to inspect its membership and transition frequency.</span></div><div id="case-graph" class="model-graph"></div><div id="case-inspector" class="graph-inspector" role="status" aria-live="polite"></div></div><p class="case-qualification" data-i18n="caseQualification">This successful recorded example uses the same core method on Who&amp;When. It illustrates one decision; the aggregate results below use Who&amp;When Pro.</p></div></section>
 
-    <section id="design" class="choices-section section-wrap"><div class="section-index">04 / <span data-i18n="choicesLabel">Key design choices</span></div><div class="choices-body"><h2 data-i18n="choicesTitle">The reasoning behind the architecture.</h2><div class="design-choice"><span>01</span><div><h3 data-i18n="choice1Title">Preserve agent, action and state.</h3><p data-i18n="choice1Body">Canonical triples turn verbose logs into a consistent representation while retaining task-affecting details. The extraction sees visible content, without the error annotation.</p></div></div><div class="design-choice"><span>02</span><div><h3 data-i18n="choice2Title">Read content and behavior together.</h3><p data-i18n="choice2Body">Error/Normal token frequencies and Action–State relations supply content evidence. The DTMC supplies incoming transition surprise from a fold-local behavior model.</p></div></div><div class="design-choice"><span>03</span><div><h3 data-i18n="choice3Title">Separate agent attribution from localization.</h3><p data-i18n="choice3Body">WHO sums content probability over an agent's events. WHEN combines event probability with transition surprise within the selected agent. Every signal can be inspected.</p></div></div></div></section>
+    <section id="design" class="choices-section section-wrap"><div class="section-index">04 / <span data-i18n="choicesLabel">Key design choices</span></div><div class="choices-body"><h2 data-i18n="choicesTitle">Design choices</h2><div class="design-choice"><span>01</span><div><h3 data-i18n="choice1Title">Keep agent, action and state</h3><p data-i18n="choice1Body">Canonical triples turn verbose logs into a consistent representation while retaining task-affecting details. The extraction sees visible content, without the error annotation.</p></div></div><div class="design-choice"><span>02</span><div><h3 data-i18n="choice2Title">Combine content and behavior</h3><p data-i18n="choice2Body">Error/Normal token frequencies and Action–State relations supply content evidence. The DTMC supplies incoming transition surprise from a fold-local behavior model.</p></div></div><div class="design-choice"><span>03</span><div><h3 data-i18n="choice3Title">Separate WHO and WHEN</h3><p data-i18n="choice3Body">WHO sums content probability over an agent&#39;s events. WHEN combines event probability with transition surprise within the selected agent. Every signal can be inspected.</p></div></div></div></section>
 
-    <section id="evidence" class="evaluation-section section-wrap"><div class="section-top"><div><div class="section-index">05 / <span data-i18n="evaluationLabel">Evaluation evidence</span></div><h2 data-i18n="evaluationTitle">One final method. A defined evaluation.</h2></div><p data-i18n="evaluationIntro">The latest primary evaluation on Who&When Pro uses the same frozen core method, with text-only visible inputs.</p></div><div class="evaluation-layout"><div class="evaluation-results"><div class="benchmark-label">Who&When Pro <span data-i18n="textOnly">Text only</span></div><div id="evaluation-metrics"></div><p data-i18n="sdNote">Mean ± sample standard deviation across 20 reported task-group holdouts. Overlapping splits describe variation across these runs, not independent replications.</p></div><div class="protocol-summary"><h3 data-i18n="protocolTitle">What was evaluated</h3><dl id="protocol-facts"></dl><p id="evaluation-coordinate-note"></p><details><summary data-i18n="technicalDetails">Inspect the frozen configuration & sources</summary><div id="method-config"></div><div id="source-evidence"></div></details></div></div></section>
+    <section id="evidence" class="evaluation-section section-wrap"><div class="section-top"><div><div class="section-index">05 / <span data-i18n="evaluationLabel">Results</span></div><h2 data-i18n="evaluationTitle">Results on Who&amp;When Pro</h2></div><p data-i18n="evaluationIntro">The latest primary evaluation uses the frozen final method on Who&amp;When Pro. Inputs are visible text traces.</p></div><div class="evaluation-layout"><div class="evaluation-results"><div class="benchmark-label">Who&When Pro <span data-i18n="textOnly">Text only</span></div><div id="evaluation-metrics"></div><p data-i18n="sdNote">Mean ± sample standard deviation across 20 reported task-group holdouts. The test splits overlap, so the standard deviation describes variation across these runs, not independent replications.</p></div><div class="protocol-summary"><h3 data-i18n="protocolTitle">Evaluation setup</h3><dl id="protocol-facts"></dl><p id="evaluation-coordinate-note"></p><details><summary data-i18n="technicalDetails">Inspect the frozen configuration &amp; sources</summary><div id="method-config"></div><div id="source-evidence"></div></details></div></div></section>
   </main>
-  <footer class="site-footer section-wrap"><div><strong>Model-based Agent Debugging</strong><p data-i18n="footerNote">A research project told through its method, recorded decisions and evaluation evidence.</p></div><a class="quiet-link" id="download-project" hidden href="#main" download="model-based-agent-debugging-studio.html" data-i18n="downloadProject">Save this project page ↗</a><a class="quiet-link source-link" href="https://github.com/davidpengrj/Model-based_LLM_Agent_Debugging" target="_blank" rel="noopener noreferrer" data-i18n="sourceCode">Research repository ↗</a><a href="#main" class="back-top" data-i18n="backTop">Back to top ↑</a></footer>
+  <footer class="site-footer section-wrap"><div><strong>Model-based Agent Debugging</strong><p data-i18n="footerNote">Method, recorded example and evaluation results.</p></div><a class="quiet-link" id="download-project" hidden href="#main" download="model-based-agent-debugging-studio.html" data-i18n="downloadProject">Download this page</a><a class="quiet-link source-link" href="https://github.com/davidpengrj/Model-based_LLM_Agent_Debugging" target="_blank" rel="noopener noreferrer" data-i18n="sourceCode">Research repository</a><a href="#main" class="back-top" data-i18n="backTop">Back to top</a></footer>
   <div id="load-error" role="alert" hidden></div>
 <script>'use strict';
 
