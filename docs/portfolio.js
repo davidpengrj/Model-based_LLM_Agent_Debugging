@@ -3,8 +3,11 @@
 const $ = id => document.getElementById(id);
 const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const number = (value, digits=2) => Number(value).toFixed(digits);
-const state = {lang:'en', stage:0, event:2, data:null, case:null};
+const state = {lang:'en', stage:0, event:2, data:null, case:null, evidenceMode:'final', inspectedState:null, inspectManual:false};
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const copy = {
+  scrubLabel:['Explore the six events','拖动查看六个事件'], playbackScope:['Replay the saved trace. The final prediction uses all six events.','回放已保存的轨迹；最终预测基于完整的六个事件。'], stateExplorer:['Explore the behavioral model','探索行为模型'], stateHint:['Select a state to inspect its saved signals','点击状态，查看它的已保存信号'], inspectState:['Inspect state','查看状态'], inspectedState:['Selected state','选中的状态'], stateMembership:['Membership at this event','当前事件的软状态质量'], initialFrequency:['Initial frequency','初始状态频率'], transitionFrequency:['Training transition frequency','训练中的状态转移频率'], inspectorNote:['These are saved state memberships and transition frequencies. Scoring combines all soft states; state IDs identify learned clusters.','这里展示已保存的软状态质量与转移频率。评分结合全部软状态，状态编号标识学习到的聚类。'],
+  contentView:['Content evidence','内容证据'], finalView:['Final localization','最终定位'], contentViewHeading:['Content evidence across the trace','轨迹中的内容证据'], contentViewNote:['Content evidence peaks at event 04. Explore the final localization to see how incoming surprise changes the readout.','内容证据在事件 04 达到峰值。切换到最终定位，查看进入事件的转移惊讶度如何影响读出。'], finalViewNote:['The same method combines content and incoming surprise within the attributed agent. The final step mass peaks at event 03.','同一方法在已归因的智能体内，结合内容证据与传入转移惊讶度。最终步骤质量在事件 03 达到峰值。'],
   editionLabel:['Research project','研究项目'], editionType:['Interactive case study','交互式研究展示'], finalCore:['The final method','最终方法'], latentStates:['latent states','个隐状态'], softTransitions:['Soft-state transitions','软状态转移'], sourceCode:['Research repository ↗','研究代码仓库 ↗'],
   stage1Caption:['Agent / Action / State','智能体／动作／状态'], stage2Caption:['TF-IDF → PCA → GMM','TF-IDF → PCA → GMM'], stage3Caption:['Content + transition','内容证据＋转移信号'], stage4Caption:['WHO → WHEN','WHO → WHEN'],
   brandSub:['An interactive research project','研究项目 · 交互式方法展示'], navMethod:['Method','方法流程'], navCase:['Walkthrough','真实案例'], navEvidence:['Evidence','评测证据'],
@@ -48,6 +51,7 @@ function renderLanguage() {
   $('language-toggle').textContent=state.lang==='en'?'中文 ↗':'English ↗';
   $('language-toggle').setAttribute('aria-label',state.lang==='en'?'切换中文':'Switch to English');
   renderGraph();renderMethod();renderCase();renderEvaluation();
+  document.dispatchEvent(new CustomEvent('portfolio:language'));
   updateReadingProgress();
 }
 
@@ -70,37 +74,57 @@ addEventListener('scroll',()=>{
 addEventListener('resize',updateReadingProgress);
 
 function renderGraph() {
-  const c=state.case, count=16, width=510,height=342,center={x:255,y:155};
+  const c=state.case, count=c.saved_model.responsibilities[state.event].length, width=510,height=342,center={x:255,y:155};
   const path=c.steps.map(row=>row.abstract_state_argmax);
   const active=path[state.event], previous=state.event>0?path[state.event-1]:null;
+  const inspected=state.inspectedState ?? active;
   const coordinates=Array.from({length:count},(_,i)=>{
     const ring=i<8?1:0, k=i%8, radius=ring?120:74,angle=(k/8)*Math.PI*2-Math.PI/2+(ring?0:.22);
     return {x:center.x+radius*Math.cos(angle),y:center.y+radius*Math.sin(angle)};
   });
-  let svg=`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHTML(t('graphTitle'))}"><title>${escapeHTML(t('graphTitle'))}</title><defs><marker id="arrow-dark" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="var(--graph-path)"/></marker><marker id="arrow-error" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="var(--graph-error)"/></marker></defs>`;
-  const edges=[];
-  c.saved_model.transition_probability.forEach((row,from)=>{
-    const to=row.reduce((best,value,i)=>i!==from && (best===null||value>row[best])?i:best,null);
-    if(to!==null && !edges.some(edge=>edge[0]===to&&edge[1]===from)){edges.push([from,to]);const a=coordinates[from],b=coordinates[to];svg+=`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="var(--graph-muted)" stroke-width="1" opacity=".26"/>`;}
-  });
-  const observed=new Set();
-  for(let i=1;i<path.length;i++){
-    const from=path[i-1],to=path[i],key=`${from}-${to}`;
-    if(observed.has(key))continue;observed.add(key);
-    const a=coordinates[from],b=coordinates[to], selected=from===previous&&to===active, color=selected&&state.event===c.annotation.gold_step?'var(--graph-error)':'var(--graph-path)';
-    if(from===to)svg+=`<path d="M${a.x-10} ${a.y-8}C${a.x-40} ${a.y-43} ${a.x+40} ${a.y-43} ${a.x+10} ${a.y-8}" fill="none" class="${selected?'active-transition':''}" stroke="${color}" stroke-width="${selected?2.5:1.5}"/>`;
-    else {const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy),ax=a.x+dx/d*16,ay=a.y+dy/d*16,bx=b.x-dx/d*19,by=b.y-dy/d*19;svg+=`<line x1="${ax}" y1="${ay}" x2="${bx}" y2="${by}" class="${selected?'active-transition':''}" stroke="${color}" stroke-width="${selected?2.5:1.5}" opacity="${selected?1:.55}" marker-end="url(#${selected&&state.event===c.annotation.gold_step?'arrow-error':'arrow-dark'})"><title>T[S${from}, S${to}] = ${number(c.saved_model.transition_probability[from][to],6)}</title></line>`;}
+  for(const target of ['hero-graph','case-graph']){
+    let svg=`<svg viewBox="65 0 380 ${height}" role="group" aria-label="${escapeHTML(t('graphTitle'))}"><title>${escapeHTML(t('graphTitle'))}</title><defs><marker id="${target}-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="var(--graph-path)"/></marker><marker id="${target}-error" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="var(--graph-error)"/></marker></defs>`;
+    const edges=[];
+    c.saved_model.transition_probability.forEach((row,from)=>{
+      const to=row.reduce((best,value,i)=>i!==from && (best===null||value>row[best])?i:best,null);
+      if(to!==null && !edges.some(edge=>edge[0]===to&&edge[1]===from)){edges.push([from,to]);const a=coordinates[from],b=coordinates[to];svg+=`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="var(--graph-muted)" stroke-width="1" opacity=".26"/>`;}
+    });
+    const observed=new Set();
+    let selectedPath='', selectedColor='var(--graph-path)';
+    for(let i=1;i<path.length;i++){
+      const from=path[i-1],to=path[i],key=`${from}-${to}`;
+      if(observed.has(key))continue;observed.add(key);
+      const a=coordinates[from],b=coordinates[to], selected=from===previous&&to===active;
+      const error=selected&&state.event===c.annotation.gold_step, color=error?'var(--graph-error)':'var(--graph-path)';
+      let edgePath;
+      if(from===to)edgePath=`M${a.x-10} ${a.y-8}C${a.x-40} ${a.y-43} ${a.x+40} ${a.y-43} ${a.x+10} ${a.y-8}`;
+      else {const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy);edgePath=`M${a.x+dx/d*16} ${a.y+dy/d*16}L${b.x-dx/d*19} ${b.y-dy/d*19}`;}
+      svg+=`<path d="${edgePath}" fill="none" class="${selected?'active-transition':''}" stroke="${color}" stroke-width="${selected?2.5:1.5}" opacity="${selected?1:.45}" marker-end="url(#${target}-${error?'error':'arrow'})"><title>T[S${from}, S${to}] = ${number(c.saved_model.transition_probability[from][to],6)}</title></path>`;
+      if(selected){selectedPath=edgePath;selectedColor=color;}
+    }
+    if(selectedPath&&!reducedMotion.matches)svg+=`<circle class="graph-particle" r="3.5" fill="${selectedColor}" pointer-events="none"><animateMotion dur="1.8s" repeatCount="1" path="${selectedPath}"/></circle>`;
+    coordinates.forEach((point,index)=>{
+      const inPath=path.includes(index), selected=index===active;
+      const fill=selected&&state.event===c.annotation.gold_step?'var(--graph-error)':selected?'var(--graph-active)':inPath?'var(--graph-path)':'var(--graph-idle)', text=selected||inPath?'var(--graph-text)':'var(--graph-label)';
+      svg+=`<g class="state-node ${selected?'selected':''}" data-state="${index}" role="button" tabindex="${index===inspected?0:-1}" aria-pressed="${index===inspected}" aria-label="${escapeHTML(t('inspectState')+' S'+String(index).padStart(2,'0'))}"><circle cx="${point.x}" cy="${point.y}" r="22" fill="transparent" stroke="none" pointer-events="all"/>${selected?`<circle class="state-halo" cx="${point.x}" cy="${point.y}" r="28" fill="none" stroke="${fill}" opacity=".35"/>`:''}<circle cx="${point.x}" cy="${point.y}" r="${selected?20:inPath?16:12}" fill="${fill}"/><text x="${point.x}" y="${point.y+3}" text-anchor="middle" fill="${text}" font-size="${inPath?10:9}">${String(index).padStart(2,'0')}</text><title>S${String(index).padStart(2,'0')} · q=${number(c.saved_model.responsibilities[state.event][index],6)}</title></g>`;
+    });
+    svg+=`<rect x="194" y="133" width="122" height="54" rx="8" fill="var(--graph-bg)" opacity=".94" pointer-events="none"/><text x="${center.x}" y="${center.y-7}" text-anchor="middle" fill="var(--graph-label)" font-size="10" pointer-events="none">${t('graphConformance')}</text><text x="${center.x}" y="${center.y+16}" text-anchor="middle" fill="var(--graph-path)" font-size="19" pointer-events="none">${number(c.steps[state.event].incoming_conformance,5)}</text>`;
+    svg+=`<text x="${width/2}" y="${height-34}" text-anchor="middle" fill="var(--graph-label)" font-size="10">${t('graphLegend')}</text>`;
+    path.forEach((index,i)=>{const x=width/2-125+i*50;svg+=`<text x="${x}" y="${height-12}" text-anchor="middle" font-size="10" fill="${i===state.event?'var(--graph-error)':'var(--graph-label)'}">S${String(index).padStart(2,'0')}</text>${i<path.length-1?`<text x="${x+25}" y="${height-12}" text-anchor="middle" fill="var(--graph-muted)" font-size="9">→</text>`:''}`;});
+    $(target).innerHTML=svg+'</svg>';
   }
-  coordinates.forEach((point,index)=>{
-    const inPath=path.includes(index), selected=index===active;
-    const fill=selected&&state.event===c.annotation.gold_step?'var(--graph-error)':selected?'var(--graph-active)':inPath?'var(--graph-path)':'var(--graph-idle)', text=selected||inPath?'var(--graph-text)':'var(--graph-label)';
-    svg+=`<g class="state-node ${selected?'selected':''}">${selected?`<circle class="state-halo" cx="${point.x}" cy="${point.y}" r="28" fill="none" stroke="${fill}" opacity=".35"/>`:''}<circle cx="${point.x}" cy="${point.y}" r="${selected?20:inPath?16:11}" fill="${fill}" opacity="${inPath?1:.7}"/><text x="${point.x}" y="${point.y+3}" text-anchor="middle" fill="${text}" font-size="${inPath?10:9}" font-family="sans-serif">${String(index).padStart(2,'0')}</text><title>State S${String(index).padStart(2,'0')} · q=${number(c.saved_model.responsibilities[state.event][index],6)}</title></g>`;
-  });
-  svg+=`<rect x="199" y="133" width="112" height="54" rx="8" fill="var(--graph-bg)" opacity=".94"/><text x="${center.x}" y="${center.y-7}" text-anchor="middle" fill="var(--graph-label)" font-size="10">${t('graphConformance')}</text><text x="${center.x}" y="${center.y+16}" text-anchor="middle" fill="var(--graph-path)" font-size="19">${number(c.steps[state.event].incoming_conformance,5)}</text>`;
-  svg+=`<text x="${width/2}" y="${height-34}" text-anchor="middle" fill="var(--graph-label)" font-size="10">${t('graphLegend')}</text>`;
-  path.forEach((index,i)=>{const x=width/2-125+i*50;svg+=`<text x="${x}" y="${height-12}" text-anchor="middle" font-size="10" fill="${i===state.event?'var(--graph-error)':'var(--graph-label)'}" font-family="monospace">S${String(index).padStart(2,'0')}</text>${i<path.length-1?`<text x="${x+25}" y="${height-12}" text-anchor="middle" fill="var(--graph-muted)" font-size="9">→</text>`:''}`;});
-  $('hero-graph').innerHTML=svg+'</svg>';
   $('hero-state-label').textContent=previous===null?`π → S${String(active).padStart(2,'0')}`:`S${String(previous).padStart(2,'0')} → S${String(active).padStart(2,'0')}`;
+  renderInspector(inspected,previous);
+}
+
+function renderInspector(index,previous) {
+  const c=state.case, name=`S${String(index).padStart(2,'0')}`;
+  const probability=previous===null?c.saved_model.initial_probability[index]:c.saved_model.transition_probability[previous][index];
+  const from=previous===null?'π':`S${String(previous).padStart(2,'0')}`;
+  const markup=`<h4>${t('inspectedState')} <strong>${name}</strong></h4><p>${eventName(state.event)}</p><dl><div><dt>${t('stateMembership')}</dt><dd>${number(c.saved_model.responsibilities[state.event][index]*100,3)}%</dd></div><div><dt>${previous===null?t('initialFrequency'):t('transitionFrequency')}<small>${from} → ${name}</small></dt><dd>${number(probability*100,3)}%</dd></div></dl><p class="inspector-note">${t('inspectorNote')}</p>`;
+  $('case-inspector').innerHTML=markup;
+  $('hero-inspector').hidden=!state.inspectManual;
+  if(state.inspectManual)$('hero-inspector').innerHTML=markup;
 }
 
 function renderMethod() {
@@ -115,7 +139,7 @@ function renderMethod() {
   }
   if(state.stage===2)detail=`<h4>${eventName(state.event)}</h4><div class="formula">p = softmax(S + R)<br>M = −log(<span class="accent">${state.event===0?'q · π':'q<sub>prev</sub> · T · q'}</span>)</div><div class="formula-value"><div><small>${t('contentMass')}</small><strong>${number(row.content_probability*100)}%</strong></div><div><small>${t('incomingSurprise')}</small><strong>${number(row.dtmc_surprise)}</strong></div><div><small>${t('weightedEvidence')}</small><strong>${number(row.fused_evidence)}</strong></div></div>`;
   if(state.stage===3)detail=`<h4>${t('agentMass')}</h4>${Object.entries(c.agent_masses).sort((a,b)=>b[1]-a[1]).map(([name,p])=>`<div class="agent-row"><span>${agentName(name)}</span><strong>${number(p*100)}%</strong></div>`).join('')}<div class="formula">WHO = argmax<sub>a</sub> Σ p<sub>t</sub><br>WHEN = argmax<sub>t ∈ WHO</sub> (p<sub>t</sub> × M<sub>t</sub>)</div><div class="method-readout"><span>${t('selectedEvent')}</span><strong>${eventName(c.prediction.predicted_step)} · ${agentName(c.prediction.predicted_agent)}</strong></div>`;
-  panel.innerHTML=`<div class="stage-copy"><h3>${t(`stageTitle${state.stage+1}`)}</h3><p>${t(`stageBody${state.stage+1}`)}</p><p class="detail-note">${t(`stageNote${state.stage+1}`)}</p></div><div class="stage-detail">${detail}</div>`;
+  panel.innerHTML=`<div class="stage-copy"><h3>${t(`stageTitle${state.stage+1}`)}</h3><p>${t(`stageBody${state.stage+1}`)}</p><p class="detail-note">${t(`stageNote${state.stage+1}`)}</p></div><div class="stage-detail${reducedMotion.matches?'':' event-change'}">${detail}</div>`;
 }
 
 function renderCase() {
@@ -130,7 +154,49 @@ function renderCase() {
   const signals=[['contentSignal','contentSignalDetail',number(row.content_probability*100)+'%'],['surpriseSignal','surpriseSignalDetail',number(row.dtmc_surprise)],['finalSignal','finalSignalDetail',number(row.final_step_mass*100)+'%']];
   $('event-signals').innerHTML=signals.map(([label,detail,value])=>`<div class="signal-row"><div><span>${t(label)}</span><small>${t(detail)}</small></div><strong>${value}</strong></div>`).join('');
   $('event-explanation').textContent=t(['explanationStart','explanationPlan','explanationError','explanationLater','explanationVerify','explanationEnd'][state.event]);
-  $('step-distribution').innerHTML=`<div class="distribution-bars" role="img" aria-label="${escapeHTML(t('stepDistribution'))}">${c.steps.map((step,i)=>`<div class="distribution-cell ${i===state.event?'selected':''} ${i===c.annotation.gold_step?'error':''}"><span style="height:${step.final_step_mass*100}%" title="${eventName(i)}: ${number(step.final_step_mass*100)}%"></span><small>${String(i+1).padStart(2,'0')}</small></div>`).join('')}</div>`;
+  renderDistribution();
+}
+
+function renderDistribution() {
+  const container=$('step-distribution'), initial=!container.firstElementChild;
+  if(initial)container.innerHTML=`<div class="distribution-bars" role="group" aria-label="${escapeHTML(t('stepDistribution'))}">${state.case.steps.map((_,i)=>`<button type="button" class="distribution-cell" data-distribution="${i}"><span class="distribution-value"></span><span class="distribution-column" aria-hidden="true"><span style="height:0%"></span></span><span class="distribution-event">${String(i+1).padStart(2,'0')}</span></button>`).join('')}</div>`;
+  $('evidence-content').setAttribute('aria-pressed',String(state.evidenceMode==='content'));
+  $('evidence-fused').setAttribute('aria-pressed',String(state.evidenceMode==='final'));
+  $('evidence-mode-note').textContent=t(state.evidenceMode==='content'?'contentViewNote':'finalViewNote');
+  const heading=$('distribution-title');
+  heading.dataset.i18n=state.evidenceMode==='content'?'contentViewHeading':'stepDistribution';
+  heading.textContent=t(heading.dataset.i18n);
+  container.firstElementChild.setAttribute('aria-label',heading.textContent);
+  const updateBars=()=>state.case.steps.forEach((row,i)=>{
+    const mass=state.evidenceMode==='content'?row.content_probability:row.final_step_mass;
+    const button=container.querySelector(`[data-distribution="${i}"]`), value=`${number(mass*100)}%`;
+    button.classList.toggle('selected',i===state.event);
+    button.classList.toggle('error',i===state.case.annotation.gold_step);
+    button.setAttribute('aria-pressed',String(i===state.event));
+    button.setAttribute('aria-label',`${eventName(i)} · ${t(state.evidenceMode==='content'?'contentView':'finalView')} ${value}`);
+    button.querySelector('.distribution-value').textContent=value;
+    button.querySelector('.distribution-column > span').style.height=`${mass*100}%`;
+  });
+  if(initial&&!reducedMotion.matches)requestAnimationFrame(updateBars);else updateBars();
+}
+
+function selectEvent(index,source='manual') {
+  if(!Number.isInteger(index)||index<0||index>=state.case.steps.length)return;
+  const changed=index!==state.event;
+  for(const id of ['event-explanation','case-inspector','hero-inspector'])$(id).setAttribute('aria-live',source==='playback'?'off':'polite');
+  state.event=index;state.inspectedState=null;state.inspectManual=false;
+  renderGraph();renderMethod();renderCase();
+  if(changed&&!reducedMotion.matches)for(const pane of document.querySelectorAll('.trace-pane,.evidence-pane')){
+    pane.classList.remove('event-change');requestAnimationFrame(()=>pane.classList.add('event-change'));
+  }
+  document.dispatchEvent(new CustomEvent('portfolio:event',{detail:{index,source}}));
+}
+
+function inspectGraph(index,target,focus=false) {
+  state.inspectedState=index;state.inspectManual=true;
+  renderGraph();
+  document.dispatchEvent(new CustomEvent('portfolio:event',{detail:{index:state.event,source:'graph'}}));
+  if(focus)$(target).querySelector(`[data-state="${index}"]`).focus({preventScroll:true});
 }
 
 function renderEvaluation() {
@@ -157,17 +223,36 @@ document.querySelectorAll('[data-stage]').forEach(button=>{
     event.preventDefault();state.stage=event.key==='Home'?0:event.key==='End'?3:(state.stage+(event.key==='ArrowRight'?1:3))%4;renderMethod();$(`stage-tab-${state.stage}`).focus();
   });
 });
-$('trace-timeline').addEventListener('click',event=>{const button=event.target.closest('[data-event]');if(!button)return;state.event=Number(button.dataset.event);renderGraph();renderMethod();renderCase();$('trace-timeline').querySelector(`[data-event="${state.event}"]`).focus({preventScroll:true});});
-$('language-toggle').addEventListener('click',()=>{state.lang=state.lang==='en'?'zh':'en';renderLanguage();});
+$('trace-timeline').addEventListener('click',event=>{const button=event.target.closest('[data-event]');if(!button)return;selectEvent(Number(button.dataset.event));$('trace-timeline').querySelector(`[data-event="${state.event}"]`).focus({preventScroll:true});});
+$('language-toggle').addEventListener('click',()=>{if(!state.case)return;state.lang=state.lang==='en'?'zh':'en';renderLanguage();});
+
+
+$('step-distribution').addEventListener('click',event=>{const button=event.target.closest('[data-distribution]');if(!button)return;selectEvent(Number(button.dataset.distribution),'distribution');});
+for(const [id,mode] of [['evidence-content','content'],['evidence-fused','final']])$(id).addEventListener('click',()=>{if(!state.case)return;state.evidenceMode=mode;renderDistribution();document.dispatchEvent(new CustomEvent('portfolio:event',{detail:{index:state.event,source:'manual'}}));});
+for(const target of ['hero-graph','case-graph']){
+  $(target).addEventListener('click',event=>{const node=event.target.closest('[data-state]');if(node)inspectGraph(Number(node.dataset.state),target,true);});
+  $(target).addEventListener('keydown',event=>{
+    const node=event.target.closest('[data-state]');if(!node)return;
+    if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End','Enter',' '].includes(event.key))return;
+    event.preventDefault();
+    const current=Number(node.dataset.state), count=state.case.saved_model.responsibilities[state.event].length;
+    const next=event.key==='Home'?0:event.key==='End'?count-1:event.key==='ArrowLeft'||event.key==='ArrowUp'?(current+count-1)%count:event.key==='ArrowRight'||event.key==='ArrowDown'?(current+1)%count:current;
+    inspectGraph(next,target,true);
+  });
+}
+reducedMotion.addEventListener('change',()=>{if(state.case)renderGraph();});
 
 (async()=>{
   try{
     if(window.PORTFOLIO_DATA && window.PORTFOLIO_CASE){state.data=window.PORTFOLIO_DATA;state.case=window.PORTFOLIO_CASE;}
     else{
-      const responses=await Promise.all([fetch('./portfolio_data.json'),fetch('./portfolio_case.json')]);
+      const version=window.PORTFOLIO_ASSET_VERSION?`?v=${encodeURIComponent(window.PORTFOLIO_ASSET_VERSION)}`:'';
+      const responses=await Promise.all([fetch('./portfolio_data.json'+version),fetch('./portfolio_case.json'+version)]);
       if(responses.some(response=>!response.ok))throw new Error('Evidence unavailable');
       [state.data,state.case]=await Promise.all(responses.map(response=>response.json()));
     }
     renderLanguage();
+    window.portfolioControls={selectEvent,getEvent:()=>state.event,getCount:()=>state.case.steps.length};
+    document.dispatchEvent(new CustomEvent('portfolio:ready'));
   }catch(error){$('load-error').textContent=t('loadError');$('load-error').hidden=false;}
 })();

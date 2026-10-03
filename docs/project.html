@@ -106,8 +106,24 @@ html[lang="zh-CN"] .hero h1 { font-size: clamp(2.8rem, 4.5vw, 4rem); letter-spac
 .model-graph text { font-family: var(--mono); }
 .state-node circle { transition: r .2s ease, fill .2s ease; }
 .state-node:hover circle { stroke: var(--graph-label); stroke-width: 1.5px; }
-.active-transition { stroke-dasharray: 5 3; animation: trace-flow 8s linear infinite; }
+.active-transition { stroke-dasharray: 5 3; animation: trace-flow 1.2s linear 1; }
 .state-halo { stroke-width: 1.5px; }
+.state-node[role="button"] { cursor: pointer; outline: none; }
+.state-node[role="button"]:focus-visible > circle:not(.state-halo), .state-node[aria-pressed="true"] > circle:not(.state-halo) { stroke: var(--on-forest); stroke-width: 3px; }
+.state-node[role="button"]:hover > circle:not(.state-halo) { stroke: var(--on-forest); stroke-width: 2px; }
+.state-node text { pointer-events: none; }
+.graph-particle { fill: var(--on-forest); stroke: var(--graph-active); stroke-width: 2px; pointer-events: none; filter: drop-shadow(0 0 5px #95b4ff80); }
+.graph-inspector { position: relative; min-width: 0; color: var(--on-forest-soft); font-size: 11px; line-height: 1.8; }
+.graph-inspector h3 { color: var(--on-forest); font-size: 14px; font-weight: 500; }
+.graph-help { position: relative; margin: 4px 24px 12px; color: var(--on-forest-soft); font-size: 10px; line-height: 1.8; }
+.graph-inspector p { margin-top: 12px; }
+.graph-inspector dl { margin: 20px 0 0; }
+dl.graph-inspector { margin-block: 0; }
+.graph-inspector dl > div, dl.graph-inspector > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; padding-block: 10px; border-bottom: 1px solid var(--forest-line); }
+.graph-inspector dt { font-size: 10px; }
+.graph-inspector dt > small { display: block; margin-top: 4px; color: #8fa6c8; font-family: var(--mono); font-size: 9px; line-height: 1.6; }
+.graph-inspector dd { margin: 0; color: var(--on-forest); font-family: var(--mono); font-size: 11px; overflow-wrap: anywhere; }
+.hero-visual > .graph-inspector { margin: 8px 24px 20px; padding-top: 16px; border-top: 1px solid var(--forest-line); }
 .visual-footer { position: relative; margin-top: auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 16px; border-top: 1px solid #ffffff14; color: var(--on-forest-soft); padding: 20px 24px 12px; font-family: var(--mono); font-size: 9px; }
 .visual-footer > span:first-child { color: var(--on-forest); font-size: 11px; }
 .hero-result { position: relative; display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 16px 20px; font-size: 12px; }
@@ -195,7 +211,30 @@ html[lang="zh-CN"] .hero h1 { font-size: clamp(2.8rem, 4.5vw, 4rem); letter-spac
 .case-meta { display: flex; flex-wrap: wrap; gap: 8px 28px; font-family: var(--mono); font-size: 10px; color: var(--on-forest-soft); line-height: 1.8; }
 .task-line { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 12px; font-size: 15px; line-height: 1.8; color: var(--on-forest-soft); max-width: 91ch; margin-top: 24px; }
 .task-line > span { font-family: var(--mono); font-size: 10px; margin-top: 5px; text-transform: uppercase; }
+.case-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 32px; padding-block: 24px; border-top: 1px solid var(--forest-line); border-bottom: 1px solid var(--forest-line); }
+.case-controls button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; border: 1px solid #5e728e; border-radius: 3px; background: transparent; color: var(--on-forest); font-size: 12px; line-height: 1.5; transition: background-color .2s ease, border-color .2s ease; }
+.case-controls button:hover:not(:disabled) { background: #26374e; border-color: #95b4ff; }
+.case-controls button:disabled { cursor: default; opacity: .4; }
+.playback-actions { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.case-controls .playback-mainbutton { min-width: 150px; padding: 10px 16px; border-color: #95b4ff; background: #95b4ff; color: #10213a; font-weight: 600; }
+.case-controls .playback-mainbutton:hover { background: #b2c9ff; border-color: #b2c9ff; }
+#trace-prev, #trace-next { flex: 0 0 44px; width: 44px; padding: 8px; font-size: 17px; }
+.play-icon { position: relative; display: inline-block; width: 12px; height: 14px; flex: 0 0 auto; font-size: 0; }
+.play-icon::before { content: ""; position: absolute; top: 2px; left: 2px; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 8px solid currentColor; }
+.playback-mainbutton[aria-pressed="true"] .play-icon::before, .playback-mainbutton.is-playing .play-icon::before { top: 1px; left: 1px; height: 12px; width: 10px; border: 0; border-inline: 3px solid currentColor; }
+.trace-scrubber { display: flex; flex: 1 1 240px; align-items: center; gap: 16px; min-width: 0; min-height: 44px; margin-left: 12px; }
+.trace-scrubber > span { font-family: var(--mono); font-size: 10px; white-space: nowrap; color: var(--on-forest-soft); }
+#trace-scrubber { appearance: none; -webkit-appearance: none; min-width: 60px; flex: 1; width: 100%; height: 24px; margin: 0; cursor: pointer; background: transparent; border-radius: 3px; accent-color: #95b4ff; }
+#trace-scrubber::-webkit-slider-runnable-track { height: 3px; background: #627998; border-radius: 3px; }
+#trace-scrubber::-moz-range-track { height: 3px; background: #627998; border-radius: 3px; }
+#trace-scrubber::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 15px; height: 15px; margin-top: -6px; background: #b2c9ff; border: 2px solid var(--ink); border-radius: 50%; box-shadow: 0 0 0 1px #95b4ff; }
+#trace-scrubber::-moz-range-thumb { width: 11px; height: 11px; background: #b2c9ff; border: 2px solid var(--ink); border-radius: 50%; box-shadow: 0 0 0 1px #95b4ff; }
+#trace-scrubber:focus-visible { outline: 2px solid #95b4ff; outline-offset: 5px; }
+#playback-position { color: var(--on-forest); font-family: var(--mono); font-size: 11px; white-space: nowrap; }
+#playback-status { flex: 1 1 100%; margin: 0; color: #c2d4f5; font-family: var(--mono); font-size: 10px; line-height: 1.7; }
+.case-controls .playback-hint { flex: 1 1 100%; max-width: 92ch; margin: 0; color: var(--on-forest-soft); font-size: 11px; line-height: 1.8; }
 .trace-timeline { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-top: 40px; }
+.case-controls + .trace-timeline { margin-top: 24px; }
 .trace-event { position: relative; min-width: 0; min-height: 124px; padding: 20px 16px; border: 1px solid var(--forest-line); border-bottom: 2px solid var(--forest-line); border-radius: 4px; color: var(--on-forest-soft); background: #ffffff03; text-align: left; font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; transition: background-color .2s ease, color .2s ease, border-color .2s ease, transform .2s ease; }
 .trace-event:not(:last-child)::after { content: ""; position: absolute; right: -13px; top: 44px; height: 1px; width: 12px; background: var(--forest-line); }
 .trace-event:hover { background: #26374e; border-color: #687d9c; transform: translateY(-3px); }
@@ -207,6 +246,13 @@ html[lang="zh-CN"] .hero h1 { font-size: clamp(2.8rem, 4.5vw, 4rem); letter-spac
 .trace-event.error-event .event-number { color: var(--error-light); }
 .trace-event.error-event.selected .event-number, .trace-event.error-event[aria-pressed="true"] .event-number { color: var(--error); }
 .trace-event.error-event[aria-pressed="true"] { border-bottom-color: var(--error-light); }
+.case-model { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); align-items: center; gap: 12px 40px; margin-top: 32px; padding: 24px 32px; border: 1px solid var(--forest-line); border-radius: 5px; background: #122034; }
+.case-model-header { grid-column: 1 / -1; display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; }
+.case-model-header h3 { font-size: 14px; font-weight: 500; }
+.case-model-header > span { max-width: 64ch; color: var(--on-forest-soft); font-family: var(--mono); font-size: 9px; }
+.case-model .model-graph { min-height: 0; max-width: 600px; padding: 0; }
+.case-model .model-graph svg { max-height: 330px; }
+.case-model .graph-inspector { padding: 16px 0 20px 28px; border-left: 1px solid var(--forest-line); }
 .case-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; margin-top: 48px; align-items: start; }
 .trace-pane { min-width: 0; border-top: 1px solid var(--forest-line); padding-top: 28px; }
 .evidence-pane { min-width: 0; background: var(--paper); color: var(--ink); padding: 32px; border-radius: 5px; box-shadow: 0 12px 24px #00000012; }
@@ -240,11 +286,22 @@ html[lang="zh-CN"] .hero h1 { font-size: clamp(2.8rem, 4.5vw, 4rem); letter-spac
 .distribution-heading { margin-top: 28px; font-family: var(--mono); font-size: 11px; color: var(--ink-soft); }
 .distribution-heading h3 { font-family: var(--body); font-size: 12px; font-weight: 500; color: var(--ink); }
 .distribution-heading > span { display: block; font-size: 9px; margin-top: 6px; }
+.evidence-toggle { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; margin-top: 20px; border: 1px solid var(--line); border-radius: 4px; background: #f1f2ee; }
+.evidence-toggle button { min-width: 0; min-height: 44px; padding: 8px 12px; border: 1px solid transparent; border-radius: 2px; background: transparent; color: var(--ink-soft); font-size: 11px; line-height: 1.6; transition: background-color .2s ease, color .2s ease, box-shadow .2s ease; }
+.evidence-toggle button:hover { color: var(--accent); background: #e8edfa; }
+.evidence-toggle button[aria-pressed="true"] { border-color: #ced8f0; background: var(--paper); color: var(--accent); font-weight: 600; box-shadow: 0 2px 4px #1623350a; }
+.evidence-pane button:focus-visible { outline-color: var(--accent); }
+#evidence-mode-note { min-height: 3.6em; margin-top: 12px; color: var(--ink-soft); font-size: 11px; line-height: 1.8; }
 .distribution-bars { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; align-items: end; margin-top: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
-.distribution-cell { min-width: 0; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 128px; gap: 8px; font-family: var(--mono); font-size: 9px; color: var(--ink-soft); }
-.distribution-cell > i, .distribution-cell > span:first-child { display: block; min-height: 2px; width: 100%; background: var(--olive); border-radius: 2px 2px 0 0; }
-.distribution-cell.selected > i, .distribution-cell.selected > span:first-child { background: var(--accent); }
-.distribution-cell.error > span:first-child { background: var(--error); }
+.distribution-cell { min-width: 0; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 164px; gap: 8px; padding: 8px 4px 4px; border: 1px solid transparent; border-radius: 3px; background: transparent; font-family: var(--mono); font-size: 9px; color: var(--ink-soft); transition: background-color .2s ease, border-color .2s ease, color .2s ease; }
+.distribution-cell:hover { background: var(--accent-soft); color: var(--ink); }
+.distribution-cell[aria-pressed="true"] { border-color: #acbce6; background: #eaf0fc; color: var(--accent); }
+.distribution-value { display: block; min-height: 15px; font-size: 9px; line-height: 1.5; }
+.distribution-column { display: flex; align-items: flex-end; width: 100%; height: 104px; flex: 0 0 104px; background: transparent; }
+.distribution-column > span { display: block; min-height: 2px; width: 100%; border-radius: 2px 2px 0 0; background: var(--olive); transition: height .65s cubic-bezier(.2,.7,.2,1), background-color .25s ease; }
+.distribution-cell.selected .distribution-column > span, .distribution-cell[aria-pressed="true"] .distribution-column > span { background: var(--accent); }
+.distribution-cell.error .distribution-column > span { background: var(--error); }
+.distribution-event, .distribution-eventlabel { display: block; font-size: 9px; line-height: 1.5; }
 .error { color: var(--error); }
 .case-section .error { color: var(--error-light); }
 .evidence-pane .error { color: var(--error); }
@@ -308,6 +365,10 @@ html[lang="zh-CN"] .hero h1 { font-size: clamp(2.8rem, 4.5vw, 4rem); letter-spac
 
 @keyframes trace-flow { to { stroke-dashoffset: -80; } }
 @keyframes enter-page { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes event-readout { from { opacity: .65; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+.event-change { animation: event-readout .32s ease both; }
+.reveal-ready { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+.reveal-ready.is-visible { opacity: 1; transform: translateY(0); }
 .hero-copy { animation: enter-page .7s ease both; }
 .hero-visual { animation: enter-page .8s .12s ease both; }
 .hero-caption { animation: enter-page .7s .2s ease both; }
@@ -320,6 +381,7 @@ html[lang="zh-CN"] .hero h1 { font-size: clamp(2.8rem, 4.5vw, 4rem); letter-spac
   .problem-section, .choices-section { gap: 48px; }
   #method-panel { gap: 40px; }
   .case-layout { gap: 40px; }
+  .case-model { gap: 16px 24px; padding: 24px; }
   .evaluation-layout { gap: 48px; }
   .stage-detail, .evidence-pane { padding: 28px; }
   .trace-event { padding-inline: 12px; }
@@ -354,6 +416,8 @@ html[lang="zh-CN"] .hero h1 { font-size: clamp(2.8rem, 4.5vw, 4rem); letter-spac
   .trace-event { padding: 16px 10px; font-size: 11px; }
   .trace-event:not(:last-child)::after { width: 8px; right: -9px; }
   .case-layout { grid-template-columns: 1fr; gap: 32px; }
+  .case-model { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 12px 24px; }
+  .case-model .graph-inspector { padding-left: 20px; }
   .evidence-pane { display: block; }
   .evaluation-layout { grid-template-columns: 1.2fr 1fr; gap: 32px; }
   .protocol-summary { padding-left: 24px; }
@@ -425,6 +489,14 @@ html[lang="zh-CN"] .hero h1 { font-size: clamp(2.8rem, 4.5vw, 4rem); letter-spac
   .method-caption { margin-top: 20px; font-size: 11px; }
   .case-section { padding-block: 52px; }
   .task-line { font-size: 13px; grid-template-columns: 36px minmax(0, 1fr); gap: 8px; }
+  .case-controls { margin-top: 24px; padding-block: 20px; gap: 10px; }
+  .playback-actions { width: 100%; gap: 10px; }
+  .case-controls .playback-mainbutton { flex: 1 1 130px; min-width: 130px; padding-inline: 12px; }
+  .trace-scrubber { display: grid; grid-template-columns: minmax(0, 1fr) auto; flex-basis: 100%; margin-left: 0; gap: 4px 16px; }
+  .trace-scrubber > span { grid-column: 1 / -1; font-size: 11px; white-space: normal; }
+  #trace-scrubber { min-width: 0; }
+  .case-controls .playback-hint { font-size: 10px; }
+  #playback-status { font-size: 9px; }
   .case-meta { font-size: 9px; }
   .trace-timeline { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 28px; }
   .trace-event { min-height: 110px; font-size: 10px; padding: 12px 8px; }
@@ -433,6 +505,14 @@ html[lang="zh-CN"] .hero h1 { font-size: clamp(2.8rem, 4.5vw, 4rem); letter-spac
   .trace-event::after { display: none; }
   .event-number { margin-bottom: 12px; font-size: 10px; }
   .case-layout { margin-top: 28px; gap: 32px; }
+  .case-model { grid-template-columns: 1fr; margin-top: 24px; padding: 16px; gap: 12px; }
+  .case-model-header h3 { font-size: 13px; }
+  .case-model-header > span { font-size: 9px; }
+  .case-model .model-graph { max-height: none; }
+  .case-model .model-graph svg { max-height: none; }
+  .case-model .graph-inspector { padding: 20px 0 4px; border-left: 0; border-top: 1px solid var(--forest-line); }
+  .hero-visual > .graph-inspector { margin-inline: 16px; }
+  .graph-help { margin-inline: 16px; }
   .trace-speaker { font-size: 24px; }
   .event-summary { font-size: 14px; }
   .original-log { font-size: 11px; }
@@ -443,7 +523,11 @@ html[lang="zh-CN"] .hero h1 { font-size: clamp(2.8rem, 4.5vw, 4rem); letter-spac
   .signal-row span { font-size: 10px; }
   .signal-row strong { font-size: 23px; }
   .signal-row small { font-size: 10px; }
-  .distribution-bars { gap: 8px; }
+  .distribution-bars { gap: 4px; }
+  .distribution-cell { padding-inline: 2px; }
+  .distribution-value { font-size: 8px; }
+  .evidence-toggle button { padding-inline: 6px; font-size: 10px; }
+  #evidence-mode-note { font-size: 10px; }
   .case-takeaway { font-size: 14px; gap: 12px; margin-top: 28px; padding-top: 28px; }
   .case-takeaway h3 { font-size: 24px; }
   .case-takeaway p { font-size: 12px; }
@@ -467,6 +551,8 @@ html[lang="zh-CN"] .hero h1 { font-size: clamp(2.8rem, 4.5vw, 4rem); letter-spac
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal-ready { opacity: 1; transform: none; }
+  .graph-particle { display: none; }
 }
 
 @media print {
@@ -474,7 +560,8 @@ html[lang="zh-CN"] .hero h1 { font-size: clamp(2.8rem, 4.5vw, 4rem); letter-spac
   body { background: white; color: var(--ink); font-size: 10pt; }
   .section-wrap, .site-header { width: 100%; padding-inline: 0; }
   .site-header { min-height: 36px; }
-  .site-header::after, .nav-progress, .language-button, .hero-actions, .back-top, .method-tabs { display: none; }
+  .site-header::after, .nav-progress, .language-button, .hero-actions, .back-top, .method-tabs, .case-controls, .evidence-toggle, .graph-particle { display: none; }
+  .reveal-ready { opacity: 1; transform: none; }
   .hero { padding-block: 24px 32px; grid-template-columns: 1fr 1fr; gap: 24px; }
   h1 { font-size: 30pt; }
   h2 { font-size: 22pt; }
@@ -493,6 +580,8 @@ html[lang="zh-CN"] .hero h1 { font-size: clamp(2.8rem, 4.5vw, 4rem); letter-spac
   .trace-event::after { display: none; }
   .case-section .error, .trace-event.error-event .event-number { color: var(--error); }
   .case-layout { gap: 24px; margin-top: 24px; }
+  .case-model { break-inside: avoid; color: var(--on-forest); print-color-adjust: exact; padding: 16px; gap: 16px; }
+  .case-model .model-graph svg { max-height: 200px; }
   .evidence-pane { border: 1px solid var(--line); background: white; padding: 16px; box-shadow: none; }
   .case-takeaway { font-size: 10pt; }
   .original-log pre, pre.original-log { max-height: none; overflow: visible; }
@@ -502,23 +591,24 @@ html[lang="zh-CN"] .hero h1 { font-size: clamp(2.8rem, 4.5vw, 4rem); letter-spac
   .site-footer { padding-block: 20px; }
 }
 </style>
-  <script>window.PORTFOLIO_DATA={"project": {"config": {"extraction": {"model": "DeepSeek-V4.1-Flash"}, "semantic": {"alpha": 0.075}, "relation": {"alpha": 0.4}, "abstraction": {"pca": {"dimensions": 32}, "gmm": {"states": 16}}, "dtmc": {"alpha": 0.1}}, "readout": {"content_probability": "p_t = softmax(S_t + R_t)", "who": "a* = argmax_a sum_{t:agent_t=a} p_t", "incoming_conformance": "c_0 = r_0 · pi; c_t = r_(t-1) · T · r_t for t > 0", "transition_surprise": "h_t = -log(c_t)", "when": "t* = argmax_{t:agent_t=a*} p_t h_t"}}, "evaluation": {"dataset": "Who&When Pro", "total_traces": 6257, "task_groups": 2599, "metrics": {"who": {"mean": 0.7425870292554718, "sample_sd": 0.02490720773814991}, "when": {"mean": 0.5429993936851771, "sample_sd": 0.021520567401810745}}, "protocol": {"splits": 20, "unique_test_traces": 6191}}, "provenance": {"source_files": ["Who&When Pro · canonical_primary · frozen 20 task-group holdouts", "Who&When · Algorithm-Generated/38 · recorded model, seed 3"]}};window.PORTFOLIO_CASE={"visible_steps": [{"content": "You are given: (1) a task and advises from your manager with a specific plan and (2) a general task.\nCollect information from the general task, follow the suggestions from manager to solve the task.\n\n# General Task\nWho did the actor who played Ray in the Polish-language version of Everybody Loves Raymond play in Magda M.? Give only the first name. Please solve the problem carefully.\n\n# Task and suggestions from manager\n## Task description\nIdentify the first name of the character played by the actor who portrayed Ray in the Polish-language version of 'Everybody Loves Raymond' in the TV series 'Magda M.'.\n\n## Plan for solving the task\n1. Identify the actor who played Ray in the Polish-language version of 'Everybody Loves Raymond'.\n2. Determine the character that this actor played in the TV series 'Magda M.'.\n3. Extract and provide the first name of the character.\n\n## Output format\nProvide only the first name of the character.\n\n## Constraints and conditions for completion\n- Ensure the accuracy of the actor's identification and the character's name in 'Magda M.'.\n- Provide the information in a clear and concise manner. "}, {"content": "To solve the task, let's proceed with the plan step-by-step.\n\n### Step 1: Identify the actor who played Ray in the Polish-language version of 'Everybody Loves Raymond'\nFirst, we need to determine the actor who voiced or played the role of Ray Barone in the Polish-language version of 'Everybody Loves Raymond'.\n\n### Step 2: Determine the character this actor played in 'Magda M.'\nAfter identifying the actor, we will need to find out which character he portrayed in the Polish TV series 'Magda M.'.\n\n### Step 3: Extract and provide the first name of the character\nFinally, we will extract and provide the first name of the character this actor played in 'Magda M.'.\n\nLet's start by performing a web search to find out who played Ray Barone in the Polish-language version of 'Everybody Loves Raymond'.\n\nI'll initiate a search query for this information."}, {"content": "The Polish-language version of 'Everybody Loves Raymond' is called 'Wszyscy kochają Romana'. The actor who played Ray Barone (Roman in the Polish version) is Bartosz Opania.\n\nNow, let's proceed to the second step and find out which character Bartosz Opania played in the TV series 'Magda M.'."}, {"content": "Bartosz Opania played the character Piotr Korzecki in the TV series 'Magda M.'.\n\n### Step 3: Extract and provide the first name of the character\nThe first name of the character played by Bartosz Opania in 'Magda M.' is Piotr."}, {"content": "Based on the information provided, we can conclude that the first name of the character played by the actor who portrayed Ray in the Polish-language version of 'Everybody Loves Raymond' in 'Magda M.' is:\n\n**Piotr**\n\nI have verified the steps carefully, and all findings are accurate. If everyone agrees, we can conclude the task.\n\nTERMINATE"}, {"content": "TERMINATE"}], "extracted_triples": [{"agent": "Polish_TV_Series_Expert", "action": "present_task(task=identify first name of character played by actor who played Ray in Polish Everybody Loves Raymond in Magda M.)", "state": "record.observation=not_reported"}, {"agent": "PolishLanguage_Expert", "action": "propose_plan(steps=[identify actor, determine character, extract first name])", "state": "record.observation=not_reported"}, {"agent": "Polish_TV_Series_Expert", "action": "report(actor=Bartosz Opania, role=Ray Barone in Polish version Wszyscy kochają Romana)", "state": "Polish_TV_Series_Expert.claim.actor=Bartosz Opania"}, {"agent": "Polish_TV_Series_Expert", "action": "report(character=Piotr Korzecki in Magda M., actor=Bartosz Opania)", "state": "Polish_TV_Series_Expert.claim.character=Piotr Korzecki"}, {"agent": "Verification_Expert", "action": "report(conclusion=first name is Piotr)", "state": "Verification_Expert.claim.first_name=Piotr"}, {"agent": "Polish_TV_Series_Expert", "action": "terminate()", "state": "record.observation=not_reported"}], "steps": [{"agent": "Polish_TV_Series_Expert", "content_probability": 0.0030885691961946697, "dtmc_surprise": 0.5198540159285965, "fused_evidence": 0.0016056051001151561, "incoming_conformance": 0.5946073448356458, "abstract_state_argmax": 9, "final_step_mass": 0.0003440639815852355}, {"agent": "PolishLanguage_Expert", "content_probability": 0.0006345130013701304, "dtmc_surprise": 2.3712108098164677, "fused_evidence": 0.0015045640878179447, "incoming_conformance": 0.09336760739357829, "abstract_state_argmax": 14, "final_step_mass": 0.0006345130013701304}, {"agent": "Polish_TV_Series_Expert", "content_probability": 0.472617400002396, "dtmc_surprise": 7.88306820400663, "fused_evidence": 3.7256751986191707, "incoming_conformance": 0.0003770743391024816, "abstract_state_argmax": 13, "final_step_mass": 0.7983723038985971}, {"agent": "Polish_TV_Series_Expert", "content_probability": 0.507550898349701, "dtmc_surprise": 1.6967590871164668, "fused_evidence": 0.8611915989489813, "incoming_conformance": 0.18327654588642914, "abstract_state_argmax": 13, "final_step_mass": 0.18454413879283918}, {"agent": "Verification_Expert", "content_probability": 0.01610048938288386, "dtmc_surprise": 1.6967590871164668, "fused_evidence": 0.027318651667430385, "incoming_conformance": 0.18327654588642914, "abstract_state_argmax": 13, "final_step_mass": 0.01610048938288386}, {"agent": "Polish_TV_Series_Expert", "content_probability": 8.130067454408478e-06, "dtmc_surprise": 2.5777624649268365, "fused_evidence": 2.095738272129745e-05, "incoming_conformance": 0.0759437408397046, "abstract_state_argmax": 14, "final_step_mass": 4.490942724445793e-06}], "agent_masses": {"Polish_TV_Series_Expert": 0.983264997615746, "PolishLanguage_Expert": 0.0006345130013701304, "Verification_Expert": 0.01610048938288386}, "prediction": {"predicted_agent": "Polish_TV_Series_Expert", "predicted_step": 2}, "annotation": {"gold_step": 2}, "saved_model": {"transition_probability": [[0.09656121034032138, 0.692352558333174, 0.000569448350701334, 0.027023682332490747, 0.006256859501689401, 0.0005684086227795364, 0.0005684022555071482, 0.0005683866563880663, 0.01751476969194213, 0.04031036533251262, 0.0005683866563881484, 0.0005683866563891872, 0.046041333011835536, 0.06584720675213321, 0.0041122088493596096, 0.0005683866563880663], [0.37638965819042725, 0.016154247694558532, 0.00052462103444879, 0.2195106659919393, 0.005880036616789156, 0.00052462103444879, 0.00052462103444879, 0.009103377873734645, 0.034022203849268705, 0.15994801914734255, 0.009610654098947307, 0.0028538542423780606, 0.0005246613677584718, 0.12415198356031744, 0.039752153228188786, 0.0005246210350034584], [0.00844360273894643, 0.05332283710555916, 0.0007730962504831854, 0.045229911750193294, 0.5318984195184406, 0.0007730962504831854, 0.0007730962504831854, 0.0007730962504831854, 0.0007731170655430931, 0.03943265587371239, 0.0007730962504831854, 0.10900642983389633, 0.0007730962504831854, 0.004652052610023764, 0.1361169885745851, 0.0664854074262006], [0.008301285344038751, 0.002729728093021753, 0.00026983040753672776, 0.005666502861003592, 0.05722840441977169, 0.0002697626548372663, 0.0002702427546790264, 0.0015890042170395183, 0.009698956437190846, 0.4137108184267112, 0.0002703342089813608, 0.0004318864246314277, 0.0016162844065350116, 0.00026948812024033626, 0.4920206750598092, 0.005656796163972237], [0.005735209599470997, 0.005775184508098522, 0.0005213168255420704, 0.8124024123008583, 0.037015715655933895, 0.0005213168255420704, 0.0005213168255420704, 0.024630544751866407, 0.00343813370784413, 0.01362695932073316, 0.06240750369599111, 0.0005229876113262164, 0.0005213309108060302, 0.015809035076411758, 0.013424562424345655, 0.0031264699596876906], [0.0533980582524265, 0.22238740574682736, 0.004854368932038835, 0.004854368932038838, 0.053504706126512036, 0.004854368932038835, 0.004854368932038835, 0.004854368932038835, 0.004854368932038836, 0.004854368932038835, 0.004854368932038835, 0.004854368932038835, 0.004854368932038835, 0.6124574026897677, 0.00485436893203925, 0.004854368932038835], [0.0012167917258162643, 0.1835741724356246, 0.0012167917258162643, 0.028594684464519852, 0.6837800775183898, 0.0012167917258162643, 0.0012167917258162643, 0.007300750385658103, 0.0012169630626033578, 0.025552626221244417, 0.007300500100179326, 0.0012167917258175808, 0.0012167917258162643, 0.01035818160145103, 0.0012167917260450234, 0.04380450212938551], [0.005931240172591037, 0.005931240172591037, 0.005931240172591037, 0.0059312404982244755, 0.020759340604068626, 0.005931240172591037, 0.4359394546740052, 0.421710781102484, 0.005931240172591137, 0.035587420251965186, 0.005931240172591037, 0.005931240172591037, 0.005931240172591037, 0.005931240172591037, 0.020759361143342137, 0.005931240172591037], [0.05165542356570763, 0.08676701755867777, 0.0010668256957500491, 0.017068980687572264, 0.26342896642830366, 0.001076353611818758, 0.0010668199197436813, 0.001066819714094634, 0.09543112815232865, 0.15524013278049617, 0.006400918285390301, 0.006400293776675569, 0.012783862807395574, 0.16002554107570416, 0.12345180051482689, 0.017069115425514144], [0.06394226688277116, 0.07329019440482137, 0.08693545579871761, 0.08286022697073266, 0.016947949157934874, 0.021531638648194906, 0.1215469302678428, 0.0002656715264614512, 0.11182147394723119, 0.20203122664265263, 0.0016745583939488942, 0.004248595021691584, 0.03977395444034141, 0.07949693305327078, 0.09336725954637025, 0.000265665297016316], [0.0035418100881873644, 0.003541815509082045, 0.003541819874134152, 0.003541812007374777, 0.0035418128633920984, 0.0035418100168438417, 0.003541811110119805, 0.0035418100168438417, 0.39306260564587997, 0.13145002151917706, 0.37534101994653163, 0.0035418100168493572, 0.0035418116470112464, 0.004097404668654583, 0.05708901505307449, 0.0035418100168438417], [0.00202081261089489, 0.0020208126111698034, 0.2849344051726955, 0.0032400011747534124, 0.0020208126104303177, 0.0020208126185788503, 0.0020208126126225147, 0.0020208126101452215, 0.012124875920345559, 0.042435838639195006, 0.0020208126101452306, 0.6159905301927615, 0.010992896258603228, 0.0020208126101452684, 0.012094139137368351, 0.0020208126101452007], [0.3258709309235181, 0.002590945468419705, 0.0025907030841280944, 0.003673441609391644, 0.0025907768587204016, 0.0025907030841280944, 0.0025907030841280944, 0.0025907030841280944, 0.06605586027137911, 0.2978245612934066, 0.002590703084128112, 0.002590703084140733, 0.028486349858328958, 0.15803257501967366, 0.09673963710825252, 0.0025907030841280944], [0.09902489229918568, 0.06876616071577235, 0.0008939372637539355, 0.21917867139545852, 0.0008939702799889562, 0.0008939372637539355, 0.0008939372637539355, 0.0008947006210848961, 0.053139556470706284, 0.17641508489579066, 0.005360986872411727, 0.00089393726376894, 0.11263600340468267, 0.18327654588642914, 0.0759437408397046, 0.0008939372637539355], [0.005986646959170069, 0.028312634516843176, 0.30414131582590787, 0.32198444486829136, 0.028086148339394847, 0.041540799235778046, 0.10402357089579924, 0.0031827183337431804, 0.08524683291488115, 0.015393858582659578, 0.00038670034519931474, 0.0022426420445277513, 0.0025681697252738314, 0.00037681984173920847, 0.0561522590681721, 0.00037443850261935276], [0.006024236846526432, 0.006024236846526684, 0.006024236846526432, 0.8795294790347972, 0.006030309577922667, 0.006024236846526432, 0.006024236846526432, 0.006024236846526432, 0.006026357337100078, 0.006024236846526432, 0.006024238291384263, 0.006024435168061451, 0.006024236846526432, 0.03612281206806228, 0.006024236903933866, 0.006024236846526432]], "responsibilities": [[1.8633321901605158e-08, 4.0134567272046414e-297, 0, 1.729239467117445e-13, 4.692650147779745e-137, 4.571061659943576e-154, 0, 8.26028171305251e-64, 2.5783829679459478e-11, 0.999999980847065, 8.104747935835815e-24, 2.429928734560666e-17, 1.2691278747587955e-43, 5.478780872631923e-80, 4.93657358521867e-10, 0], [2.4526078437542495e-20, 0, 0, 1.1543616989645106e-11, 1.7827106002979596e-155, 6.27678265551394e-271, 0, 5.8084444911542504e-213, 9.160593232641972e-21, 3.2165950500031796e-06, 3.4921112397435067e-121, 2.3732430860830667e-42, 4.682485885262875e-81, 2.8478163591358973e-77, 0.999996783393407, 0], [0, 6.480355421199082e-54, 0, 6.37881499678671e-275, 2.3233963274820905e-49, 0, 0, 0, 6.65946400611774e-89, 0, 0, 2.6391714712712236e-253, 0, 1, 0, 0], [0, 1.594273765288035e-76, 0, 3.310368061677493e-284, 2.8082624428414794e-71, 0, 0, 0, 1.8289020445113945e-84, 0, 0, 3.776910744861351e-288, 0, 1, 0, 0], [0, 2.1546557070812016e-61, 0, 1.0585787995506315e-276, 4.859744280946186e-54, 0, 0, 0, 3.0820176310838015e-95, 0, 0, 1.7558767115435835e-258, 0, 1, 0, 0], [2.6145509134640373e-219, 0, 0, 1.1818828824168654e-35, 4.7552534176253793e-153, 0, 0, 2.3962472677172333e-212, 6.1669639380778645e-28, 4.217721781562136e-145, 0, 1.5283021616504395e-163, 3.1985526213589446e-161, 1.424176428348758e-89, 1, 0]]}};</script>
+  <script>window.PORTFOLIO_DATA={"project": {"config": {"extraction": {"model": "DeepSeek-V4.1-Flash"}, "semantic": {"alpha": 0.075}, "relation": {"alpha": 0.4}, "abstraction": {"pca": {"dimensions": 32}, "gmm": {"states": 16}}, "dtmc": {"alpha": 0.1}}, "readout": {"content_probability": "p_t = softmax(S_t + R_t)", "who": "a* = argmax_a sum_{t:agent_t=a} p_t", "incoming_conformance": "c_0 = r_0 · pi; c_t = r_(t-1) · T · r_t for t > 0", "transition_surprise": "h_t = -log(c_t)", "when": "t* = argmax_{t:agent_t=a*} p_t h_t"}}, "evaluation": {"dataset": "Who&When Pro", "total_traces": 6257, "task_groups": 2599, "metrics": {"who": {"mean": 0.7425870292554718, "sample_sd": 0.02490720773814991}, "when": {"mean": 0.5429993936851771, "sample_sd": 0.021520567401810745}}, "protocol": {"splits": 20, "unique_test_traces": 6191}}, "provenance": {"source_files": ["Who&When Pro · canonical_primary · frozen 20 task-group holdouts", "Who&When · Algorithm-Generated/38 · recorded model, seed 3"]}};window.PORTFOLIO_CASE={"visible_steps": [{"content": "You are given: (1) a task and advises from your manager with a specific plan and (2) a general task.\nCollect information from the general task, follow the suggestions from manager to solve the task.\n\n# General Task\nWho did the actor who played Ray in the Polish-language version of Everybody Loves Raymond play in Magda M.? Give only the first name. Please solve the problem carefully.\n\n# Task and suggestions from manager\n## Task description\nIdentify the first name of the character played by the actor who portrayed Ray in the Polish-language version of 'Everybody Loves Raymond' in the TV series 'Magda M.'.\n\n## Plan for solving the task\n1. Identify the actor who played Ray in the Polish-language version of 'Everybody Loves Raymond'.\n2. Determine the character that this actor played in the TV series 'Magda M.'.\n3. Extract and provide the first name of the character.\n\n## Output format\nProvide only the first name of the character.\n\n## Constraints and conditions for completion\n- Ensure the accuracy of the actor's identification and the character's name in 'Magda M.'.\n- Provide the information in a clear and concise manner. "}, {"content": "To solve the task, let's proceed with the plan step-by-step.\n\n### Step 1: Identify the actor who played Ray in the Polish-language version of 'Everybody Loves Raymond'\nFirst, we need to determine the actor who voiced or played the role of Ray Barone in the Polish-language version of 'Everybody Loves Raymond'.\n\n### Step 2: Determine the character this actor played in 'Magda M.'\nAfter identifying the actor, we will need to find out which character he portrayed in the Polish TV series 'Magda M.'.\n\n### Step 3: Extract and provide the first name of the character\nFinally, we will extract and provide the first name of the character this actor played in 'Magda M.'.\n\nLet's start by performing a web search to find out who played Ray Barone in the Polish-language version of 'Everybody Loves Raymond'.\n\nI'll initiate a search query for this information."}, {"content": "The Polish-language version of 'Everybody Loves Raymond' is called 'Wszyscy kochają Romana'. The actor who played Ray Barone (Roman in the Polish version) is Bartosz Opania.\n\nNow, let's proceed to the second step and find out which character Bartosz Opania played in the TV series 'Magda M.'."}, {"content": "Bartosz Opania played the character Piotr Korzecki in the TV series 'Magda M.'.\n\n### Step 3: Extract and provide the first name of the character\nThe first name of the character played by Bartosz Opania in 'Magda M.' is Piotr."}, {"content": "Based on the information provided, we can conclude that the first name of the character played by the actor who portrayed Ray in the Polish-language version of 'Everybody Loves Raymond' in 'Magda M.' is:\n\n**Piotr**\n\nI have verified the steps carefully, and all findings are accurate. If everyone agrees, we can conclude the task.\n\nTERMINATE"}, {"content": "TERMINATE"}], "extracted_triples": [{"agent": "Polish_TV_Series_Expert", "action": "present_task(task=identify first name of character played by actor who played Ray in Polish Everybody Loves Raymond in Magda M.)", "state": "record.observation=not_reported"}, {"agent": "PolishLanguage_Expert", "action": "propose_plan(steps=[identify actor, determine character, extract first name])", "state": "record.observation=not_reported"}, {"agent": "Polish_TV_Series_Expert", "action": "report(actor=Bartosz Opania, role=Ray Barone in Polish version Wszyscy kochają Romana)", "state": "Polish_TV_Series_Expert.claim.actor=Bartosz Opania"}, {"agent": "Polish_TV_Series_Expert", "action": "report(character=Piotr Korzecki in Magda M., actor=Bartosz Opania)", "state": "Polish_TV_Series_Expert.claim.character=Piotr Korzecki"}, {"agent": "Verification_Expert", "action": "report(conclusion=first name is Piotr)", "state": "Verification_Expert.claim.first_name=Piotr"}, {"agent": "Polish_TV_Series_Expert", "action": "terminate()", "state": "record.observation=not_reported"}], "steps": [{"agent": "Polish_TV_Series_Expert", "content_probability": 0.0030885691961946697, "dtmc_surprise": 0.5198540159285965, "fused_evidence": 0.0016056051001151561, "incoming_conformance": 0.5946073448356458, "abstract_state_argmax": 9, "final_step_mass": 0.0003440639815852355}, {"agent": "PolishLanguage_Expert", "content_probability": 0.0006345130013701304, "dtmc_surprise": 2.3712108098164677, "fused_evidence": 0.0015045640878179447, "incoming_conformance": 0.09336760739357829, "abstract_state_argmax": 14, "final_step_mass": 0.0006345130013701304}, {"agent": "Polish_TV_Series_Expert", "content_probability": 0.472617400002396, "dtmc_surprise": 7.88306820400663, "fused_evidence": 3.7256751986191707, "incoming_conformance": 0.0003770743391024816, "abstract_state_argmax": 13, "final_step_mass": 0.7983723038985971}, {"agent": "Polish_TV_Series_Expert", "content_probability": 0.507550898349701, "dtmc_surprise": 1.6967590871164668, "fused_evidence": 0.8611915989489813, "incoming_conformance": 0.18327654588642914, "abstract_state_argmax": 13, "final_step_mass": 0.18454413879283918}, {"agent": "Verification_Expert", "content_probability": 0.01610048938288386, "dtmc_surprise": 1.6967590871164668, "fused_evidence": 0.027318651667430385, "incoming_conformance": 0.18327654588642914, "abstract_state_argmax": 13, "final_step_mass": 0.01610048938288386}, {"agent": "Polish_TV_Series_Expert", "content_probability": 8.130067454408478e-06, "dtmc_surprise": 2.5777624649268365, "fused_evidence": 2.095738272129745e-05, "incoming_conformance": 0.0759437408397046, "abstract_state_argmax": 14, "final_step_mass": 4.490942724445793e-06}], "agent_masses": {"Polish_TV_Series_Expert": 0.983264997615746, "PolishLanguage_Expert": 0.0006345130013701304, "Verification_Expert": 0.01610048938288386}, "prediction": {"predicted_agent": "Polish_TV_Series_Expert", "predicted_step": 2}, "annotation": {"gold_step": 2}, "saved_model": {"initial_probability": [0.3007816175668733, 0.0009041591320072338, 0.0009041591320072338, 0.0009057255725884128, 0.0009041591320072338, 0.0009041591320072338, 0.0009041591320072338, 0.0031645569619368537, 0.017642265278732795, 0.5946073505871096, 0.005425154718517536, 0.005424954795404095, 0.0009041591320072338, 0.0009041591320072338, 0.06481510146277956, 0.0009041591320072338], "transition_probability": [[0.09656121034032138, 0.692352558333174, 0.000569448350701334, 0.027023682332490747, 0.006256859501689401, 0.0005684086227795364, 0.0005684022555071482, 0.0005683866563880663, 0.01751476969194213, 0.04031036533251262, 0.0005683866563881484, 0.0005683866563891872, 0.046041333011835536, 0.06584720675213321, 0.0041122088493596096, 0.0005683866563880663], [0.37638965819042725, 0.016154247694558532, 0.00052462103444879, 0.2195106659919393, 0.005880036616789156, 0.00052462103444879, 0.00052462103444879, 0.009103377873734645, 0.034022203849268705, 0.15994801914734255, 0.009610654098947307, 0.0028538542423780606, 0.0005246613677584718, 0.12415198356031744, 0.039752153228188786, 0.0005246210350034584], [0.00844360273894643, 0.05332283710555916, 0.0007730962504831854, 0.045229911750193294, 0.5318984195184406, 0.0007730962504831854, 0.0007730962504831854, 0.0007730962504831854, 0.0007731170655430931, 0.03943265587371239, 0.0007730962504831854, 0.10900642983389633, 0.0007730962504831854, 0.004652052610023764, 0.1361169885745851, 0.0664854074262006], [0.008301285344038751, 0.002729728093021753, 0.00026983040753672776, 0.005666502861003592, 0.05722840441977169, 0.0002697626548372663, 0.0002702427546790264, 0.0015890042170395183, 0.009698956437190846, 0.4137108184267112, 0.0002703342089813608, 0.0004318864246314277, 0.0016162844065350116, 0.00026948812024033626, 0.4920206750598092, 0.005656796163972237], [0.005735209599470997, 0.005775184508098522, 0.0005213168255420704, 0.8124024123008583, 0.037015715655933895, 0.0005213168255420704, 0.0005213168255420704, 0.024630544751866407, 0.00343813370784413, 0.01362695932073316, 0.06240750369599111, 0.0005229876113262164, 0.0005213309108060302, 0.015809035076411758, 0.013424562424345655, 0.0031264699596876906], [0.0533980582524265, 0.22238740574682736, 0.004854368932038835, 0.004854368932038838, 0.053504706126512036, 0.004854368932038835, 0.004854368932038835, 0.004854368932038835, 0.004854368932038836, 0.004854368932038835, 0.004854368932038835, 0.004854368932038835, 0.004854368932038835, 0.6124574026897677, 0.00485436893203925, 0.004854368932038835], [0.0012167917258162643, 0.1835741724356246, 0.0012167917258162643, 0.028594684464519852, 0.6837800775183898, 0.0012167917258162643, 0.0012167917258162643, 0.007300750385658103, 0.0012169630626033578, 0.025552626221244417, 0.007300500100179326, 0.0012167917258175808, 0.0012167917258162643, 0.01035818160145103, 0.0012167917260450234, 0.04380450212938551], [0.005931240172591037, 0.005931240172591037, 0.005931240172591037, 0.0059312404982244755, 0.020759340604068626, 0.005931240172591037, 0.4359394546740052, 0.421710781102484, 0.005931240172591137, 0.035587420251965186, 0.005931240172591037, 0.005931240172591037, 0.005931240172591037, 0.005931240172591037, 0.020759361143342137, 0.005931240172591037], [0.05165542356570763, 0.08676701755867777, 0.0010668256957500491, 0.017068980687572264, 0.26342896642830366, 0.001076353611818758, 0.0010668199197436813, 0.001066819714094634, 0.09543112815232865, 0.15524013278049617, 0.006400918285390301, 0.006400293776675569, 0.012783862807395574, 0.16002554107570416, 0.12345180051482689, 0.017069115425514144], [0.06394226688277116, 0.07329019440482137, 0.08693545579871761, 0.08286022697073266, 0.016947949157934874, 0.021531638648194906, 0.1215469302678428, 0.0002656715264614512, 0.11182147394723119, 0.20203122664265263, 0.0016745583939488942, 0.004248595021691584, 0.03977395444034141, 0.07949693305327078, 0.09336725954637025, 0.000265665297016316], [0.0035418100881873644, 0.003541815509082045, 0.003541819874134152, 0.003541812007374777, 0.0035418128633920984, 0.0035418100168438417, 0.003541811110119805, 0.0035418100168438417, 0.39306260564587997, 0.13145002151917706, 0.37534101994653163, 0.0035418100168493572, 0.0035418116470112464, 0.004097404668654583, 0.05708901505307449, 0.0035418100168438417], [0.00202081261089489, 0.0020208126111698034, 0.2849344051726955, 0.0032400011747534124, 0.0020208126104303177, 0.0020208126185788503, 0.0020208126126225147, 0.0020208126101452215, 0.012124875920345559, 0.042435838639195006, 0.0020208126101452306, 0.6159905301927615, 0.010992896258603228, 0.0020208126101452684, 0.012094139137368351, 0.0020208126101452007], [0.3258709309235181, 0.002590945468419705, 0.0025907030841280944, 0.003673441609391644, 0.0025907768587204016, 0.0025907030841280944, 0.0025907030841280944, 0.0025907030841280944, 0.06605586027137911, 0.2978245612934066, 0.002590703084128112, 0.002590703084140733, 0.028486349858328958, 0.15803257501967366, 0.09673963710825252, 0.0025907030841280944], [0.09902489229918568, 0.06876616071577235, 0.0008939372637539355, 0.21917867139545852, 0.0008939702799889562, 0.0008939372637539355, 0.0008939372637539355, 0.0008947006210848961, 0.053139556470706284, 0.17641508489579066, 0.005360986872411727, 0.00089393726376894, 0.11263600340468267, 0.18327654588642914, 0.0759437408397046, 0.0008939372637539355], [0.005986646959170069, 0.028312634516843176, 0.30414131582590787, 0.32198444486829136, 0.028086148339394847, 0.041540799235778046, 0.10402357089579924, 0.0031827183337431804, 0.08524683291488115, 0.015393858582659578, 0.00038670034519931474, 0.0022426420445277513, 0.0025681697252738314, 0.00037681984173920847, 0.0561522590681721, 0.00037443850261935276], [0.006024236846526432, 0.006024236846526684, 0.006024236846526432, 0.8795294790347972, 0.006030309577922667, 0.006024236846526432, 0.006024236846526432, 0.006024236846526432, 0.006026357337100078, 0.006024236846526432, 0.006024238291384263, 0.006024435168061451, 0.006024236846526432, 0.03612281206806228, 0.006024236903933866, 0.006024236846526432]], "responsibilities": [[1.8633321901605158e-08, 4.0134567272046414e-297, 0, 1.729239467117445e-13, 4.692650147779745e-137, 4.571061659943576e-154, 0, 8.26028171305251e-64, 2.5783829679459478e-11, 0.999999980847065, 8.104747935835815e-24, 2.429928734560666e-17, 1.2691278747587955e-43, 5.478780872631923e-80, 4.93657358521867e-10, 0], [2.4526078437542495e-20, 0, 0, 1.1543616989645106e-11, 1.7827106002979596e-155, 6.27678265551394e-271, 0, 5.8084444911542504e-213, 9.160593232641972e-21, 3.2165950500031796e-06, 3.4921112397435067e-121, 2.3732430860830667e-42, 4.682485885262875e-81, 2.8478163591358973e-77, 0.999996783393407, 0], [0, 6.480355421199082e-54, 0, 6.37881499678671e-275, 2.3233963274820905e-49, 0, 0, 0, 6.65946400611774e-89, 0, 0, 2.6391714712712236e-253, 0, 1, 0, 0], [0, 1.594273765288035e-76, 0, 3.310368061677493e-284, 2.8082624428414794e-71, 0, 0, 0, 1.8289020445113945e-84, 0, 0, 3.776910744861351e-288, 0, 1, 0, 0], [0, 2.1546557070812016e-61, 0, 1.0585787995506315e-276, 4.859744280946186e-54, 0, 0, 0, 3.0820176310838015e-95, 0, 0, 1.7558767115435835e-258, 0, 1, 0, 0], [2.6145509134640373e-219, 0, 0, 1.1818828824168654e-35, 4.7552534176253793e-153, 0, 0, 2.3962472677172333e-212, 6.1669639380778645e-28, 4.217721781562136e-145, 0, 1.5283021616504395e-163, 3.1985526213589446e-161, 1.424176428348758e-89, 1, 0]]}};</script>
+  
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
   <header class="site-header"><a class="project-brand" href="#main"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M7 28L18 8L29 28"/><circle cx="7" cy="28" r="3"/><circle cx="18" cy="8" r="3"/><circle cx="29" cy="28" r="3"/></svg><span>Model-based Debugging<small data-i18n="brandSub">An interactive research project</small></span></a><nav aria-label="Main navigation"><a href="#method" data-i18n="navMethod">Method</a><a href="#case" data-i18n="navCase">Walkthrough</a><a href="#evidence" data-i18n="navEvidence">Evidence</a></nav><button id="language-toggle" class="language-button" aria-label="切换中文">中文 ↗</button><div class="nav-progress" aria-hidden="true"><span id="reading-progress"></span></div></header>
   <main id="main">
-    <section class="hero section-wrap"><div class="hero-copy"><div class="project-edition"><span data-i18n="editionLabel">Research project</span><span data-i18n="editionType">Interactive case study</span></div><p class="project-kicker" data-i18n="heroKicker">Research in multi-agent systems</p><h1 data-i18n-html="heroTitle">Model-based<br><span>Agent Debugging.</span></h1><p class="hero-description" data-i18n="heroDescription">Identify the agent behind a failure and locate its position in the trace, through semantic evidence and a model of behavior.</p><div class="hero-actions"><a href="#method" class="primary-link" data-i18n="exploreMethod">Explore the method ↘</a><a href="#case" class="quiet-link" data-i18n="followCase">Follow a real trace →</a></div><div class="project-scope"><span>WHO</span><p data-i18n="scopeWho">Responsible agent</p><span>WHEN</span><p data-i18n="scopeWhen">Error position</p></div></div><div class="hero-visual"><div class="visual-heading"><span data-i18n="behaviorMap">A behavioral model, made visible</span><span class="live-indicator" data-i18n="recordedRun">Recorded run</span></div><div id="hero-graph" class="model-graph"></div><div class="visual-footer"><span id="hero-state-label">S14 → S13</span><span data-i18n="graphNote">State IDs are learned clusters, not error labels.</span></div><div class="hero-result"><div><span data-i18n="agentOutput">Agent attribution</span><strong data-i18n="tvAgent">TV series expert</strong></div><div><span data-i18n="positionOutput">Annotated & predicted event</span><strong><span data-i18n="eventWord">Event</span> 03 <span class="result-match" data-i18n="matched">Matched</span></strong></div></div></div><div class="hero-caption"><span data-i18n="finalCore">The final method</span><strong>16 <span data-i18n="latentStates">latent states</span></strong><strong data-i18n="softTransitions">Soft-state transitions</strong><strong>WHO <span aria-hidden="true">→</span> WHEN</strong></div></section>
+    <section class="hero section-wrap"><div class="hero-copy"><div class="project-edition"><span data-i18n="editionLabel">Research project</span><span data-i18n="editionType">Interactive case study</span></div><p class="project-kicker" data-i18n="heroKicker">Research in multi-agent systems</p><h1 data-i18n-html="heroTitle">Model-based<br><span>Agent Debugging.</span></h1><p class="hero-description" data-i18n="heroDescription">Identify the agent behind a failure and locate its position in the trace, through semantic evidence and a model of behavior.</p><div class="hero-actions"><a href="#method" class="primary-link" data-i18n="exploreMethod">Explore the method ↘</a><a href="#case" class="quiet-link" data-i18n="followCase">Follow a real trace →</a></div><div class="project-scope"><span>WHO</span><p data-i18n="scopeWho">Responsible agent</p><span>WHEN</span><p data-i18n="scopeWhen">Error position</p></div></div><div class="hero-visual"><div class="visual-heading"><span data-i18n="behaviorMap">A behavioral model, made visible</span><span class="live-indicator" data-i18n="recordedRun">Recorded run</span></div><p class="graph-help" data-i18n="stateHint">Select a state to inspect its saved signals</p><div id="hero-graph" class="model-graph"></div><div id="hero-inspector" class="graph-inspector hero-inspector" role="status" aria-live="polite"></div><div class="visual-footer"><span id="hero-state-label">S14 → S13</span><span data-i18n="graphNote">State IDs are learned clusters, not error labels.</span></div><div class="hero-result"><div><span data-i18n="agentOutput">Agent attribution</span><strong data-i18n="tvAgent">TV series expert</strong></div><div><span data-i18n="positionOutput">Annotated & predicted event</span><strong><span data-i18n="eventWord">Event</span> 03 <span class="result-match" data-i18n="matched">Matched</span></strong></div></div></div><div class="hero-caption"><span data-i18n="finalCore">The final method</span><strong>16 <span data-i18n="latentStates">latent states</span></strong><strong data-i18n="softTransitions">Soft-state transitions</strong><strong>WHO <span aria-hidden="true">→</span> WHEN</strong></div></section>
 
-    <section class="problem-section section-wrap"><div class="section-index">01 / <span data-i18n="problemLabel">The research question</span></div><div class="problem-body"><h2 data-i18n="problemTitle">A final answer hides the path that produced it.</h2><p data-i18n="problemBody">An agent makes a claim. Another builds on it. A verifier repeats it. Debugging requires tracing the failure through these events: which agent should be attributed, and which event should be localized?</p><div class="failure-sequence"><div><span>01</span><p data-i18n="sequence1">A claim enters the trace</p></div><span class="sequence-arrow" aria-hidden="true">→</span><div><span>02</span><p data-i18n="sequence2">Later steps build on it</p></div><span class="sequence-arrow" aria-hidden="true">→</span><div><span>03</span><p data-i18n="sequence3">The answer inherits it</p></div></div></div></section>
+    <section class="problem-section section-wrap"><div class="section-index">01 / <span data-i18n="problemLabel">The research question</span></div><div class="problem-body" data-reveal><h2 data-i18n="problemTitle">A final answer hides the path that produced it.</h2><p data-i18n="problemBody">An agent makes a claim. Another builds on it. A verifier repeats it. Debugging requires tracing the failure through these events: which agent should be attributed, and which event should be localized?</p><div class="failure-sequence"><div><span>01</span><p data-i18n="sequence1">A claim enters the trace</p></div><span class="sequence-arrow" aria-hidden="true">→</span><div><span>02</span><p data-i18n="sequence2">Later steps build on it</p></div><span class="sequence-arrow" aria-hidden="true">→</span><div><span>03</span><p data-i18n="sequence3">The answer inherits it</p></div></div></div></section>
 
-    <section id="method" class="method-section section-wrap"><div class="section-top"><div><div class="section-index">02 / <span data-i18n="methodLabel">The final method</span></div><h2 data-i18n="methodTitle">From a trace to an inspectable decision.</h2></div><p data-i18n="methodIntro">Follow the four stages. Each view uses the same recorded event and the final method's saved signals.</p></div><div class="method-tabs" role="tablist" aria-label="Method stages"><button id="stage-tab-0" data-stage="0" role="tab" aria-selected="true" aria-controls="method-panel"><span>01</span><strong data-i18n="stage1">Structure the trace</strong><small data-i18n="stage1Caption">Agent / Action / State</small></button><button id="stage-tab-1" data-stage="1" role="tab" aria-selected="false" aria-controls="method-panel" tabindex="-1"><span>02</span><strong data-i18n="stage2">Model behavior</strong><small data-i18n="stage2Caption">TF-IDF → PCA → GMM</small></button><button id="stage-tab-2" data-stage="2" role="tab" aria-selected="false" aria-controls="method-panel" tabindex="-1"><span>03</span><strong data-i18n="stage3">Score the evidence</strong><small data-i18n="stage3Caption">Content + transition</small></button><button id="stage-tab-3" data-stage="3" role="tab" aria-selected="false" aria-controls="method-panel" tabindex="-1"><span>04</span><strong data-i18n="stage4">Attribute & locate</strong><small data-i18n="stage4Caption">WHO → WHEN</small></button></div><div id="method-panel" role="tabpanel" aria-labelledby="stage-tab-0" tabindex="0"></div><div class="method-caption"><span data-i18n="fitNote">Training estimates the frequency channels and state model. Inference reads the visible trace; the evaluation annotation is separate.</span><a href="#case" data-i18n="inspectCase">Inspect the recorded case ↓</a></div></section>
+    <section id="method" class="method-section section-wrap"><div class="section-top" data-reveal><div><div class="section-index">02 / <span data-i18n="methodLabel">The final method</span></div><h2 data-i18n="methodTitle">From a trace to an inspectable decision.</h2></div><p data-i18n="methodIntro">Follow the four stages. Each view uses the same recorded event and the final method's saved signals.</p></div><div class="method-tabs" role="tablist" aria-label="Method stages"><button id="stage-tab-0" data-stage="0" role="tab" aria-selected="true" aria-controls="method-panel"><span>01</span><strong data-i18n="stage1">Structure the trace</strong><small data-i18n="stage1Caption">Agent / Action / State</small></button><button id="stage-tab-1" data-stage="1" role="tab" aria-selected="false" aria-controls="method-panel" tabindex="-1"><span>02</span><strong data-i18n="stage2">Model behavior</strong><small data-i18n="stage2Caption">TF-IDF → PCA → GMM</small></button><button id="stage-tab-2" data-stage="2" role="tab" aria-selected="false" aria-controls="method-panel" tabindex="-1"><span>03</span><strong data-i18n="stage3">Score the evidence</strong><small data-i18n="stage3Caption">Content + transition</small></button><button id="stage-tab-3" data-stage="3" role="tab" aria-selected="false" aria-controls="method-panel" tabindex="-1"><span>04</span><strong data-i18n="stage4">Attribute & locate</strong><small data-i18n="stage4Caption">WHO → WHEN</small></button></div><div id="method-panel" role="tabpanel" aria-labelledby="stage-tab-0" tabindex="0"></div><div class="method-caption"><span data-i18n="fitNote">Training estimates the frequency channels and state model. Inference reads the visible trace; the evaluation annotation is separate.</span><a href="#case" data-i18n="inspectCase">Inspect the recorded case ↓</a></div></section>
 
-    <section id="case" class="case-section"><div class="section-wrap"><div class="section-top"><div><div class="section-index">03 / <span data-i18n="caseLabel">A real trace</span></div><h2 data-i18n="caseTitle">Follow the decision, event by event.</h2></div><p data-i18n="caseIntro">Six events, three agents, one dataset-annotated first error. Click an event to inspect its trace, representation and evidence.</p></div><div class="case-meta"><span>Who&When · Algorithm-Generated/38 · seed 3</span><span data-i18n="caseIndexNote">Events 01–06 correspond to source steps 0–5.</span></div><div class="task-line"><span data-i18n="taskLabel">Task</span><p data-i18n="caseTask">Find the first name of the Magda M. character played by the actor who portrayed Ray in the Polish adaptation of Everybody Loves Raymond.</p></div><div id="trace-timeline" class="trace-timeline" role="group" aria-label="Choose an event"></div><div class="case-layout"><article class="trace-pane"><div class="pane-heading"><h3 data-i18n="visibleEvent">Visible event</h3><span id="selected-event-label"></span></div><div class="trace-speaker"><span id="speaker-dot"></span><strong id="selected-speaker"></strong></div><p id="event-summary" class="event-summary"></p><details class="original-log"><summary data-i18n="originalLog">Read the original log</summary><pre id="original-content"></pre></details><div class="representation"><h3 data-i18n="semanticTriple">Canonical representation</h3><dl id="case-triple"></dl></div></article><article class="evidence-pane"><div class="pane-heading"><h3 data-i18n="eventEvidence">Evidence at this event</h3><span class="pane-tag" data-i18n="savedSignals">Saved model signals</span></div><div id="event-signals"></div><div id="event-explanation" class="event-explanation" role="status" aria-live="polite"></div><div class="distribution-heading"><h3 data-i18n="stepDistribution">Step evidence after attribution</h3><span data-i18n="normalizedEvidence">Normalized mass</span></div><div id="step-distribution"></div><p class="signal-footnote" data-i18n="massNote">Normalized evidence is a model readout, not a calibrated probability of real-world failure.</p></article></div><div class="case-takeaway"><span class="match-icon" aria-hidden="true">✓</span><div><h3 data-i18n="caseOutcome">The final method matches the annotated agent and event.</h3><p data-i18n="caseTakeaway">The third event receives less content probability than the fourth, but much higher incoming transition surprise. The behavioral signal shifts localization back to the annotated first error.</p></div></div><p class="case-qualification" data-i18n="caseQualification">This is one successful recorded example of the same core method on Who&When. It illustrates the decision process; the aggregate evaluation below uses Who&When Pro.</p></div></section>
+    <section id="case" class="case-section"><div class="section-wrap"><div class="section-top" data-reveal><div><div class="section-index">03 / <span data-i18n="caseLabel">A real trace</span></div><h2 data-i18n="caseTitle">Follow the decision, event by event.</h2></div><p data-i18n="caseIntro">Six events, three agents, one dataset-annotated first error. Click an event to inspect its trace, representation and evidence.</p></div><div class="case-meta"><span>Who&When · Algorithm-Generated/38 · seed 3</span><span data-i18n="caseIndexNote">Events 01–06 correspond to source steps 0–5.</span></div><div class="task-line"><span data-i18n="taskLabel">Task</span><p data-i18n="caseTask">Find the first name of the Magda M. character played by the actor who portrayed Ray in the Polish adaptation of Everybody Loves Raymond.</p></div><div class="case-controls trace-playback"><div class="playback-actions"><button id="trace-play" class="playback-mainbutton" aria-pressed="false" disabled><span class="play-icon" aria-hidden="true">▶</span><span id="trace-play-label">Play the trace</span></button><button id="trace-prev" class="playback-step" aria-label="Previous event" disabled>←</button><button id="trace-next" class="playback-step" aria-label="Next event" disabled>→</button></div><label class="trace-scrubber" for="trace-scrubber"><span data-i18n="scrubLabel">Explore the six events</span><input id="trace-scrubber" type="range" min="0" max="5" value="2" step="1" disabled><output id="playback-position" for="trace-scrubber">03 / 06</output></label><p id="playback-status" class="playback-hint" role="status" aria-live="polite"></p><p class="playback-hint" data-i18n="playbackScope">Replay the saved trace. The final prediction uses all six events.</p></div><div id="trace-timeline" class="trace-timeline" role="group" aria-label="Choose an event"></div><div class="case-model"><div class="case-model-header"><h3 data-i18n="stateExplorer">Explore the behavioral model</h3><span data-i18n="stateHint">Select a state to inspect its saved signals</span></div><div id="case-graph" class="model-graph"></div><div id="case-inspector" class="graph-inspector" role="status" aria-live="polite"></div></div><div class="case-layout"><article class="trace-pane"><div class="pane-heading"><h3 data-i18n="visibleEvent">Visible event</h3><span id="selected-event-label"></span></div><div class="trace-speaker"><span id="speaker-dot"></span><strong id="selected-speaker"></strong></div><p id="event-summary" class="event-summary"></p><details class="original-log"><summary data-i18n="originalLog">Read the original log</summary><pre id="original-content"></pre></details><div class="representation"><h3 data-i18n="semanticTriple">Canonical representation</h3><dl id="case-triple"></dl></div></article><article class="evidence-pane"><div class="pane-heading"><h3 data-i18n="eventEvidence">Evidence at this event</h3><span class="pane-tag" data-i18n="savedSignals">Saved model signals</span></div><div id="event-signals"></div><div id="event-explanation" class="event-explanation" role="status" aria-live="polite"></div><div class="distribution-heading"><h3 id="distribution-title" data-i18n="stepDistribution">Step evidence after attribution</h3><span data-i18n="normalizedEvidence">Normalized mass</span></div><div class="evidence-toggle" role="group" aria-label="Compare recorded evidence"><button id="evidence-content" aria-pressed="false" data-i18n="contentView">Content evidence</button><button id="evidence-fused" aria-pressed="true" data-i18n="finalView">Final localization</button></div><p id="evidence-mode-note" class="evidence-mode-note"></p><div id="step-distribution"></div><p class="signal-footnote" data-i18n="massNote">Normalized evidence is a model readout, not a calibrated probability of real-world failure.</p></article></div><div class="case-takeaway"><span class="match-icon" aria-hidden="true">✓</span><div><h3 data-i18n="caseOutcome">The final method matches the annotated agent and event.</h3><p data-i18n="caseTakeaway">The third event receives less content probability than the fourth, but much higher incoming transition surprise. The behavioral signal shifts localization back to the annotated first error.</p></div></div><p class="case-qualification" data-i18n="caseQualification">This is one successful recorded example of the same core method on Who&When. It illustrates the decision process; the aggregate evaluation below uses Who&When Pro.</p></div></section>
 
-    <section class="choices-section section-wrap"><div class="section-index">04 / <span data-i18n="choicesLabel">Key design choices</span></div><div class="choices-body"><h2 data-i18n="choicesTitle">The reasoning behind the architecture.</h2><div class="design-choice"><span>01</span><div><h3 data-i18n="choice1Title">Preserve agent, action and state.</h3><p data-i18n="choice1Body">Canonical triples turn verbose logs into a consistent representation while retaining task-affecting details. The extraction sees visible content, without the error annotation.</p></div></div><div class="design-choice"><span>02</span><div><h3 data-i18n="choice2Title">Read content and behavior together.</h3><p data-i18n="choice2Body">Error/Normal token frequencies and Action–State relations supply content evidence. The DTMC supplies incoming transition surprise from a fold-local behavior model.</p></div></div><div class="design-choice"><span>03</span><div><h3 data-i18n="choice3Title">Separate agent attribution from localization.</h3><p data-i18n="choice3Body">WHO sums content probability over an agent's events. WHEN combines event probability with transition surprise within the selected agent. Every signal can be inspected.</p></div></div></div></section>
+    <section class="choices-section section-wrap"><div class="section-index">04 / <span data-i18n="choicesLabel">Key design choices</span></div><div class="choices-body"><h2 data-i18n="choicesTitle">The reasoning behind the architecture.</h2><div class="design-choice" data-reveal><span>01</span><div><h3 data-i18n="choice1Title">Preserve agent, action and state.</h3><p data-i18n="choice1Body">Canonical triples turn verbose logs into a consistent representation while retaining task-affecting details. The extraction sees visible content, without the error annotation.</p></div></div><div class="design-choice" data-reveal><span>02</span><div><h3 data-i18n="choice2Title">Read content and behavior together.</h3><p data-i18n="choice2Body">Error/Normal token frequencies and Action–State relations supply content evidence. The DTMC supplies incoming transition surprise from a fold-local behavior model.</p></div></div><div class="design-choice" data-reveal><span>03</span><div><h3 data-i18n="choice3Title">Separate agent attribution from localization.</h3><p data-i18n="choice3Body">WHO sums content probability over an agent's events. WHEN combines event probability with transition surprise within the selected agent. Every signal can be inspected.</p></div></div></div></section>
 
-    <section id="evidence" class="evaluation-section section-wrap"><div class="section-top"><div><div class="section-index">05 / <span data-i18n="evaluationLabel">Evaluation evidence</span></div><h2 data-i18n="evaluationTitle">One final method. A defined evaluation.</h2></div><p data-i18n="evaluationIntro">The latest primary evaluation on Who&When Pro uses the same frozen core method, with text-only visible inputs.</p></div><div class="evaluation-layout"><div class="evaluation-results"><div class="benchmark-label">Who&When Pro <span data-i18n="textOnly">Text only</span></div><div id="evaluation-metrics"></div><p data-i18n="sdNote">Mean ± sample standard deviation across 20 reported task-group holdouts. Overlapping splits describe variation across these runs, not independent replications.</p></div><div class="protocol-summary"><h3 data-i18n="protocolTitle">What was evaluated</h3><dl id="protocol-facts"></dl><p id="evaluation-coordinate-note"></p><details><summary data-i18n="technicalDetails">Inspect the frozen configuration & sources</summary><div id="method-config"></div><div id="source-evidence"></div></details></div></div></section>
+    <section id="evidence" class="evaluation-section section-wrap"><div class="section-top" data-reveal><div><div class="section-index">05 / <span data-i18n="evaluationLabel">Evaluation evidence</span></div><h2 data-i18n="evaluationTitle">One final method. A defined evaluation.</h2></div><p data-i18n="evaluationIntro">The latest primary evaluation on Who&When Pro uses the same frozen core method, with text-only visible inputs.</p></div><div class="evaluation-layout" data-reveal><div class="evaluation-results"><div class="benchmark-label">Who&When Pro <span data-i18n="textOnly">Text only</span></div><div id="evaluation-metrics"></div><p data-i18n="sdNote">Mean ± sample standard deviation across 20 reported task-group holdouts. Overlapping splits describe variation across these runs, not independent replications.</p></div><div class="protocol-summary"><h3 data-i18n="protocolTitle">What was evaluated</h3><dl id="protocol-facts"></dl><p id="evaluation-coordinate-note"></p><details><summary data-i18n="technicalDetails">Inspect the frozen configuration & sources</summary><div id="method-config"></div><div id="source-evidence"></div></details></div></div></section>
   </main>
   <footer class="site-footer section-wrap"><div><strong>Model-based Agent Debugging</strong><p data-i18n="footerNote">A research project told through its method, recorded decisions and evaluation evidence.</p></div><a class="quiet-link" id="download-project" hidden href="#main" download="model-based-agent-debugging.html" data-i18n="downloadProject">Save this project page ↗</a><a class="quiet-link source-link" href="https://github.com/davidpengrj/Model-based_LLM_Agent_Debugging" target="_blank" rel="noopener noreferrer" data-i18n="sourceCode">Research repository ↗</a><a href="#main" class="back-top" data-i18n="backTop">Back to top ↑</a></footer>
   <div id="load-error" role="alert" hidden></div>
@@ -527,8 +617,11 @@ html[lang="zh-CN"] .hero h1 { font-size: clamp(2.8rem, 4.5vw, 4rem); letter-spac
 const $ = id => document.getElementById(id);
 const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const number = (value, digits=2) => Number(value).toFixed(digits);
-const state = {lang:'en', stage:0, event:2, data:null, case:null};
+const state = {lang:'en', stage:0, event:2, data:null, case:null, evidenceMode:'final', inspectedState:null, inspectManual:false};
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const copy = {
+  scrubLabel:['Explore the six events','拖动查看六个事件'], playbackScope:['Replay the saved trace. The final prediction uses all six events.','回放已保存的轨迹；最终预测基于完整的六个事件。'], stateExplorer:['Explore the behavioral model','探索行为模型'], stateHint:['Select a state to inspect its saved signals','点击状态，查看它的已保存信号'], inspectState:['Inspect state','查看状态'], inspectedState:['Selected state','选中的状态'], stateMembership:['Membership at this event','当前事件的软状态质量'], initialFrequency:['Initial frequency','初始状态频率'], transitionFrequency:['Training transition frequency','训练中的状态转移频率'], inspectorNote:['These are saved state memberships and transition frequencies. Scoring combines all soft states; state IDs identify learned clusters.','这里展示已保存的软状态质量与转移频率。评分结合全部软状态，状态编号标识学习到的聚类。'],
+  contentView:['Content evidence','内容证据'], finalView:['Final localization','最终定位'], contentViewHeading:['Content evidence across the trace','轨迹中的内容证据'], contentViewNote:['Content evidence peaks at event 04. Explore the final localization to see how incoming surprise changes the readout.','内容证据在事件 04 达到峰值。切换到最终定位，查看进入事件的转移惊讶度如何影响读出。'], finalViewNote:['The same method combines content and incoming surprise within the attributed agent. The final step mass peaks at event 03.','同一方法在已归因的智能体内，结合内容证据与传入转移惊讶度。最终步骤质量在事件 03 达到峰值。'],
   editionLabel:['Research project','研究项目'], editionType:['Interactive case study','交互式研究展示'], finalCore:['The final method','最终方法'], latentStates:['latent states','个隐状态'], softTransitions:['Soft-state transitions','软状态转移'], sourceCode:['Research repository ↗','研究代码仓库 ↗'],
   stage1Caption:['Agent / Action / State','智能体／动作／状态'], stage2Caption:['TF-IDF → PCA → GMM','TF-IDF → PCA → GMM'], stage3Caption:['Content + transition','内容证据＋转移信号'], stage4Caption:['WHO → WHEN','WHO → WHEN'],
   brandSub:['An interactive research project','研究项目 · 交互式方法展示'], navMethod:['Method','方法流程'], navCase:['Walkthrough','真实案例'], navEvidence:['Evidence','评测证据'],
@@ -572,6 +665,7 @@ function renderLanguage() {
   $('language-toggle').textContent=state.lang==='en'?'中文 ↗':'English ↗';
   $('language-toggle').setAttribute('aria-label',state.lang==='en'?'切换中文':'Switch to English');
   renderGraph();renderMethod();renderCase();renderEvaluation();
+  document.dispatchEvent(new CustomEvent('portfolio:language'));
   updateReadingProgress();
 }
 
@@ -594,37 +688,57 @@ addEventListener('scroll',()=>{
 addEventListener('resize',updateReadingProgress);
 
 function renderGraph() {
-  const c=state.case, count=16, width=510,height=342,center={x:255,y:155};
+  const c=state.case, count=c.saved_model.responsibilities[state.event].length, width=510,height=342,center={x:255,y:155};
   const path=c.steps.map(row=>row.abstract_state_argmax);
   const active=path[state.event], previous=state.event>0?path[state.event-1]:null;
+  const inspected=state.inspectedState ?? active;
   const coordinates=Array.from({length:count},(_,i)=>{
     const ring=i<8?1:0, k=i%8, radius=ring?120:74,angle=(k/8)*Math.PI*2-Math.PI/2+(ring?0:.22);
     return {x:center.x+radius*Math.cos(angle),y:center.y+radius*Math.sin(angle)};
   });
-  let svg=`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHTML(t('graphTitle'))}"><title>${escapeHTML(t('graphTitle'))}</title><defs><marker id="arrow-dark" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="var(--graph-path)"/></marker><marker id="arrow-error" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="var(--graph-error)"/></marker></defs>`;
-  const edges=[];
-  c.saved_model.transition_probability.forEach((row,from)=>{
-    const to=row.reduce((best,value,i)=>i!==from && (best===null||value>row[best])?i:best,null);
-    if(to!==null && !edges.some(edge=>edge[0]===to&&edge[1]===from)){edges.push([from,to]);const a=coordinates[from],b=coordinates[to];svg+=`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="var(--graph-muted)" stroke-width="1" opacity=".26"/>`;}
-  });
-  const observed=new Set();
-  for(let i=1;i<path.length;i++){
-    const from=path[i-1],to=path[i],key=`${from}-${to}`;
-    if(observed.has(key))continue;observed.add(key);
-    const a=coordinates[from],b=coordinates[to], selected=from===previous&&to===active, color=selected&&state.event===c.annotation.gold_step?'var(--graph-error)':'var(--graph-path)';
-    if(from===to)svg+=`<path d="M${a.x-10} ${a.y-8}C${a.x-40} ${a.y-43} ${a.x+40} ${a.y-43} ${a.x+10} ${a.y-8}" fill="none" class="${selected?'active-transition':''}" stroke="${color}" stroke-width="${selected?2.5:1.5}"/>`;
-    else {const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy),ax=a.x+dx/d*16,ay=a.y+dy/d*16,bx=b.x-dx/d*19,by=b.y-dy/d*19;svg+=`<line x1="${ax}" y1="${ay}" x2="${bx}" y2="${by}" class="${selected?'active-transition':''}" stroke="${color}" stroke-width="${selected?2.5:1.5}" opacity="${selected?1:.55}" marker-end="url(#${selected&&state.event===c.annotation.gold_step?'arrow-error':'arrow-dark'})"><title>T[S${from}, S${to}] = ${number(c.saved_model.transition_probability[from][to],6)}</title></line>`;}
+  for(const target of ['hero-graph','case-graph']){
+    let svg=`<svg viewBox="65 0 380 ${height}" role="group" aria-label="${escapeHTML(t('graphTitle'))}"><title>${escapeHTML(t('graphTitle'))}</title><defs><marker id="${target}-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="var(--graph-path)"/></marker><marker id="${target}-error" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="var(--graph-error)"/></marker></defs>`;
+    const edges=[];
+    c.saved_model.transition_probability.forEach((row,from)=>{
+      const to=row.reduce((best,value,i)=>i!==from && (best===null||value>row[best])?i:best,null);
+      if(to!==null && !edges.some(edge=>edge[0]===to&&edge[1]===from)){edges.push([from,to]);const a=coordinates[from],b=coordinates[to];svg+=`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="var(--graph-muted)" stroke-width="1" opacity=".26"/>`;}
+    });
+    const observed=new Set();
+    let selectedPath='', selectedColor='var(--graph-path)';
+    for(let i=1;i<path.length;i++){
+      const from=path[i-1],to=path[i],key=`${from}-${to}`;
+      if(observed.has(key))continue;observed.add(key);
+      const a=coordinates[from],b=coordinates[to], selected=from===previous&&to===active;
+      const error=selected&&state.event===c.annotation.gold_step, color=error?'var(--graph-error)':'var(--graph-path)';
+      let edgePath;
+      if(from===to)edgePath=`M${a.x-10} ${a.y-8}C${a.x-40} ${a.y-43} ${a.x+40} ${a.y-43} ${a.x+10} ${a.y-8}`;
+      else {const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy);edgePath=`M${a.x+dx/d*16} ${a.y+dy/d*16}L${b.x-dx/d*19} ${b.y-dy/d*19}`;}
+      svg+=`<path d="${edgePath}" fill="none" class="${selected?'active-transition':''}" stroke="${color}" stroke-width="${selected?2.5:1.5}" opacity="${selected?1:.45}" marker-end="url(#${target}-${error?'error':'arrow'})"><title>T[S${from}, S${to}] = ${number(c.saved_model.transition_probability[from][to],6)}</title></path>`;
+      if(selected){selectedPath=edgePath;selectedColor=color;}
+    }
+    if(selectedPath&&!reducedMotion.matches)svg+=`<circle class="graph-particle" r="3.5" fill="${selectedColor}" pointer-events="none"><animateMotion dur="1.8s" repeatCount="1" path="${selectedPath}"/></circle>`;
+    coordinates.forEach((point,index)=>{
+      const inPath=path.includes(index), selected=index===active;
+      const fill=selected&&state.event===c.annotation.gold_step?'var(--graph-error)':selected?'var(--graph-active)':inPath?'var(--graph-path)':'var(--graph-idle)', text=selected||inPath?'var(--graph-text)':'var(--graph-label)';
+      svg+=`<g class="state-node ${selected?'selected':''}" data-state="${index}" role="button" tabindex="${index===inspected?0:-1}" aria-pressed="${index===inspected}" aria-label="${escapeHTML(t('inspectState')+' S'+String(index).padStart(2,'0'))}"><circle cx="${point.x}" cy="${point.y}" r="22" fill="transparent" stroke="none" pointer-events="all"/>${selected?`<circle class="state-halo" cx="${point.x}" cy="${point.y}" r="28" fill="none" stroke="${fill}" opacity=".35"/>`:''}<circle cx="${point.x}" cy="${point.y}" r="${selected?20:inPath?16:12}" fill="${fill}"/><text x="${point.x}" y="${point.y+3}" text-anchor="middle" fill="${text}" font-size="${inPath?10:9}">${String(index).padStart(2,'0')}</text><title>S${String(index).padStart(2,'0')} · q=${number(c.saved_model.responsibilities[state.event][index],6)}</title></g>`;
+    });
+    svg+=`<rect x="194" y="133" width="122" height="54" rx="8" fill="var(--graph-bg)" opacity=".94" pointer-events="none"/><text x="${center.x}" y="${center.y-7}" text-anchor="middle" fill="var(--graph-label)" font-size="10" pointer-events="none">${t('graphConformance')}</text><text x="${center.x}" y="${center.y+16}" text-anchor="middle" fill="var(--graph-path)" font-size="19" pointer-events="none">${number(c.steps[state.event].incoming_conformance,5)}</text>`;
+    svg+=`<text x="${width/2}" y="${height-34}" text-anchor="middle" fill="var(--graph-label)" font-size="10">${t('graphLegend')}</text>`;
+    path.forEach((index,i)=>{const x=width/2-125+i*50;svg+=`<text x="${x}" y="${height-12}" text-anchor="middle" font-size="10" fill="${i===state.event?'var(--graph-error)':'var(--graph-label)'}">S${String(index).padStart(2,'0')}</text>${i<path.length-1?`<text x="${x+25}" y="${height-12}" text-anchor="middle" fill="var(--graph-muted)" font-size="9">→</text>`:''}`;});
+    $(target).innerHTML=svg+'</svg>';
   }
-  coordinates.forEach((point,index)=>{
-    const inPath=path.includes(index), selected=index===active;
-    const fill=selected&&state.event===c.annotation.gold_step?'var(--graph-error)':selected?'var(--graph-active)':inPath?'var(--graph-path)':'var(--graph-idle)', text=selected||inPath?'var(--graph-text)':'var(--graph-label)';
-    svg+=`<g class="state-node ${selected?'selected':''}">${selected?`<circle class="state-halo" cx="${point.x}" cy="${point.y}" r="28" fill="none" stroke="${fill}" opacity=".35"/>`:''}<circle cx="${point.x}" cy="${point.y}" r="${selected?20:inPath?16:11}" fill="${fill}" opacity="${inPath?1:.7}"/><text x="${point.x}" y="${point.y+3}" text-anchor="middle" fill="${text}" font-size="${inPath?10:9}" font-family="sans-serif">${String(index).padStart(2,'0')}</text><title>State S${String(index).padStart(2,'0')} · q=${number(c.saved_model.responsibilities[state.event][index],6)}</title></g>`;
-  });
-  svg+=`<rect x="199" y="133" width="112" height="54" rx="8" fill="var(--graph-bg)" opacity=".94"/><text x="${center.x}" y="${center.y-7}" text-anchor="middle" fill="var(--graph-label)" font-size="10">${t('graphConformance')}</text><text x="${center.x}" y="${center.y+16}" text-anchor="middle" fill="var(--graph-path)" font-size="19">${number(c.steps[state.event].incoming_conformance,5)}</text>`;
-  svg+=`<text x="${width/2}" y="${height-34}" text-anchor="middle" fill="var(--graph-label)" font-size="10">${t('graphLegend')}</text>`;
-  path.forEach((index,i)=>{const x=width/2-125+i*50;svg+=`<text x="${x}" y="${height-12}" text-anchor="middle" font-size="10" fill="${i===state.event?'var(--graph-error)':'var(--graph-label)'}" font-family="monospace">S${String(index).padStart(2,'0')}</text>${i<path.length-1?`<text x="${x+25}" y="${height-12}" text-anchor="middle" fill="var(--graph-muted)" font-size="9">→</text>`:''}`;});
-  $('hero-graph').innerHTML=svg+'</svg>';
   $('hero-state-label').textContent=previous===null?`π → S${String(active).padStart(2,'0')}`:`S${String(previous).padStart(2,'0')} → S${String(active).padStart(2,'0')}`;
+  renderInspector(inspected,previous);
+}
+
+function renderInspector(index,previous) {
+  const c=state.case, name=`S${String(index).padStart(2,'0')}`;
+  const probability=previous===null?c.saved_model.initial_probability[index]:c.saved_model.transition_probability[previous][index];
+  const from=previous===null?'π':`S${String(previous).padStart(2,'0')}`;
+  const markup=`<h4>${t('inspectedState')} <strong>${name}</strong></h4><p>${eventName(state.event)}</p><dl><div><dt>${t('stateMembership')}</dt><dd>${number(c.saved_model.responsibilities[state.event][index]*100,3)}%</dd></div><div><dt>${previous===null?t('initialFrequency'):t('transitionFrequency')}<small>${from} → ${name}</small></dt><dd>${number(probability*100,3)}%</dd></div></dl><p class="inspector-note">${t('inspectorNote')}</p>`;
+  $('case-inspector').innerHTML=markup;
+  $('hero-inspector').hidden=!state.inspectManual;
+  if(state.inspectManual)$('hero-inspector').innerHTML=markup;
 }
 
 function renderMethod() {
@@ -639,7 +753,7 @@ function renderMethod() {
   }
   if(state.stage===2)detail=`<h4>${eventName(state.event)}</h4><div class="formula">p = softmax(S + R)<br>M = −log(<span class="accent">${state.event===0?'q · π':'q<sub>prev</sub> · T · q'}</span>)</div><div class="formula-value"><div><small>${t('contentMass')}</small><strong>${number(row.content_probability*100)}%</strong></div><div><small>${t('incomingSurprise')}</small><strong>${number(row.dtmc_surprise)}</strong></div><div><small>${t('weightedEvidence')}</small><strong>${number(row.fused_evidence)}</strong></div></div>`;
   if(state.stage===3)detail=`<h4>${t('agentMass')}</h4>${Object.entries(c.agent_masses).sort((a,b)=>b[1]-a[1]).map(([name,p])=>`<div class="agent-row"><span>${agentName(name)}</span><strong>${number(p*100)}%</strong></div>`).join('')}<div class="formula">WHO = argmax<sub>a</sub> Σ p<sub>t</sub><br>WHEN = argmax<sub>t ∈ WHO</sub> (p<sub>t</sub> × M<sub>t</sub>)</div><div class="method-readout"><span>${t('selectedEvent')}</span><strong>${eventName(c.prediction.predicted_step)} · ${agentName(c.prediction.predicted_agent)}</strong></div>`;
-  panel.innerHTML=`<div class="stage-copy"><h3>${t(`stageTitle${state.stage+1}`)}</h3><p>${t(`stageBody${state.stage+1}`)}</p><p class="detail-note">${t(`stageNote${state.stage+1}`)}</p></div><div class="stage-detail">${detail}</div>`;
+  panel.innerHTML=`<div class="stage-copy"><h3>${t(`stageTitle${state.stage+1}`)}</h3><p>${t(`stageBody${state.stage+1}`)}</p><p class="detail-note">${t(`stageNote${state.stage+1}`)}</p></div><div class="stage-detail${reducedMotion.matches?'':' event-change'}">${detail}</div>`;
 }
 
 function renderCase() {
@@ -654,7 +768,49 @@ function renderCase() {
   const signals=[['contentSignal','contentSignalDetail',number(row.content_probability*100)+'%'],['surpriseSignal','surpriseSignalDetail',number(row.dtmc_surprise)],['finalSignal','finalSignalDetail',number(row.final_step_mass*100)+'%']];
   $('event-signals').innerHTML=signals.map(([label,detail,value])=>`<div class="signal-row"><div><span>${t(label)}</span><small>${t(detail)}</small></div><strong>${value}</strong></div>`).join('');
   $('event-explanation').textContent=t(['explanationStart','explanationPlan','explanationError','explanationLater','explanationVerify','explanationEnd'][state.event]);
-  $('step-distribution').innerHTML=`<div class="distribution-bars" role="img" aria-label="${escapeHTML(t('stepDistribution'))}">${c.steps.map((step,i)=>`<div class="distribution-cell ${i===state.event?'selected':''} ${i===c.annotation.gold_step?'error':''}"><span style="height:${step.final_step_mass*100}%" title="${eventName(i)}: ${number(step.final_step_mass*100)}%"></span><small>${String(i+1).padStart(2,'0')}</small></div>`).join('')}</div>`;
+  renderDistribution();
+}
+
+function renderDistribution() {
+  const container=$('step-distribution'), initial=!container.firstElementChild;
+  if(initial)container.innerHTML=`<div class="distribution-bars" role="group" aria-label="${escapeHTML(t('stepDistribution'))}">${state.case.steps.map((_,i)=>`<button type="button" class="distribution-cell" data-distribution="${i}"><span class="distribution-value"></span><span class="distribution-column" aria-hidden="true"><span style="height:0%"></span></span><span class="distribution-event">${String(i+1).padStart(2,'0')}</span></button>`).join('')}</div>`;
+  $('evidence-content').setAttribute('aria-pressed',String(state.evidenceMode==='content'));
+  $('evidence-fused').setAttribute('aria-pressed',String(state.evidenceMode==='final'));
+  $('evidence-mode-note').textContent=t(state.evidenceMode==='content'?'contentViewNote':'finalViewNote');
+  const heading=$('distribution-title');
+  heading.dataset.i18n=state.evidenceMode==='content'?'contentViewHeading':'stepDistribution';
+  heading.textContent=t(heading.dataset.i18n);
+  container.firstElementChild.setAttribute('aria-label',heading.textContent);
+  const updateBars=()=>state.case.steps.forEach((row,i)=>{
+    const mass=state.evidenceMode==='content'?row.content_probability:row.final_step_mass;
+    const button=container.querySelector(`[data-distribution="${i}"]`), value=`${number(mass*100)}%`;
+    button.classList.toggle('selected',i===state.event);
+    button.classList.toggle('error',i===state.case.annotation.gold_step);
+    button.setAttribute('aria-pressed',String(i===state.event));
+    button.setAttribute('aria-label',`${eventName(i)} · ${t(state.evidenceMode==='content'?'contentView':'finalView')} ${value}`);
+    button.querySelector('.distribution-value').textContent=value;
+    button.querySelector('.distribution-column > span').style.height=`${mass*100}%`;
+  });
+  if(initial&&!reducedMotion.matches)requestAnimationFrame(updateBars);else updateBars();
+}
+
+function selectEvent(index,source='manual') {
+  if(!Number.isInteger(index)||index<0||index>=state.case.steps.length)return;
+  const changed=index!==state.event;
+  for(const id of ['event-explanation','case-inspector','hero-inspector'])$(id).setAttribute('aria-live',source==='playback'?'off':'polite');
+  state.event=index;state.inspectedState=null;state.inspectManual=false;
+  renderGraph();renderMethod();renderCase();
+  if(changed&&!reducedMotion.matches)for(const pane of document.querySelectorAll('.trace-pane,.evidence-pane')){
+    pane.classList.remove('event-change');requestAnimationFrame(()=>pane.classList.add('event-change'));
+  }
+  document.dispatchEvent(new CustomEvent('portfolio:event',{detail:{index,source}}));
+}
+
+function inspectGraph(index,target,focus=false) {
+  state.inspectedState=index;state.inspectManual=true;
+  renderGraph();
+  document.dispatchEvent(new CustomEvent('portfolio:event',{detail:{index:state.event,source:'graph'}}));
+  if(focus)$(target).querySelector(`[data-state="${index}"]`).focus({preventScroll:true});
 }
 
 function renderEvaluation() {
@@ -681,19 +837,209 @@ document.querySelectorAll('[data-stage]').forEach(button=>{
     event.preventDefault();state.stage=event.key==='Home'?0:event.key==='End'?3:(state.stage+(event.key==='ArrowRight'?1:3))%4;renderMethod();$(`stage-tab-${state.stage}`).focus();
   });
 });
-$('trace-timeline').addEventListener('click',event=>{const button=event.target.closest('[data-event]');if(!button)return;state.event=Number(button.dataset.event);renderGraph();renderMethod();renderCase();$('trace-timeline').querySelector(`[data-event="${state.event}"]`).focus({preventScroll:true});});
-$('language-toggle').addEventListener('click',()=>{state.lang=state.lang==='en'?'zh':'en';renderLanguage();});
+$('trace-timeline').addEventListener('click',event=>{const button=event.target.closest('[data-event]');if(!button)return;selectEvent(Number(button.dataset.event));$('trace-timeline').querySelector(`[data-event="${state.event}"]`).focus({preventScroll:true});});
+$('language-toggle').addEventListener('click',()=>{if(!state.case)return;state.lang=state.lang==='en'?'zh':'en';renderLanguage();});
+
+
+$('step-distribution').addEventListener('click',event=>{const button=event.target.closest('[data-distribution]');if(!button)return;selectEvent(Number(button.dataset.distribution),'distribution');});
+for(const [id,mode] of [['evidence-content','content'],['evidence-fused','final']])$(id).addEventListener('click',()=>{if(!state.case)return;state.evidenceMode=mode;renderDistribution();document.dispatchEvent(new CustomEvent('portfolio:event',{detail:{index:state.event,source:'manual'}}));});
+for(const target of ['hero-graph','case-graph']){
+  $(target).addEventListener('click',event=>{const node=event.target.closest('[data-state]');if(node)inspectGraph(Number(node.dataset.state),target,true);});
+  $(target).addEventListener('keydown',event=>{
+    const node=event.target.closest('[data-state]');if(!node)return;
+    if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End','Enter',' '].includes(event.key))return;
+    event.preventDefault();
+    const current=Number(node.dataset.state), count=state.case.saved_model.responsibilities[state.event].length;
+    const next=event.key==='Home'?0:event.key==='End'?count-1:event.key==='ArrowLeft'||event.key==='ArrowUp'?(current+count-1)%count:event.key==='ArrowRight'||event.key==='ArrowDown'?(current+1)%count:current;
+    inspectGraph(next,target,true);
+  });
+}
+reducedMotion.addEventListener('change',()=>{if(state.case)renderGraph();});
 
 (async()=>{
   try{
     if(window.PORTFOLIO_DATA && window.PORTFOLIO_CASE){state.data=window.PORTFOLIO_DATA;state.case=window.PORTFOLIO_CASE;}
     else{
-      const responses=await Promise.all([fetch('./portfolio_data.json'),fetch('./portfolio_case.json')]);
+      const version=window.PORTFOLIO_ASSET_VERSION?`?v=${encodeURIComponent(window.PORTFOLIO_ASSET_VERSION)}`:'';
+      const responses=await Promise.all([fetch('./portfolio_data.json'+version),fetch('./portfolio_case.json'+version)]);
       if(responses.some(response=>!response.ok))throw new Error('Evidence unavailable');
       [state.data,state.case]=await Promise.all(responses.map(response=>response.json()));
     }
     renderLanguage();
+    window.portfolioControls={selectEvent,getEvent:()=>state.event,getCount:()=>state.case.steps.length};
+    document.dispatchEvent(new CustomEvent('portfolio:ready'));
   }catch(error){$('load-error').textContent=t('loadError');$('load-error').hidden=false;}
+})();
+</script>
+<script>'use strict';
+
+(() => {
+  let initialized = false;
+
+  function initialize() {
+    if (initialized || !window.portfolioControls) return;
+    initialized = true;
+
+    const controls = window.portfolioControls;
+    const play = document.getElementById('trace-play');
+    const label = document.getElementById('trace-play-label');
+    const icon = play.querySelector('.play-icon');
+    const previous = document.getElementById('trace-prev');
+    const next = document.getElementById('trace-next');
+    const scrubber = document.getElementById('trace-scrubber');
+    const position = document.getElementById('playback-position');
+    const status = document.getElementById('playback-status');
+    const wrapper = play.closest('.trace-playback') || play.parentElement;
+    const count = controls.getCount();
+    let timer = null;
+    let playing = false;
+    let hasPlayed = false;
+    let statusKey = 'ready';
+
+    const messages = {
+      play: ['Play the trace', '播放真实轨迹'],
+      pause: ['Pause the trace', '暂停播放'],
+      replay: ['Replay the trace', '重新播放轨迹'],
+      previous: ['Previous event', '上一个事件'],
+      next: ['Next event', '下一个事件'],
+      ready: ['Choose an event or play the full trace.', '选择一个事件，或播放整条真实轨迹。'],
+      playing: ['Playing the recorded trace. Pause to inspect any event.', '正在播放真实记录。随时暂停，查看当前事件。'],
+      paused: ['Playback paused. Inspect the evidence or continue.', '已暂停。可以查看证据，也可以继续播放。'],
+      complete: ['Trace complete. Replay or inspect an event.', '轨迹播放完毕。可以重播，或选择事件查看。'],
+      selected: ['Event selected. Inspect its recorded evidence.', '已选择事件，可以查看对应的真实证据。'],
+      hidden: ['Playback paused while this page was hidden.', '页面隐藏时已暂停播放。'],
+    };
+    const isChinese = () => document.documentElement.lang.startsWith('zh');
+    const text = key => messages[key][isChinese() ? 1 : 0];
+    const eventLabel = index => isChinese()
+      ? `事件 ${String(index + 1).padStart(2, '0')} / ${String(count).padStart(2, '0')}`
+      : `Event ${String(index + 1).padStart(2, '0')} / ${String(count).padStart(2, '0')}`;
+
+    scrubber.min = '0';
+    scrubber.max = String(count - 1);
+    scrubber.step = '1';
+    play.disabled = false;
+    scrubber.disabled = false;
+
+    function synchronize() {
+      const index = controls.getEvent();
+      const labelKey = playing ? 'pause' : hasPlayed && index === count - 1 ? 'replay' : 'play';
+      label.textContent = text(labelKey);
+      play.setAttribute('aria-label', text(labelKey));
+      play.setAttribute('aria-pressed', String(playing));
+      icon.textContent = playing ? 'Ⅱ' : '▶';
+      wrapper.classList.toggle('is-playing', playing);
+      previous.setAttribute('aria-label', text('previous'));
+      next.setAttribute('aria-label', text('next'));
+      previous.disabled = index === 0;
+      next.disabled = index === count - 1;
+      scrubber.value = String(index);
+      scrubber.setAttribute('aria-valuetext', eventLabel(index));
+      position.textContent = eventLabel(index);
+      const announcement = text(statusKey);
+      if (status.textContent !== announcement) status.textContent = announcement;
+    }
+
+    function cancelTimer() {
+      if (timer !== null) window.clearTimeout(timer);
+      timer = null;
+    }
+
+    function pause(reason = 'paused') {
+      cancelTimer();
+      playing = false;
+      statusKey = reason;
+      synchronize();
+    }
+
+    function scheduleNext() {
+      cancelTimer();
+      if (!playing) return;
+      timer = window.setTimeout(() => {
+        timer = null;
+        if (!playing) return;
+        const index = controls.getEvent();
+        if (index >= count - 1) {
+          pause('complete');
+          return;
+        }
+        controls.selectEvent(index + 1, 'playback');
+        if (index + 1 === count - 1) pause('complete');
+        else scheduleNext();
+      }, 2200);
+    }
+
+    play.addEventListener('click', () => {
+      if (playing) {
+        pause();
+        return;
+      }
+      const restart = !hasPlayed || controls.getEvent() === count - 1;
+      hasPlayed = true;
+      playing = true;
+      statusKey = 'playing';
+      if (restart) controls.selectEvent(0, 'playback');
+      synchronize();
+      scheduleNext();
+    });
+    previous.addEventListener('click', () => controls.selectEvent(Math.max(0, controls.getEvent() - 1), 'previous'));
+    next.addEventListener('click', () => controls.selectEvent(Math.min(count - 1, controls.getEvent() + 1), 'next'));
+    scrubber.addEventListener('input', () => controls.selectEvent(Number(scrubber.value), 'scrub'));
+
+    document.addEventListener('portfolio:event', event => {
+      if (event.detail.source !== 'playback') pause('selected');
+      else synchronize();
+    });
+    document.addEventListener('portfolio:language', synchronize);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && playing) pause('hidden');
+    });
+    window.addEventListener('pagehide', () => pause('hidden'));
+    synchronize();
+    initializeReveals();
+  }
+
+  function initializeReveals() {
+    const targets = [...document.querySelectorAll('[data-reveal], .problem-body, .section-top, .design-choice, .evaluation-layout')];
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let observer = null;
+
+    function showEverything() {
+      if (observer) observer.disconnect();
+      observer = null;
+      targets.forEach(target => {
+        target.classList.remove('reveal-ready');
+        target.classList.add('is-visible');
+      });
+    }
+
+    function observe() {
+      if (reducedMotion.matches || !('IntersectionObserver' in window)) {
+        showEverything();
+        return;
+      }
+      if (observer) observer.disconnect();
+      observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      }, {threshold: 0.1, rootMargin: '0px 0px -24px 0px'});
+      targets.forEach(target => {
+        if (target.classList.contains('is-visible')) return;
+        target.classList.add('reveal-ready');
+        observer.observe(target);
+      });
+    }
+
+    reducedMotion.addEventListener('change', observe);
+    window.addEventListener('beforeprint', showEverything);
+    observe();
+  }
+
+  if (window.portfolioControls) initialize();
+  else document.addEventListener('portfolio:ready', initialize, {once: true});
 })();
 </script>
 </body>
