@@ -1,0 +1,58 @@
+{
+  "project": {
+    "config": {
+      "extraction": {
+        "model": "DeepSeek-V4.1-Flash"
+      },
+      "semantic": {
+        "alpha": 0.075
+      },
+      "relation": {
+        "alpha": 0.4
+      },
+      "abstraction": {
+        "pca": {
+          "dimensions": 32
+        },
+        "gmm": {
+          "states": 16
+        }
+      },
+      "dtmc": {
+        "alpha": 0.1
+      }
+    },
+    "readout": {
+      "content_probability": "p_t = softmax(S_t + R_t)",
+      "who": "a* = argmax_a sum_{t:agent_t=a} p_t",
+      "incoming_conformance": "c_0 = r_0 · pi; c_t = r_(t-1) · T · r_t for t > 0",
+      "transition_surprise": "h_t = -log(c_t)",
+      "when": "t* = argmax_{t:agent_t=a*} p_t h_t"
+    }
+  },
+  "evaluation": {
+    "dataset": "Who&When Pro",
+    "total_traces": 6257,
+    "task_groups": 2599,
+    "metrics": {
+      "who": {
+        "mean": 0.7425870292554718,
+        "sample_sd": 0.02490720773814991
+      },
+      "when": {
+        "mean": 0.5429993936851771,
+        "sample_sd": 0.021520567401810745
+      }
+    },
+    "protocol": {
+      "splits": 20,
+      "unique_test_traces": 6191
+    }
+  },
+  "provenance": {
+    "source_files": [
+      "Who&When Pro · canonical_primary · frozen 20 task-group holdouts",
+      "Who&When · Algorithm-Generated/38 · recorded model, seed 3"
+    ]
+  }
+}
