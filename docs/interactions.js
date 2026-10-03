@@ -123,46 +123,6 @@
     });
     window.addEventListener('pagehide', () => pause('hidden'));
     synchronize();
-    initializeReveals();
-  }
-
-  function initializeReveals() {
-    const targets = [...document.querySelectorAll('[data-reveal], .problem-body, .section-top, .design-choice, .evaluation-layout')];
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let observer = null;
-
-    function showEverything() {
-      if (observer) observer.disconnect();
-      observer = null;
-      targets.forEach(target => {
-        target.classList.remove('reveal-ready');
-        target.classList.add('is-visible');
-      });
-    }
-
-    function observe() {
-      if (reducedMotion.matches || !('IntersectionObserver' in window)) {
-        showEverything();
-        return;
-      }
-      if (observer) observer.disconnect();
-      observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        });
-      }, {threshold: 0.1, rootMargin: '0px 0px -24px 0px'});
-      targets.forEach(target => {
-        if (target.classList.contains('is-visible')) return;
-        target.classList.add('reveal-ready');
-        observer.observe(target);
-      });
-    }
-
-    reducedMotion.addEventListener('change', observe);
-    window.addEventListener('beforeprint', showEverything);
-    observe();
   }
 
   if (window.portfolioControls) initialize();
