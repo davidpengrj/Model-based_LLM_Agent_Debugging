@@ -1,6 +1,6 @@
-# Model-based LLM Agent Debugging
+# ModCue
 
-This repository contains an interpretable method for locating **WHO** caused a
+ModCue is an interpretable method for locating **WHO** caused a
 multi-agent task failure and **WHEN** the decisive error occurred. The method
 uses one LLM call per trajectory to compile every log step into a canonical
 `<Agent, Action, State>` triple. All later stages are explicit frequency counts,
@@ -21,9 +21,11 @@ For a trajectory with steps `t = 1, ..., L`:
    separately. During training, the gold error step is `E` and every other step
    is `N`. For duplicated task group `g`, each trajectory receives weight
    `w_i = 1 / n_g`. Within a step and channel, this weight is divided equally
-   among its unique tokens. Lidstone-smoothed `E` versus `N` log-likelihood
-   ratios are averaged inside each channel and then summed across the three
-   equally weighted channels.
+   among its entries, then among the distinct normalized terms within each
+   entry. A term that appears in multiple entries receives the sum of its
+   shares. Action and State content scores retain single-digit terms.
+   ModCue uses these weights to combine Lidstone-smoothed `E` versus `N`
+   log-likelihood ratios across the three channels.
 
 3. **Action-State relation.** Each canonical Action predicate head is paired
    with the final field name on the left side of every State assignment. For
@@ -35,8 +37,8 @@ For a trajectory with steps `t = 1, ..., L`:
 
 4. **Abstract execution states.** The anchored Action and full State use
    independent TF-IDF vocabularies. Their matrices are concatenated, projected
-   by one joint PCA, and assigned soft membership over GMM states. Agent identity
-   is excluded from this branch.
+   by one joint PCA, and assigned soft membership over GMM states. The state
+   abstraction uses Action and State and drops single-digit terms.
 
 5. **Frequency DTMC.** Soft GMM memberships estimate the initial distribution
    `pi` and the `K x K` transition matrix `T` using the same group weights. For a
@@ -118,22 +120,16 @@ model-based-debugging evaluate \
   --output results/who_when_20_splits.local.json
 ```
 
-## Reported split stability
+## Evaluation check
 
-On 184 Who&When trajectories, using question-grouped 80/20 partitions and
-split seeds 0–19:
+With the frozen DeepSeek-V4-Flash triples for Who&When, this implementation
+reproduces all 741 agent and step predictions across 20 task-grouped test
+partitions. Mean WHO accuracy is 68.37% and mean exact WHEN accuracy is
+37.77%. The test partitions overlap, and rerunning LLM extraction can produce
+different triples.
 
-| Metric | Mean ± population SD |
-|---|---:|
-| WHEN accuracy | 37.09% ± 5.79% |
-| WHO accuracy | 65.95% ± 6.25% |
-| Joint WHO & WHEN | 36.15% ± 5.69% |
-| Step accuracy within ±1 | 42.47% ± 4.88% |
-
-These 20 test partitions overlap. The mean and standard deviation therefore
-measure sensitivity to the grouped split; they are not 20 independent trials.
-The machine-readable summary is in
-[`results/who_when_20_split_summary.json`](results/who_when_20_split_summary.json).
+The [archived summary](results/who_when_20_split_summary.json) uses the earlier
+flat term weighting.
 
 ## Fixed defaults
 

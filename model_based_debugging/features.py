@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from collections import Counter
 from collections.abc import Sequence
 
 from .schema import CanonicalExtraction, CanonicalTriple, lexical_tokens, normalize
@@ -20,14 +21,62 @@ def action_heads(action: str) -> tuple[str, ...]:
     return tuple(dict.fromkeys(heads)) or ("<NONE>",)
 
 
-def semantic_components(triple: CanonicalTriple) -> dict[str, tuple[str, ...]]:
-    """Split the original triple into equally weighted Agent/Action/State channels."""
+def _entries(text: str) -> tuple[str, ...]:
+    """Split on semicolons outside quotes and bracketed arguments."""
 
-    agent = normalize(triple.agent).split("(", 1)[0].strip()
+    entries, start, depth, quote, escaped = [], 0, 0, None, False
+    for index, char in enumerate(text):
+        if quote:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == quote:
+                quote = None
+        elif char in "\"'":
+            if char != "'" or not (index and text[index - 1].isalnum()):
+                quote = char
+        elif char in "([{":
+            depth += 1
+        elif char in ")]}":
+            depth = max(0, depth - 1)
+        elif char == ";" and not depth:
+            if text[start:index].strip():
+                entries.append(text[start:index].strip())
+            start = index + 1
+    if text[start:].strip():
+        entries.append(text[start:].strip())
+    return tuple(entries) or (text,)
+
+
+def _content_tokens(text: str) -> tuple[str, ...]:
+    tokens = lexical_tokens(text)
+    digits = tuple(
+        dict.fromkeys(re.findall(r"(?<![a-z0-9])[0-9](?![a-z0-9])", normalize(text)))
+    )
+    if not digits:
+        return tokens
+    return tuple(token for token in tokens if token != "<EMPTY>") + digits
+
+
+def _entry_weights(text: str) -> dict[str, float]:
+    entries = _entries(text)
+    weights = Counter()
+    for entry in entries:
+        tokens = _content_tokens(entry)
+        for token in tokens:
+            weights[token] += (1.0 / len(tokens)) / len(entries)
+    return dict(weights)
+
+
+def semantic_term_weights(triple: CanonicalTriple) -> dict[str, dict[str, float]]:
+    """Divide each field's weight equally among entries, then among their terms."""
+
+    agent = lexical_tokens(normalize(triple.agent).split("(", 1)[0].strip())
     return {
-        "agent_words": lexical_tokens(agent),
-        "action_words": lexical_tokens(triple.action),
-        "state_words": lexical_tokens(triple.state),
+        "agent_words": {token: 1.0 / len(agent) for token in agent},
+        "action_words": _entry_weights(triple.action),
+        "state_words": _entry_weights(triple.state),
     }
 
 
@@ -64,6 +113,8 @@ def operation_anchored_extraction(
 ) -> CanonicalExtraction:
     """Create the Action view used only by relation and state dynamics."""
 
+    if extraction.usage.get("action_view") == ACTION_VIEW_VERSION:
+        return extraction
     usage = dict(extraction.usage)
     usage["action_view"] = ACTION_VIEW_VERSION
     return CanonicalExtraction(

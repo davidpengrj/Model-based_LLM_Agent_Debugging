@@ -17,7 +17,7 @@ from .features import (
     action_state_relation_tokens,
     flatten_triples,
     operation_anchored_extraction,
-    semantic_components,
+    semantic_term_weights,
     state_document,
 )
 from .schema import CanonicalExtraction, CanonicalTriple
@@ -96,16 +96,14 @@ class SemanticEmission:
         vocabulary: defaultdict[str, set[str]] = defaultdict(set)
 
         for sequence, error_step, group_id in zip(sequences, error_steps, group_ids):
-            weight = 1.0 / group_sizes[group_id]
             for step, triple in enumerate(sequence):
                 label = ERROR if step == int(error_step) else NORMAL
-                for channel, raw_tokens in semantic_components(triple).items():
-                    tokens = tuple(dict.fromkeys(raw_tokens))
-                    token_weight = weight / len(tokens)
-                    vocabulary[channel].update(tokens)
-                    for token in tokens:
-                        counts[(label, channel)][token] += token_weight
-                        totals[(label, channel)] += token_weight
+                for channel, term_weights in semantic_term_weights(triple).items():
+                    vocabulary[channel].update(term_weights)
+                    for token, term_weight in term_weights.items():
+                        increment = term_weight / group_sizes[group_id]
+                        counts[(label, channel)][token] += increment
+                        totals[(label, channel)] += increment
 
         self.counts = {
             (label, channel): Counter(counts[(label, channel)])
@@ -129,15 +127,19 @@ class SemanticEmission:
         token_count = 0
         oov_count = 0
         for triple in triples:
-            components = semantic_components(triple)
+            components = semantic_term_weights(triple)
             for channel in self.channels:
-                tokens = tuple(dict.fromkeys(components[channel]))
-                ratios = [
-                    self._token_log_probability(ERROR, channel, token)
-                    - self._token_log_probability(NORMAL, channel, token)
-                    for token in tokens
-                ]
-                by_channel[channel].append(math.fsum(ratios) / len(ratios))
+                tokens = components[channel]
+                by_channel[channel].append(
+                    math.fsum(
+                        weight
+                        * (
+                            self._token_log_probability(ERROR, channel, token)
+                            - self._token_log_probability(NORMAL, channel, token)
+                        )
+                        for token, weight in tokens.items()
+                    )
+                )
                 token_count += len(tokens)
                 oov_count += sum(
                     token not in self.vocabularies[channel] for token in tokens
@@ -146,7 +148,7 @@ class SemanticEmission:
             channel: np.asarray(values, dtype=np.float64)
             for channel, values in by_channel.items()
         }
-        total = np.sum(np.stack(tuple(arrays.values()), axis=0), axis=0)
+        total = np.asarray([math.fsum(values) for values in zip(*arrays.values())])
         return SemanticScores(
             values=total,
             channel_values=arrays,
